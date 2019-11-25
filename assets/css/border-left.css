@@ -1,0 +1,28 @@
+.border-left {
+	border-left: 3px solid #e3e6f0 !important;
+}
+
+.border-left-primary {
+	border-left: 0.25rem solid #4e73df !important;
+}
+
+.border-left-success {
+	border-left: 0.25rem solid #1cc88a !important;
+}
+
+.border-left-info {
+	border-left: 0.25rem solid #36b9cc !important;
+}
+
+.border-left-warning {
+	border-left: 0.25rem solid #f6c23e !important;
+}
+
+
+.border-left-danger {
+	border-left: 0.25rem solid #e74a3b !important;
+}
+
+.border-left-default {
+	border-left: 0.25rem solid #858796 !important;
+}

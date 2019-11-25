@@ -1,0 +1,22 @@
+{
+    "name": "drmonty/animate.css",
+    "description": "A cross-browser library of CSS animations. As easy to use as an easy thing.",
+    "type": "component",
+    "homepage": "http://daneden.github.io/animate.css",
+    "license": "MIT",
+    "author": {
+        "url": "http://daneden.me/",
+        "name": "Daniel Eden"
+    },
+    "require": {
+        "robloach/component-installer": "*"
+    },
+    "extra": {
+        "component": {
+            "files": [
+                "css/animate.css",
+                "css/animate.min.css"
+            ]
+        }
+    }
+}

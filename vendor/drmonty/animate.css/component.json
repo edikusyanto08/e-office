@@ -1,0 +1,12 @@
+{
+    "name": "drmonty-animate.css",
+    "repo": "drmonty/animate.css",
+    "description": "A cross-browser library of CSS animations. As easy to use as an easy thing.",
+    "version": "3.5.2",
+    "homepage": "http://daneden.github.io/animate.css",
+    "license": "MIT",
+    "files": [
+        "css/animate.css",
+        "css/animate.min.css"
+    ]
+}

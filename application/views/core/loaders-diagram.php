@@ -1,0 +1,1 @@
+<script src="<?= base_url(); ?>assets/js/app/app-blog-overview.1.1.0.js"></script>
