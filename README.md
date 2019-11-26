@@ -1,5 +1,5 @@
-# SISTEM SURAT ELEKTRONIK (SISULE)
-sistem informasi surat elektronik adalah sebuah sistem yang berbasis aplikasi website yang dapat digunakan disebuah lingkungan pemerintahan, guna memenuhi kebutuhan organisasi dalam kegiatan surat menyurat di dalam organisasi tersebut.
+# E-Office
+E-Office adalah sebuah sistem yang berbasis aplikasi website yang dapat digunakan disebuah lingkungan pemerintahan, guna memenuhi kebutuhan organisasi dalam kegiatan surat menyurat di dalam organisasi tersebut.
 beberapa modul yang telah ada pada sistem adalah
 
 1. Surat Masuk\
