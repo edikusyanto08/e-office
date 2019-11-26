@@ -53,7 +53,7 @@
                     Buku Panduan : <a href="<?= base_url(); ?>welcome/downloadManualBook"
                         class="btn btn-sm btn-custome btn-outline-primary" target="_blank"
                         style="font-size: 12px;">Unduh</a>
-                    <a href="#" class="btn btn-sm btn-custome btn-outline-dark" style="font-size: 12px;">dokumentasi</a>
+                    <a href="https://github.com/colaboratediskominfcms/e-office" target="_blank"class="btn btn-sm btn-custome btn-outline-dark" style="font-size: 12px;">dokumentasi</a>
                 </p>
                 <p class="text-center  text-capitalize text-black-50" style="font-size: 14px;">
                     Copyright &copy Kabupaten Ciamis - <?= date('Y'); ?>
