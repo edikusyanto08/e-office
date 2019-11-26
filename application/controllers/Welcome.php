@@ -9,7 +9,7 @@ class Welcome extends CI_Controller
         date_default_timezone_set('Asia/Jakarta');
         $this->load->model('M_Home');
         $this->load->model('M_Welcome');
-        $this->session->set_userdata('sisule_cms_title', 'SIPUDIN | Surat Elektronik Dinas Pertanian dan Ketahanan Pangan');
+        $this->session->set_userdata('sisule_cms_title', 'E-Office | Kabupaten Ciamis');
         if ($this->session->userdata('sisule_cms_status') == 'login') {
             redirect(base_url('home'));
         } elseif (($this->session->userdata('sisule_cms_hak') == 'superadmin') || ($this->session->userdata('sisule_cms_hak') == 'admin') || ($this->session->userdata('sisule_cms_hak') == 'staf')) {
