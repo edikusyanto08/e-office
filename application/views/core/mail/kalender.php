@@ -71,7 +71,7 @@
                     editable: true,
                     eventLimit: true, // allow "more" link when too many events
                     events: [{
-                        "title": data.kegiatan[0].asal_surat,
+                        "title": 'Dinas Komunikasi & Informatika Provinsi Jawa Barat',
                         "start": '2019-10-30', //yyyy-mm-dd
                         "end": '2019-10-30'
 
