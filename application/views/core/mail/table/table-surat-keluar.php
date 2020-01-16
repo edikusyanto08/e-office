@@ -22,13 +22,7 @@
                         foreach ($suratkeluar as $key) { ?>
                 <?php if ($key->pembuat == $this->session->userdata('sisule_cms_nip')) { ?>
                 <tr>
-                    <td class="text-center" style="width: 5%;">
-                        <div class="border-left-primary">
-                            <img class="ml-3" src="<?= base_url('assets/image/pns/' . $key->image); ?>" alt=""
-                                style="width: 40px; height: 40px; border-radius: 100%;">
-                        </div>
-                    </td>
-                    <td style="font-size: 14px;">
+                    <td class="border-left-primary" style="font-size: 14px;">
                         <span class="font-weight-bold">
                             <?= $key->nama; ?>
                         </span> -
@@ -37,18 +31,6 @@
                         </span>
                         <br>
                         <?= $key->nomor_surat_keluar; ?> - <?= $key->perihal; ?>
-                    </td>
-                    <td align="center">
-                        <?php if ($key->status == 0) { ?>
-                        <span class="bg-warning text-white"
-                            style="padding: 3px; font-size: 10px; border-radius: 5px;">Produksi</span>
-                        <?php } elseif ($key->status == 1) { ?>
-                        <span class="bg-info text-white"
-                            style="padding: 3px; font-size: 10px; border-radius: 5px;">Disetujui</span>
-                        <?php } elseif ($key->status == 2) { ?>
-                        <span class="bg-success text-white"
-                            style="padding: 3px; font-size: 10px; border-radius: 5px;">Selesai</span>
-                        <?php } ?>
                     </td>
                     <td class="text-right">
                         <a href="<?= base_url('home/prosessuratkeluar/' . $key->slug_surat); ?>"
@@ -62,13 +44,7 @@
                 </tr>
                 <?php } elseif ($agendaris != null) { ?>
                 <tr>
-                    <td class="text-center" style="width: 5%;">
-                        <div class="border-left-default">
-                            <img class="ml-3" src="<?= base_url('assets/image/pns/' . $pembuatsurat[$i]->image); ?>"
-                                alt="" style="width: 40px; height: 40px; border-radius: 100%;">
-                        </div>
-                    </td>
-                    <td style="font-size: 14px;">
+                    <td class="border-left-default" style="font-size: 14px;">
                         <span class="font-weight-bold">
                             <?= $pembuatsurat[$i]->nama; ?>
                         </span> -
@@ -77,18 +53,6 @@
                         </span>
                         <br>
                         <?= $key->nomor_surat_keluar; ?> - <?= $key->perihal; ?>
-                    </td>
-                    <td align="center">
-                        <?php if ($key->status == 0) { ?>
-                        <span class="bg-warning text-white"
-                            style="padding: 3px; font-size: 10px; border-radius: 5px;">Produksi</span>
-                        <?php } elseif ($key->status == 1) { ?>
-                        <span class="bg-info text-white"
-                            style="padding: 3px; font-size: 10px; border-radius: 5px;">Disetujui</span>
-                        <?php } elseif ($key->status == 2) { ?>
-                        <span class="bg-success text-white"
-                            style="padding: 3px; font-size: 10px; border-radius: 5px;">Selesai</span>
-                        <?php } ?>
                     </td>
                     <td class="text-right">
                         <a href="<?= base_url('home/prosessuratkeluar/' . $key->slug_surat); ?>"
@@ -100,17 +64,9 @@
                         <?php } ?>
                     </td>
                 </tr>
-
                 <?php } elseif ($key->pembuat != $this->session->userdata('sisule_cms_nip') && $atasan[$i]->atasan == $this->session->userdata('sisule_cms_nip')) { ?>
-
                 <tr>
-                    <td class="text-center" style="width: 5%;">
-                        <div class="border-left-default">
-                            <img class="ml-3" src="<?= base_url('assets/image/pns/' . $pembuatsurat[$i]->image); ?>"
-                                alt="" style="width: 40px; height: 40px; border-radius: 100%;">
-                        </div>
-                    </td>
-                    <td style="font-size: 14px;">
+                    <td class="border-left-default" style="font-size: 14px;">
                         <span class="font-weight-bold">
                             <?= $pembuatsurat[$i]->nama; ?>
                         </span> -
@@ -119,18 +75,6 @@
                         </span>
                         <br>
                         <?= $key->nomor_surat_keluar; ?> - <?= $key->perihal; ?>
-                    </td>
-                    <td align="center">
-                        <?php if ($key->status == 0) { ?>
-                        <span class="bg-warning text-white"
-                            style="padding: 3px; font-size: 10px; border-radius: 5px;">Produksi</span>
-                        <?php } elseif ($key->status == 1) { ?>
-                        <span class="bg-info text-white"
-                            style="padding: 3px; font-size: 10px; border-radius: 5px;">Disetujui</span>
-                        <?php } elseif ($key->status == 2) { ?>
-                        <span class="bg-success text-white"
-                            style="padding: 3px; font-size: 10px; border-radius: 5px;">Selesai</span>
-                        <?php } ?>
                     </td>
                     <td class="text-right">
                         <a href="<?= base_url('home/prosessuratkeluar/' . $key->slug_surat); ?>"

@@ -37,7 +37,7 @@
                                     data-target=".preview-surat-masuk" data-id="<?= $surat->nomor_surat; ?>"
                                     style="font-size: 12px;">Lihat</a>
                                 <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
-                                <button class="btn btn-default btn-sm btn-custome font-weight-bold hapussuratmasuk"
+                                <button class="btn btn-default btn-sm btn-custome font-weight-bold hapussuratmasuk text-danger"
                                     data-toggle="tooltip" data-placement="top" title="Hapus Permanen"
                                     data-id="<?= $surat->slug_surat; ?>" style="font-size: 12px;">Hapus</button>
                                 <?php } ?>
@@ -69,7 +69,7 @@
                                     data-target=".preview-surat-masuk" data-id="<?= $surat->nomor_surat; ?>"
                                     style="font-size: 12px;">Lihat</a>
                                 <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
-                                <button class="btn btn-default btn-sm btn-custome font-weight-bold hapussuratmasuk"
+                                <button class="btn btn-default btn-sm btn-custome font-weight-bold hapussuratmasuk text-danger"
                                     data-toggle="tooltip" data-placement="top" title="Hapus Permanen"
                                     data-id="<?= $surat->slug_surat; ?>" style="font-size: 12px;">Hapus</button>
                                 <?php } ?>
@@ -101,7 +101,7 @@
                                     data-target=".preview-surat-masuk" data-id="<?= $surat->nomor_surat; ?>"
                                     style="font-size: 12px;">Lihat</a>
                                 <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
-                                <button class="btn btn-default btn-sm btn-custome font-weight-bold hapussuratmasuk"
+                                <button class="btn btn-default btn-sm btn-custome font-weight-bold hapussuratmasuk text-danger"
                                     data-toggle="tooltip" data-placement="top" title="Hapus Permanen"
                                     data-id="<?= $surat->slug_surat; ?>" style="font-size: 12px;">Hapus</button>
                                 <?php } ?>

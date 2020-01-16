@@ -451,7 +451,6 @@ $('.tracking').on('click', function () {
 });
 
 $('.hapussuratmasuk').on('click', function () {
-	console.log('1');
 	let slug_surat = $(this).data('id');
 	Swal.fire({
 		title: 'Are you sure?',
@@ -491,5 +490,51 @@ $('.hapussuratmasuk').on('click', function () {
 		} else {
 			result.dismiss === Swal.DismissReason.cancel
 		}
+	});
+});
+
+$('.sendTerusanSuratMasuk').on('click', function(){
+	let pnm = $('#penerima_surat').val();
+	let ns = $('#no_surat').text();
+	console.log(pnm);
+	console.log(ns);
+	let timerInterval
+	Swal.fire({
+		title: 'Status!',
+		html: 'Surat Sedang Diteruskan Ke Penerima!.',
+		timer: 2000,
+		onBeforeOpen: () => {
+			Swal.showLoading()
+		},
+		onClose: () => {
+			clearInterval(timerInterval)
+		}
+	}).then((result) => {
+		$.ajax({
+			url: base_url_surat +
+				"Surat/forwardSuratMasuk",
+			data: {
+				no: ns,
+				penerima: pnm
+			},
+			method: 'post',
+			success: function () {
+				Swal.fire({
+					type: 'success',
+					title: 'Surat Telah Berhasil Diteruskan!',
+					showConfirmButton: true
+				}).then((result) => {
+					location.reload();
+				});
+			},
+			error: function () {
+				Swal.fire({
+					type: 'error',
+					title: 'Surat Tidak Berhasil Diteruskan!',
+					showConfirmButton: false,
+					timer: 1500
+				});
+			}
+		});
 	});
 });

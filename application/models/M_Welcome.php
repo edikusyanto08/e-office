@@ -89,4 +89,9 @@ class M_Welcome extends CI_Model
     {
         return $this->db->get('tbl_organisasi');
     }
+    public function checkagendaris($param){
+        $this->db->where('tbl_karyawan.nip', $param);
+        $this->db->join('tbl_bidang', 'tbl_bidang.nip = tbl_karyawan.nip');
+        return $this->db->get('tbl_karyawan');
+    }
 }

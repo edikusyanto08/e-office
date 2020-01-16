@@ -11,6 +11,7 @@ class M_Home extends CI_Model
     public function countSuratMasuk()
     {
         $this->db->where('tbl_surat_masuk.penangguhan !=', '1');
+        $this->db->where('tbl_surat_masuk.bukan_penerima_surat !=', $this->session->userdata('sisule_cms_nip'));
         array(
             $this->db->where('tbl_surat_masuk.agendaris', $this->session->userdata('sisule_cms_nip')),
             $this->db->or_where('tbl_daftar_penerima_surat_masuk.nip', $this->session->userdata('sisule_cms_nip'))
@@ -120,6 +121,7 @@ class M_Home extends CI_Model
     public function getBarisSuratMasuk()
     {
         $this->db->where('tbl_surat_masuk.penangguhan !=', '1');
+        $this->db->where('tbl_surat_masuk.bukan_penerima_surat !=', $this->session->userdata('sisule_cms_nip'));
         array(
             $this->db->where('tbl_surat_masuk.agendaris', $this->session->userdata('sisule_cms_nip')),
             $this->db->or_where('tbl_daftar_penerima_surat_masuk.nip', $this->session->userdata('sisule_cms_nip'))
@@ -199,6 +201,7 @@ class M_Home extends CI_Model
     public function getAllSuratMasuk($perPage, $start)
     {
         $this->db->where('tbl_surat_masuk.penangguhan !=', '1');
+        $this->db->where('tbl_surat_masuk.bukan_penerima_surat !=', $this->session->userdata('sisule_cms_nip'));
         array(
             $this->db->where('tbl_surat_masuk.agendaris', $this->session->userdata('sisule_cms_nip')),
             $this->db->or_where('tbl_daftar_penerima_surat_masuk.nip', $this->session->userdata('sisule_cms_nip'))
@@ -768,11 +771,11 @@ class M_Home extends CI_Model
     public function getAllSuratKeluar()
     {
         // atasan
-        $this->db->where('tbl_bidang.id_instansi', $this->session->userdata('sisule_cms_instansi'));
-        $this->db->join('tbl_daftar_penerima_surat_keluar', 'tbl_daftar_penerima_surat_keluar.penerima = tbl_surat_keluar.daftar_penerima');
-        $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_daftar_penerima_surat_keluar.nip');
+        $this->db->where('tbl_surat_keluar.pembuat', $this->session->userdata('sisule_cms_nip'));
+        // $this->db->join('tbl_daftar_penerima_surat_keluar', 'tbl_daftar_penerima_surat_keluar.penerima = tbl_surat_keluar.daftar_penerima');
+        $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_surat_keluar.pembuat');
         $this->db->join('tbl_bidang', 'tbl_bidang.nip = tbl_karyawan.nip');
-        $this->db->join('tbl_instansi', 'tbl_instansi.id_instansi = tbl_instansi.id_instansi');
+        $this->db->join('tbl_instansi', 'tbl_instansi.id_instansi = tbl_surat_keluar.id_instansi');
         $this->db->group_by('tbl_surat_keluar.nomor_surat_keluar');
         $this->db->order_by('tbl_surat_keluar.id_surat_keluar', 'DESC');
         return $this->db->get('tbl_surat_keluar');

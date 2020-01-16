@@ -310,15 +310,18 @@ class M_Surat extends CI_Model
     }
     public function searchPNSSuratKeluar($param)
     {
-        $this->db->where('tbl_karyawan.id_instansi', $this->session->userdata('sisule_cms_instansi'));
-        $this->db->where('tbl_karyawan.nip !=', $this->session->userdata('sisule_cms_nip'));
-        $this->db->like('tbl_bidang.nama_bidang', $param);
-        $this->db->join('tbl_bidang', 'tbl_bidang.nip = tbl_karyawan.nip');
+        $this->db->where('tbl_instansi.id_instansi !=', $this->session->userdata('sisule_cms_instansi'));
+        $this->db->where('tbl_bidang.agendaris', '1');
+        $this->db->like('tbl_instansi.nama_instansi', $param);
+        $this->db->join('tbl_bidang', 'tbl_bidang.id_instansi = tbl_instansi.id_instansi');
+        $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_bidang.nip');
         $this->db->group_by('tbl_karyawan.nip');
-        return $this->db->get('tbl_karyawan');
+        return $this->db->get('tbl_instansi');
     }
     public function getPenerimaDisposisi($param)
     {
+        $this->db->join('tbl_instansi', 'tbl_instansi.id_instansi = tbl_karyawan.id_instansi');
+        $this->db->group_by('tbl_karyawan.nip');
         return $this->db->get_where('tbl_karyawan', array('nip' => $param));
     }
     public function getSlugSuratMasuk($param)
@@ -567,7 +570,7 @@ class M_Surat extends CI_Model
                 $this->db->insert('tbl_detail_tembusan', array('tembusan' => $tembusan, 'penerima_tembusan' => $this->input->post('tembusan')[$i]));
             }
         } else {
-            $this->db->insert('tbl_detail_tembusana', array('tembusan' => $tembusan, 'penerima_tembusan' => $kadis));
+            $this->db->insert('tbl_detail_tembusan', array('tembusan' => $tembusan, 'penerima_tembusan' => $kadis));
         }
 
         $this->db->where('nomor_agenda', $agenda);
@@ -940,59 +943,69 @@ class M_Surat extends CI_Model
     {
         date_default_timezone_set("Asia/Jakarta");
 
-        $atasan = $this->db->get_where('tbl_bidang', array('id_instansi' => $this->session->userdata('sisule_cms_instansi'), 'nip' => $this->session->userdata('sisule_cms_nip')))->result();
+        $instansi = $this->db->get_where('tbl_instansi', array('id_instansi'=>$this->session->userdata('sisule_cms_instansi')))->result();
+        $asal_surat = null;
+        if($instansi != null){
+            $asal_surat = $instansi[0]->nama_instansi;
+        }
+        $kode_struktur_organisasi = null;
+        $kso = $this->db->get_where('tbl_bidang', array('nip' => $this->session->userdata('sisule_cms_nip')))->result();
+        if ($kso != null) {
+            $kode_struktur_organisasi = $kso[0]->kode_struktur_organisasi;
+        }
+
         $no_surat       = $this->input->post('nomor_surat_keluar');
-        $jenis          = $this->input->post('jenis');
         $perihal        = $this->input->post('perihal');
-        $isi            = $this->input->post('isi');
         $start          = $this->input->post('start');
         $end            = $this->input->post('end');
+        $waktu          = date("h:i:s a");
         $waktu_kegiatan = $this->input->post('waktu_kegiatan');
         $tempat         = $this->input->post('tempat_pelaksanaan');
         $slug           = $this->session->userdata('sisule_cms_instansi') . date('m-d-Y-H-i') . str_replace('/', '-', $this->input->post('nomor_surat_keluar'));
         $pembuat        = $this->session->userdata('sisule_cms_nip');
+        $pembuatan      = date('m/d/Y H:i');
         $izin_atasan    = $this->session->userdata('sisule_cms_nip');
-        if ($atasan != null) {
-            $data = array(
-                'pembuat'               => $pembuat,
-                'nomor_surat_keluar'    => $no_surat,
-                'jenis'                 => $jenis,
-                'perihal'               => $perihal,
-                'tanggal'               => date('m/d/Y'),
-                'isi'                   => $isi,
-                'mulai_kegiatan'        => $start,
-                'akhir_kegiatan'        => $end,
-                'waktu_kegiatan'        => $waktu_kegiatan,
-                'tempat'                => $tempat,
-                'slug_surat'            => $slug,
-                'daftar_penerima'       => $penerima,
-                'waktu_membuat'         => date('m/d/Y H:i'),
-                'id_instansi'           => $this->session->userdata('sisule_cms_instansi'),
-                'izin_atasan'           => $izin_atasan,
-                'date_produce'          => date('mm'),
-                'year_produce'      => date('YY')
-            );
-        } else {
-            $data = array(
-                'pembuat'               => $pembuat,
-                'nomor_surat_keluar'    => $no_surat,
-                'jenis'                 => $jenis,
-                'perihal'               => $perihal,
-                'tanggal'               => date('m/d/Y'),
-                'isi'                   => $isi,
-                'mulai_kegiatan'        => $start,
-                'akhir_kegiatan'        => $end,
-                'waktu_kegiatan'        => $waktu_kegiatan,
-                'tempat'                => $tempat,
-                'slug_surat'            => $slug,
-                'daftar_penerima'       => $penerima,
-                'waktu_membuat'         => date('m/d/Y H:i'),
-                'id_instansi'           => $this->session->userdata('sisule_cms_instansi'),
-                'date_produce'          => date('mm'),
-                'year_produce'      => date('YY')
-            );
-        }
-        return $this->db->insert('tbl_surat_keluar', $data);
+        // data surat keluar
+        $surat_keluar = array(
+            'pembuat'               => $pembuat,
+            'nomor_surat_keluar'    => $no_surat,
+            'perihal'               => $perihal,
+            'tanggal'               => date('m/d/Y'),
+            'mulai_kegiatan'        => $start,
+            'akhir_kegiatan'        => $end,
+            'waktu_kegiatan'        => $waktu_kegiatan,
+            'tempat'                => $tempat,
+            'slug_surat'            => $slug,
+            'daftar_penerima'       => $penerima,
+            'waktu_membuat'         => $pembuatan,
+            'id_instansi'           => $this->session->userdata('sisule_cms_instansi'),
+            'date_produce'          => date('mm'),
+            'year_produce'      => date('YY')
+        );
+        // data surat masuk
+        $surat_masuk = array(
+            'asal_surat'        => $asal_surat,
+            'pembuat'           => $pembuat,
+            'nomor_surat'       => $no_surat,
+            'waktu'             => $waktu,
+            'tanggal'           => date('m/d/Y'),
+            'penerima'          => $penerima,
+            'perihal'           => $perihal,
+            'mulai_kegiatan'    => $start,
+            'akhir_kegiatan'    => $end,
+            'waktu_kegiatan'    => $waktu_kegiatan,
+            'tempat'            => $tempat,
+            'slug_surat'        => $slug,
+            'agendaris'         => $pembuat,
+            'surat_instansi'    => $this->session->userdata('sisule_cms_instansi'),
+            'date_produce'      => date('mm'),
+            'year_produce'      => date('YY'),
+            'kode_struktur_organisasi' => $kode_struktur_organisasi,
+            'keterangan_pembuatan' => '1',
+            'bukan_penerima_surat' => $this->session->userdata('sisule_cms_nip')
+        );
+        $this->db->insert('tbl_surat_masuk', $surat_masuk);
+        return $this->db->insert('tbl_surat_keluar', $surat_keluar);
     }
     public function cekUserPenerimaSuratKeluar($param1, $param2)
     {
@@ -1000,9 +1013,19 @@ class M_Surat extends CI_Model
         $this->db->where('nip', $param2);
         return $this->db->get('tbl_daftar_penerima_surat_keluar');
     }
+      public function cekUserPenerimaSuratMasuk($param1, $param2)
+    {
+        $this->db->where('nomor_surat', $param1);
+        $this->db->where('nip', $param2);
+        return $this->db->get('tbl_daftar_penerima_surat_masuk');
+    }
     public function createPenerimaSuratKeluar($param1)
     {
         return $this->db->insert('tbl_daftar_penerima_surat_keluar', $param1);
+    }
+     public function createPenerimaSuratMasuk($param1)
+    {
+        return $this->db->insert('tbl_daftar_penerima_surat_masuk', $param1);
     }
     public function hapussuratkeluar($param)
     {
@@ -1321,5 +1344,10 @@ class M_Surat extends CI_Model
         $this->db->where('date_produce', $param);
         $this->db->or_where('date_produce', $param);
         return $this->db->get('tbl_surat_masuk');
+    }
+    public function forwardSuratMasuk($param1, $param2){
+        $this->db->where('nomor_surat', $param1);
+        $this->db->where('nip', $this->session->userdata('sisule_cms_nip'));
+        return $this->db->update('tbl_daftar_penerima_surat_masuk', $param2);
     }
 }

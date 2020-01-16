@@ -12,46 +12,37 @@ input {
         <form>
             <input type="hidden" name="nomor_agenda" class="agenda">
             <div class="form-group">
-                <label for="no_surat_keluar" class="text-dark">Nomor Surat</label>
+                <label for="no_surat_keluar" class="text-dark">Nomor Surat <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" autocomplete="off" id="nomor_surat_keluar"
                     name="nomor_surat_keluar" placeholder="XX/XX/XX" required>
             </div>
             <div class="form-group">
-                <label for="jenis" class="text-dark">Diperuntukan</label>
-                <div class="row col-lg-3">
-                    <select class="custom-select" id="jenis" name="jenis">
-                        <option value="1">Internal Instansi</option>
-                        <option value="2">External Instansi</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="perihal" class="text-dark">Perihal</label>
-                <input type="text" class="form-control" autocomplete="off" name="perihal" placeholder="Undangan"
+                <label for="perihal" class="text-dark">Perihal <spane class="text-danger">*</spane></label>
+                <input type="text" class="form-control text-capitalize" autocomplete="off" name="perihal" placeholder="Undangan"
                     required>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="nota_dinas" class="text-dark">Isi Surat</label>
                 <textarea name="isi" id="nota_dinas" class="form-control" name="isi" rows="40" cols="40"></textarea>
-            </div>
+            </div> -->
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="start">Tanggal Kegiatan <sup class="text-danger">*</sup></label>
-                        <input type="text" name="start" id="start" class="form-control start" autocomplete="off"
+                        <label for="start">Tanggal Kegiatan <span class="text-danger">*</span></label>
+                        <input type="text" name="start" id="start" class="form-control text-uppercase start" autocomplete="off"
                             placeholder="mm/dd/yyyy" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="end">Tanggal Selesai Kegiatan <sup class="text-danger">*</sup></label>
-                        <input type="text" name="end" id="end" class="form-control end" autocomplete="off"
+                        <label for="end">Tanggal Selesai Kegiatan <span class="text-danger">*</span></label>
+                        <input type="text" name="end" id="end" class="form-control text-uppercase end" autocomplete="off"
                             placeholder="mm/dd/yyyy" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>Waktu Kegiatan <sup class="text-danger">*</sup></label>
+                        <label>Waktu Kegiatan <span class="text-danger">*</span></label>
                         <div class="input-group">
                             <input type="text" name="waktu_kegiatan" id="waktu_kegiatan"
                                 class="form-control waktu_kegiatan" autocomplete="off" placeholder="09.00" required>
@@ -64,13 +55,13 @@ input {
                 </div>
             </div>
             <div class="form-group">
-                <label for="tempat_pelaksanaan">Tempat Kegiatan <sup class="text-danger">*</sup></label>
+                <label for="tempat_pelaksanaan">Tempat Kegiatan <span class="text-danger">*</span></label>
                 <input type="text" name="tempat_pelaksanaan" id="tempat_pelaksanaan"
                     class="form-control tempat_pelaksanaan" autocomplete="off" placeholder="Jln. Raya Ciamis ..."
                     required>
             </div>
             <div class="form-group">
-                <label for="upload">Upload Lampiran</label>
+                <label for="upload">Upload Surat <spane class="text-danger">*</spane></label>
                 <div class="mb-3">
                     <input type="file" name="userfile[]" multiple="multiple">
                 </div>
@@ -85,20 +76,24 @@ input {
                     </div>
                     <div id="result"></div>
                 </div>
-                <label for="penerima">Daftar Calon Penerima Surat Keluar</label>
+                <div class="row">
+                    <div class="col-lg-6 m-0 font-weight-bold text-center text-sm-left">
+                        <label for="penerima">Daftar Calon Penerima Surat Keluar <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-lg-6 ml-auto text-center text-sm-right">
+                        <button type="button" class="btn btn-default btn-sm resetDisposisi font-weight-bold"
+                            id="reset-disposisi">Reset Calon Penerima</button>
+                    </div>
+                </div>
                 <table class="table table-sm">
                     <tbody id="tbl_result"></tbody>
                 </table>
                 <br>
-                <p class="text-right">
-                    <button type="button" class="btn btn-light btn-block btn-sm resetDisposisi font-weight-bold"
-                        id="reset-disposisi">Reset</button>
-                </p>
             </div>
     </div>
     <div class="modal-footer">
         <a href="javascript:history.go(-1)" style="font-size: 12px;"
-            class="float-left mr-auto font-weight-bold">Kembali</a>
+            class="float-left btn btn-light mr-auto font-weight-bold">Kembali</a>
         <input type="submit" class="btn btn-primary btn-sm simpanNotaDinas font-weight-bold" value="Simpan" name="send">
     </div>
     </form>

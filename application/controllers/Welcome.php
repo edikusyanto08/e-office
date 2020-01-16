@@ -89,6 +89,7 @@ class Welcome extends CI_Controller
                     $this->M_Welcome->resetSession($check[0]->nip);
                     $session_login = $this->M_Welcome->writeSessionLogin($check[0]->nip)->result(); //ok
                     if (count($session_login) > 0) {
+                        $agendaris = $this->M_Welcome->checkagendaris($check[0]->nip)->result();
                         $data_session = array(
                             'sisule_cms_user_id'        => $check[0]->user_id,
                             'sisule_cms_username'       => $check[0]->username,
@@ -96,7 +97,8 @@ class Welcome extends CI_Controller
                             'sisule_cms_hak'            => $check[0]->hak,
                             'sisule_cms_session_id'     => $session_login[0]->nomor_session,
                             'sisule_cms_nip'            => $check[0]->nip,
-                            'sisule_cms_instansi'       => $check[0]->id_instansi
+                            'sisule_cms_instansi'       => $check[0]->id_instansi,
+                            'sisule_cms_agendaris'      => $agendaris[0]->agendaris
                         );
                         $this->session->set_userdata($data_session);
                         if (($this->session->userdata('sisule_cms_hak') == 'superadmin') || ($this->session->userdata('sisule_cms_hak') == 'sekretariat') ||

@@ -39,12 +39,14 @@
             <span>Surat Masuk</span>
         </a>
     </li>
+    <?php if($this->session->userdata('sisule_cms_agendaris') == '1'){ ?>
     <li class="nav-item">
         <a class="nav-link menu-surat-keluar" href="<?= base_url(); ?>home/suratkeluar">
             <i class="material-icons">send</i>
             <span>Surat Keluar</span>
         </a>
     </li>
+    <?php } ?>
     <li class="nav-item">
         <a class="nav-link menu-kalender" href="<?= base_url(); ?>home/kalender">
             <i class="material-icons">date_range</i>

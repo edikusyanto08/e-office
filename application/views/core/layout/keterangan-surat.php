@@ -11,11 +11,10 @@
                     <span>* 1 File Upload yang disarankan dibawah 2MB</span>
                 </li>
                 <li>
-                    <span>* Tipe data pada lampiran yang diizinkan : jpg / png / jpeg /jpg</span>
+                    <span>* Tipe data pada lampiran yang diizinkan : jpg / png / jpeg</span>
                 </li>
                 <li>
-                    <span>* Aturan yang tidak diikuti berakibat pada data yang tidak tersimpan atau tidak dapat
-                        dimunculkan sesuai harapan.</span>
+                    <span>* Aturan yang tidak diikuti berakibat pada data yang tidak tersimpan atau error aplikasi.</span>
                 </li>
             </ul>
         </div>

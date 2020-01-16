@@ -1,3 +1,73 @@
+<!-- modal teruskan surat masuk -->
+<div class="modal fade bd-example-modal-lg surat-teruskan" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="text-dark font-weight-bold">Teruskan Surat Masuk</span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="font-size: 12px;">
+                <h6 class="font-weight-bold" style="font-size: 14px; color: #000;">Informasi</h6>
+                <table class="table table-borderless table-sm text-capitalize" style="font-size: 14px;">
+                    <tr style="color: #000;">
+                        <td style="width: 20%;">No. Surat</td>
+                        <td style="width: 2%;">:</td>
+                        <td><span id="no_surat" class="info_no_surat"></td>
+                    </tr>
+                    <tr style="color: #000;">
+                        <td>Diterima</td>
+                        <td style="width: 2%;">:</td>
+                        <td><span class="info_waktu_surat_masuk"></span></td>
+                    </tr>
+                    <tr style="color: #000;">
+                        <td>Perihal</td>
+                        <td style="width: 2%;">:</td>
+                        <td><span class="info_perihal"></span></td>
+                    </tr>
+                    <tr style="color: #000;">
+                        <td>Asal Surat</td>
+                        <td style="width: 2%;">:</td>
+                        <td><span class="info_asal_surat"></span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><hr></td>
+                    </tr>
+                    <tr ><td colspan="3"> <h6 class="font-weight-bold" style="font-size: 14px; color: #000; margin-left: -8px;">Pelaksanaan</h6></td></tr>
+                    <tr style="color: #000;">
+                        <td>Waktu</td>
+                        <td style="width: 2%;">:</td>
+                        <td><span class="info_pelaksanaan"></span></span></td>
+                    </tr>
+                    <tr style="color: #000;">
+                        <td>Tempat</td>
+                        <td style="width: 2%;">:</td>
+                        <td><span class="info_tempat"></span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><hr></td>
+                    </tr>
+                </table>
+                <h6 class="font-weight-bold" style="font-size: 14px; color: #000;">Teruskan</h6>
+                <div class="form-group">
+                    <label for="sifat" class="font-weight-bold text-dark">Pilih Penerima Surat</label>
+                    <select class="custom-select" id="penerima_surat" name="penerima_surat">
+                        <option value="0">Pilih Penerima Surat</option>
+                        <?php foreach ($penerima as $obj) { ?>
+                            <option value="<?= $obj->nip; ?>"><?= $obj->nama; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary btn-sm sendTerusanSuratMasuk" data-dismiss="modal"
+                    aria-label="Close">Kirim</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- modal surat disposisi -->
 <div class="modal fade bd-example-modal-lg surat-disposisi" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
@@ -199,3 +269,6 @@
         </div>
     </div>
 </div>
+
+<!-- modal petunjuk penggunaan -->
+

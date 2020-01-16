@@ -62,13 +62,12 @@ a:hover {
                         style="font-size: 13px;"><?= count($countNotaDinas); ?></span>
                 </a>
             </li>
-            <!-- <li>
-            <a href="<?php //base_url(); 
-                        ?>home/arsip" class="nav-link arsip">
+            <li>
+            <a href="<?= base_url(); ?>home/arsip" class="nav-link arsip">
                 <i class="fas fa-archive "></i>
                 <span style="margin-left:15px;">Arsip</span>
             </a>
-        </li> -->
+        </li>
             <li>
                 <a href="<?= base_url(); ?>home/sampah" class="nav-link sampah">
                     <i class="fas fa-trash"></i>

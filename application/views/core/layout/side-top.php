@@ -3,7 +3,7 @@
         <a class="navbar-brand w-100 mr-0" href="<?= base_url(); ?>home">
             <div class="d-table m-auto">
                 <div class="d-table m-auto">
-                    <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 35px;"
+                    <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;"
                         src="<?= base_url(); ?>assets/image/logo.png" alt="">
                     <img id="main-logo" class="d-none d-md-inline" src="<?= base_url(); ?>assets/image/app/se.png"
                         alt="">

@@ -379,14 +379,14 @@ class Surat extends CI_Controller
             $output     .= '<div class="table-responsive table-sm">
                         <table class="table table bordered">
                             <tr>
-                                <th class="text-center">#</th>
+                                <th>#</th>
                                 <th>Nama Pejabat</th>
                                 <th class="text-center">Aksi</th>
                             </tr>';
             for ($i = 0; $i < $looping; $i++) {
                 $output .= '<tr>
-                            <td><img src="' . base_url("assets/image/pns/" . $d_result[$i]["image"]) . '" style="width:35px; border-radius: 100%;" alt=""></td>
-                            <td> ' . $d_result[$i]["nama"] . ' - <span class="text-capitalize">' . $d_result[$i]["nama_bidang"] . '</span></td>
+                            <td><img src="' . base_url("assets/image/pns/" . $d_result[$i]["image"]) . '" style="width:35px; height: 35px; border-radius: 100%;" alt=""></td>
+                            <td> ' . $d_result[$i]["nama_instansi"] . ' - <span class="text-capitalize">' . $d_result[$i]["nama_bidang"] . '</span> - '.  $d_result[$i]["nama"].'</td>
                             <td class="text-center"><button type="button" class="btn btn-light btn-sm saveOnDisposisi" data-id="' . $d_result[$i]['nip'] . '"><i class="fa fa-plus" style="margin-left: 5px;"></i></a></button></td>
                         </tr>
                     ';
@@ -415,6 +415,7 @@ class Surat extends CI_Controller
                     'nip'       => $dataKu[0]['nip'],
                     'nama'      => $dataKu[0]['nama'],
                     'image'     => $dataKu[0]['image'],
+                    'instansi'  => $dataKu[0]['nama_instansi'],
                     'jabatan'   => $dataJabatanKu[0]['nama_bidang']
                 );
                 $arrayFinal = $dataLama + $arrayBaru;
@@ -428,6 +429,7 @@ class Surat extends CI_Controller
                     'nip'       => $dataKu[0]['nip'],
                     'nama'      => $dataKu[0]['nama'],
                     'image'     => $dataKu[0]['image'],
+                    'instansi'  => $dataKu[0]['nama_instansi'],
                     'jabatan'   => $dataJabatanKu[0]['nama_bidang']
                 );
                 $this->session->set_userdata('session_user_penerima_disposisi', $array);
@@ -444,8 +446,8 @@ class Surat extends CI_Controller
             $no = count($array) - 1;
             for ($i = count($array) - 1; $i >= 0; $i--) {
                 $output .= '<tr>
-                    <td style="width: 5%;"><img src="' . base_url("assets/image/pns/" . $array[$i]["image"]) . '" style="width:35px; border-radius: 100%; margin-top: 4px;" alt=""></td>
-                    <td style="font-size: 12px;"><span>' . $array[$i]['nama'] . "</span><br> <span class='text-capitalize'>" . $array[$i]['jabatan'] . '</span></td>
+                    <td style="width: 5%;"><img src="' . base_url("assets/image/pns/" . $array[$i]["image"]) . '" style="width:35px; height: 35px; border-radius: 100%; margin-top: 4px;" alt=""></td>
+                    <td style="font-size: 14px;"><span>' . $array[$i]['instansi'] . "</span> - <span class='text-capitalize'>" . $array[$i]['jabatan'] . $array[$i]['nama']. '</span></td>
                     <td><button type="button" class="btn btn-default btn-sm deleteData" data-id="' . $no . '"></button></td>
                 </tr>';
                 $no--;
@@ -987,7 +989,6 @@ class Surat extends CI_Controller
         }
         $this->form_validation->set_rules("nomor_surat_keluar",     "Nomor Surat Keluar",  "trim|required|min_length[5]");
         $this->form_validation->set_rules("perihal",                "perihal",      "trim|required|min_length[5]|max_length[1000]");
-        $this->form_validation->set_rules("isi",                "isi",      "trim|required|min_length[5]|max_length[10000]");
         $this->form_validation->set_rules("start",                  "start",        "trim|required|min_length[10]");
         $this->form_validation->set_rules("end",                    "end",          "trim|required|min_length[10]");
         $this->form_validation->set_rules("waktu_kegiatan",         "waktu_kegiatan",       "trim|required|min_length[5]");
@@ -1001,14 +1002,25 @@ class Surat extends CI_Controller
                 $count      = $this->session->userdata('session_user_penerima_disposisi');
                 $no_surat   = $this->input->post('nomor_surat_keluar');
                 for ($i = count($count) - 1; $i >= 0; $i--) {
+                    // data surat keluar
                     $data_penerima_disposisi = array(
                         'nip'           => $this->session->userdata['session_user_penerima_disposisi'][$i]['nip'],
                         'penerima'      => $penerima,
                         'nomor_surat_keluar'   => $no_surat
                     );
-                    $cek_user = $this->M_Surat->cekUserPenerimaSuratKeluar($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['nip'])->result();
-                    if ($cek_user == null) {
+                    // data surat masuk
+                    $data_penerima_surat_masuk = array(
+                        'nip'           => $this->session->userdata['session_user_penerima_disposisi'][$i]['nip'],
+                        'penerima'      => $penerima,
+                        'nomor_surat'   => $no_surat
+                    );
+                    // cek user penerima surat keluar
+                    $cek_user_sk = $this->M_Surat->cekUserPenerimaSuratKeluar($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['nip'])->result();
+                    // cek user penerima surat masuk
+                    $cek_user_sm = $this->M_Surat->cekUserPenerimaSuratMasuk($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['nip'])->result();
+                    if ($cek_user_sk == null && $cek_user_sm == null) {
                         $this->M_Surat->createPenerimaSuratKeluar($data_penerima_disposisi);
+                        $this->M_Surat->createPenerimaSuratMasuk($data_penerima_surat_masuk);
                     }
                 }
                 $this->session->unset_userdata('session_user_penerima_disposisi');
@@ -1040,7 +1052,7 @@ class Surat extends CI_Controller
     {
         $this->form_validation->set_rules("nomor_surat_keluar",     "Nomor Surat Keluar",  "trim|required|min_length[5]");
         $this->form_validation->set_rules("perihal",                "perihal",      "trim|required|min_length[5]|max_length[250]");
-        $this->form_validation->set_rules("isi",                    "isi",          "trim|required|min_length[5]|max_length[10000]");
+        // $this->form_validation->set_rules("isi",                    "isi",          "trim|required|min_length[5]|max_length[10000]");
         $this->form_validation->set_rules("start",                  "start",        "trim|required|min_length[10]");
         $this->form_validation->set_rules("end",                    "end",          "trim|required|min_length[10]");
         $this->form_validation->set_rules("waktu_kegiatan",         "waktu_kegiatan",       "trim|required|min_length[5]");
@@ -1473,5 +1485,14 @@ class Surat extends CI_Controller
         } else {
             echo json_encode('data not found');
         }
+    }
+    public function forwardSuratMasuk(){
+        $nomor_surat = $this->security->xss_clean($_POST['no']);
+        $penerima_surat = $this->security->xss_clean($_POST['penerima']);
+        $data = array(
+            'nip' => $penerima_surat,
+            'agendaris_instansi' => $this->session->userdata('sisule_cms_nip')
+        );
+        $this->M_Surat->forwardSuratMasuk($nomor_surat, $data);
     }
 }

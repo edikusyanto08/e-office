@@ -6,7 +6,12 @@ input {
 }
 </style>
 <div class="card">
-    <h5 class="card-header border-bottom font-weight-bold">Form Surat Masuk</h5>
+    <div class="card-header border-bottom">
+        <div class="row">
+            <div class="col-lg-6 m-0 font-weight-bold text-center text-sm-left"><h5 class="font-weight-bold">Form Surat Masuk</h5></div>
+            <!-- <div class="col-lg-6 ml-auto text-center text-sm-right"><a href="#" class="btn btn-light ">Petunjuk Pengisian</a></div> -->
+        </div>
+    </div>
     <div class="card-body">
         <?= validation_errors(); ?>
         <?= form_open_multipart('surat/simpansuratmasuk'); ?>
@@ -100,6 +105,7 @@ input {
                 <div>
                     <input type="file" name="userfile[]" multiple="multiple">
                 </div>
+                <small id="emailHelp" class="form-text text-muted"><i>Lampiran harus berupa file gambar dengan extensi jpg, jpeg atau png, file dapat berisi lebih dari satu.</i></small>
             </div>
     </div>
     <div class="modal-footer">

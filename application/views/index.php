@@ -25,7 +25,11 @@
                         <span class="btn-show-pass">
                             <i class="zmdi zmdi-eye"></i>
                         </span>
-                        <input class="input100" type="password" name="password">
+                        <!--
+                            Penambahan atribut (autocomplete="off") untuk meningkatkan keamanan
+                            <input class="input100" type="password" name="password">
+                        -->
+                        <input class="input100" type="password" name="password" autocomplete="off">
                         <span class="focus-input100" data-placeholder="Password"></span>
                     </div>
                     <div class="row">

@@ -37,6 +37,7 @@ class Home extends CI_Controller
         $data['message']        = $this->session->flashdata('message');
         $data['profile']        = $this->M_Home->getProfilPejabat($this->session->userdata('sisule_cms_nip'))->result();
         $data['agendaris']      = $this->M_Home->getInfoAgendaris($this->session->userdata('sisule_cms_nip'))->result();
+        $data['penerima']           = $this->M_Home->listPenerimaSuratMasuk()->result();
         $data['login']          = $this->M_Home->getInforLogin($this->session->userdata('sisule_cms_nip'))->result();
 
 

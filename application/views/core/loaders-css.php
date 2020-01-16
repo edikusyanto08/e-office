@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <link rel="icon" type="image/png" href="<?= base_url(); ?>assets/image/logo.png" />
-    <meta name="description" content="Sistem Informasi Elektronik Kabupaten Ciamis (Sisule)">
+    <meta name="description" content="Sistem Informasi Elektronik Kabupaten Ciamis (E-Office)">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title><?= $this->session->userdata('sisule_cms_title'); ?></title>
+    <link rel="shortcut icon" href="<?= base_url(); ?>assets/image/logo.png" >
     <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>assets/css/main.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>vendor/icon/css/material-design-iconic-font.css">
-    <title><?= $this->session->userdata('sisule_cms_title'); ?></title>
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
