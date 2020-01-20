@@ -41,7 +41,7 @@
                                 <a href="#" data-id="<?= $key->nip; ?>"
                                     class="aktifkan_user btn btn-sm btn-primary font-weight-bold btn-custome"
                                     data-toggle="modal" data-target="#form_create_user"
-                                    style="text-decoration: none;">Account
+                                    style="text-decoration: none;">Akun
                                 </a>
                                 <a href="#" data-id="<?= $key->nip; ?>"
                                     class="editData btn btn-sm btn-light font-weight-bold btn-custome"

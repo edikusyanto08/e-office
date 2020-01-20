@@ -12,13 +12,14 @@ td {
     <table class="table table-borderless table-sm">
         <tbody>
             <?php if ($disposisi != null || $alldisposisi != null) { ?>
+            <!-- agendaris -->
             <?php if ($agendaris != null) { ?>
             <?php $h = 0;
             $c = 0;
                             foreach ($alldisposisi as $alldisposisi) { ?>
             <tr>
                 <?php if ($alldisposisi->nota == null) { ?>
-                <?php if ($alldisposisi->pembuat_disposisi != $this->session->userdata('sisule_cms_nip')) { ?>
+                <?php if ($alldisposisi->pembuat_disposisi != $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                 <td>
                     <div class="border-left-primary">
                         <p class="text-capitalize font-weight-bold"
@@ -36,7 +37,7 @@ td {
                         <div class="mt-1" style="margin-left: 10px;">
                         <?php if(isset($getStatusPenerimaSuratDisposisi[$c]->nomor_surat) && $getStatusPenerimaSuratDisposisi[$c]->nota == null){  ?>
                                 <?php if($getStatusPenerimaSuratDisposisi[$c]->nomor_surat == $alldisposisi->nomor_surat) { ?>
-                            <?php if ($alldisposisi->pembuat_disposisi != $this->session->userdata('sisule_cms_nip')) { ?>
+                            <?php if ($alldisposisi->pembuat_disposisi != $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                             <a href="<?= base_url('home/formnotadinas/' . $alldisposisi->slug_surat); ?>"
                                 class="btn btn-primary btn-sm btn-custome text-capitalize font-weight-bold">selesai</a>
                             <?php $c++; } ?>
@@ -50,7 +51,7 @@ td {
                 </td>
                 <?php } ?>
                 <?php } else { ?>
-                <?php if ($alldisposisi->pembuat_disposisi != $this->session->userdata('sisule_cms_nip')) { ?>
+                <?php if ($alldisposisi->pembuat_disposisi != $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                 <td>
                     <div class="border-left-success">
                         <p class="text-capitalize font-weight-bold"
@@ -68,7 +69,7 @@ td {
                         <div class="mt-1" style="margin-left: 10px;">
                         <?php if(isset($getStatusPenerimaSuratDisposisi[$c]->nomor_surat) && $getStatusPenerimaSuratDisposisi[$c]->nota == null){  ?>
                                 <?php if($getStatusPenerimaSuratDisposisi[$c]->nomor_surat == $alldisposisi->nomor_surat) { ?>
-                            <?php if ($alldisposisi->pembuat_disposisi != $this->session->userdata('sisule_cms_nip')) { ?>
+                            <?php if ($alldisposisi->pembuat_disposisi != $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                             <a href="<?= base_url('home/formnotadinas/' . $alldisposisi->slug_surat); ?>"
                                 class="btn btn-primary btn-sm btn-custome text-capitalize font-weight-bold">selesai</a>
                             <?php $c++; } ?>
@@ -85,11 +86,13 @@ td {
             </tr>
             <?php $h++; } ?>
             <?php } else { ?>
+            <!-- non agendaris -->
             <?php $i = 0;
                             foreach ($disposisi as $surat) { ?>
-            <tr>
+            <?php if($surat->nomor_agenda != null) { ?>
+                <tr>
                 <?php if ($surat->nota == null) { ?>
-                <?php if ($surat->pembuat_disposisi != $this->session->userdata('sisule_cms_nip')) { ?>
+                <?php if ($surat->pembuat_disposisi != $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                 <td>
                     <div class="border-left-primary">
                         <p class="text-capitalize font-weight-bold"
@@ -103,12 +106,12 @@ td {
                         </p>
                         <div class="mt-1" style="margin-left: 10px;">
                             <?php if ($surat->nota == null) { ?>
-                            <?php if ($surat->pembuat_disposisi != $this->session->userdata('sisule_cms_nip')) { ?>
+                            <?php if ($surat->pembuat_disposisi != $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                             <a href="<?= base_url('home/formnotadinas/' . $surat->slug_surat); ?>"
                                 class="btn btn-primary btn-sm btn-custome text-capitalize font-weight-bold">selesai</a>
                             <?php } ?>
                             <?php } ?>
-                            <?php if ($surat->jumlah_atasan < $max[0]->jumlah_atasan &&  $surat->pembuat_disposisi != $this->session->userdata('sisule_cms_nip')) { ?>
+                            <?php if ($surat->jumlah_atasan < $max[0]->jumlah_atasan &&  $surat->pembuat_disposisi != $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                             <a class="btn btn-sm btn-success btn-custome font-weight-bold btn_redisposisi" href="#"
                                 data-toggle="modal" data-placement="top" title="Detail Informasi"
                                 data-target=".redisposisi" data-id="<?= $surat->nomor_surat; ?>">Redisposisi</a>
@@ -133,12 +136,12 @@ td {
                         </p>
                         <div class="mt-1" style="margin-left: 10px;">
                             <?php if ($surat->nota == null) { ?>
-                            <?php if ($surat->pembuat_disposisi != $this->session->userdata('sisule_cms_nip')) { ?>
+                            <?php if ($surat->pembuat_disposisi != $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                             <a href="<?= base_url('home/formnotadinas/' . $surat->slug_surat); ?>"
                                 class="btn btn-primary btn-sm btn-custome text-capitalize font-weight-bold">selesai</a>
                             <?php } ?>
                             <?php } ?>
-                            <?php if ($surat->jumlah_atasan < $max[0]->jumlah_atasan &&  $surat->pembuat_disposisi != $this->session->userdata('sisule_cms_nip')) { ?>
+                            <?php if ($surat->jumlah_atasan < $max[0]->jumlah_atasan &&  $surat->pembuat_disposisi != $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                             <a class="btn btn-sm btn-success btn-custome font-weight-bold btn_redisposisi" href="#"
                                 data-toggle="modal" data-placement="top" title="Detail Informasi"
                                 data-target=".redisposisi" data-id="<?= $surat->nomor_surat; ?>">Redisposisi</a>
@@ -151,7 +154,7 @@ td {
                 </td>
                 <?php } ?>
                 <?php } else { ?>
-                <?php if ($surat->pembuat_disposisi != $this->session->userdata('sisule_cms_nip')) { ?>
+                <?php if ($surat->pembuat_disposisi != $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                 <td>
                     <div class="border-left-success">
                         <p class="text-capitalize font-weight-bold"
@@ -165,12 +168,12 @@ td {
                         </p>
                         <div class="mt-1" style="margin-left: 10px;">
                             <?php if ($surat->nota == null) { ?>
-                            <?php if ($surat->pembuat_disposisi != $this->session->userdata('sisule_cms_nip')) { ?>
+                            <?php if ($surat->pembuat_disposisi != $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                             <a href="<?= base_url('home/formnotadinas/' . $surat->slug_surat); ?>"
                                 class="btn btn-primary btn-sm btn-custome text-capitalize font-weight-bold">selesai</a>
                             <?php } ?>
                             <?php } ?>
-                            <?php if ($surat->jumlah_atasan < $max[0]->jumlah_atasan &&  $surat->pembuat_disposisi != $this->session->userdata('sisule_cms_nip')) { ?>
+                            <?php if ($surat->jumlah_atasan < $max[0]->jumlah_atasan &&  $surat->pembuat_disposisi != $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                             <a class="btn btn-sm btn-success btn-custome font-weight-bold btn_redisposisi" href="#"
                                 data-toggle="modal" data-placement="top" title="Detail Informasi"
                                 data-target=".redisposisi" data-id="<?= $surat->nomor_surat; ?>">Redisposisi</a>
@@ -195,17 +198,17 @@ td {
                         </p>
                         <div class="mt-1" style="margin-left: 10px;">
                             <?php if ($surat->nota == null) { ?>
-                            <?php if ($surat->pembuat_disposisi != $this->session->userdata('sisule_cms_nip')) { ?>
+                            <?php if ($surat->pembuat_disposisi != $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                             <a href="<?= base_url('home/formnotadinas/' . $surat->slug_surat); ?>"
-                                class="btn btn-primary btn-sm text-capitalize font-weight-bold">selesai</a>
+                                class="btn btn-primary btn-sm btn-custome text-capitalize font-weight-bold">selesai</a>
                             <?php } ?>
                             <?php } ?>
-                            <?php if ($surat->jumlah_atasan < $max[0]->jumlah_atasan &&  $surat->pembuat_disposisi != $this->session->userdata('sisule_cms_nip')) { ?>
-                            <a class="btn btn-sm btn-success font-weight-bold btn_redisposisi" href="#"
+                            <?php if ($surat->jumlah_atasan < $max[0]->jumlah_atasan &&  $surat->pembuat_disposisi != $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
+                            <a class="btn btn-sm btn-success btn-custome font-weight-bold btn_redisposisi" href="#"
                                 data-toggle="modal" data-placement="top" title="Detail Informasi"
                                 data-target=".redisposisi" data-id="<?= $surat->nomor_surat; ?>">Redisposisi</a>
                             <?php } ?>
-                            <a class="btn btn-sm btn-light font-weight-bold"
+                            <a class="btn btn-sm btn-light btn-custome font-weight-bold"
                                 href="<?= site_url('Surat/getFileDisposisi/' . $surat->slug_surat); ?>"
                                 target="_blank">Unduh</a>
                         </div>
@@ -214,9 +217,11 @@ td {
                 <?php } ?>
                 <?php } ?>
             </tr>
+            <?php } ?>
             <?php
                                 $i++;
                             } ?>
+
             <?php } ?>
             <?php }else{  ?>
             <div class="mt-4 text-center text-capitalize">

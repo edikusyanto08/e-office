@@ -42,7 +42,7 @@
             </td>
             <td valign="baseline">
                 <p style="text-transform: capitalize;">
-                    <?= $pembuat_spd[0]->nama_instansi; ?>
+                    <?= $sp[0]->nama_instansi; ?>
                 </p>
             </td>
         </tr>
@@ -59,7 +59,7 @@
             </td>
             <td valign="baseline">
                 <p>
-                    <?= $pembuat_spd[0]->alamat; ?>
+                    <?= $sp[0]->alamat; ?>
                 </p>
             </td>
         </tr>
@@ -85,12 +85,12 @@
             <td class="border-left"></td>
             <td colspan="4" style="text-align: center;">
                 <p style="text-transform: capitalize;">
-                    <?php $raw = str_replace('dinas', '', $pembuat_spd[0]->nama_bidang);
+                    <?php $raw = str_replace('dinas', '', $sp[0]->jabatan_karyawan);
                     echo implode(' ', array_unique(explode(' ', $raw)));
-                    echo $pembuat_spd[0]->nama_instansi;  ?></p>
+                    echo $sp[0]->nama_instansi;  ?></p>
                 <br><br><br>
-                <p><?= $pembuat_spd[0]->nama; ?></p>
-                <p>(<?= $pembuat_spd[0]->nip; ?>)</p>
+                <p><?= $sp[0]->nama_karyawan; ?></p>
+                <p>(<?= $sp[0]->nip_karyawan; ?>)</p>
             </td>
         </tr>
     </table>
@@ -284,21 +284,23 @@
         <tr>
             <td colspan="4" style="text-align: center;" class="border-left">
                 <p style="text-transform: capitalize;">
-                    <?php $raw = str_replace('dinas', '', $pembuat_spd[0]->nama_bidang);
+                    <?php $raw = str_replace('dinas', ' ', $sp[0]->jabatan_karyawan);
                     echo implode(' ', array_unique(explode(' ', $raw)));
-                    echo $pembuat_spd[0]->nama_instansi;  ?></p>
+                    echo " ";
+                    echo $sp[0]->nama_instansi;  ?></p>
                 <br><br><br>
-                <p><?= $pembuat_spd[0]->nama; ?></p>
-                <p>(<?= $pembuat_spd[0]->nip; ?>)</p>
+                <p><?= $sp[0]->nama_karyawan; ?></p>
+                <p>(<?= $sp[0]->nip_karyawan; ?>)</p>
             </td>
             <td colspan="4" style="text-align: center;" class="border-left">
                 <p style="text-transform: capitalize;">
-                    <?php $raw = str_replace('dinas', '', $pembuat_spd[0]->nama_bidang);
+                    <?php $raw = str_replace('dinas', ' ', $sp[0]->jabatan_karyawan);
                     echo implode(' ', array_unique(explode(' ', $raw)));
-                    echo $pembuat_spd[0]->nama_instansi;  ?></p>
+                    echo " ";
+                    echo $sp[0]->nama_instansi;  ?></p>
                 <br><br><br>
-                <p><?= $pembuat_spd[0]->nama; ?></p>
-                <p>(<?= $pembuat_spd[0]->nip; ?>)</p>
+                <p><?= $sp[0]->nama_karyawan; ?></p>
+                <p>(<?= $sp[0]->nip_karyawan; ?>)</p>
             </td>
         </tr>
     </table>
@@ -306,7 +308,7 @@
         <tr>
             <td style="width: 5%;" valign="baseline">
                 V.
-            </td>
+            </td>   
             <td>
                 Catatan Lain-lain :
             </td>

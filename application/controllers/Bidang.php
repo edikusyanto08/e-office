@@ -47,6 +47,7 @@ class Bidang extends CI_Controller
         } else {
             $this->form_validation->set_rules('nama', 'nama', 'trim|required');
         }
+        
         if ($this->form_validation->run() == false) {
             $this->message('danger', 'kesalahan dalam input data');
             redirect($_SERVER['HTTP_REFERER']);

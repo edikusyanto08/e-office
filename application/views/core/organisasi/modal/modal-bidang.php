@@ -1,9 +1,14 @@
+<style>
+    label{
+        font-size: 14px;
+    }
+</style>
 <!-- form tambah bidang kerja -->
 <div class="modal fade" id="tambah_bidang_kerja" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title" id="exampleModalLabel">Form Jabatan</h6>
+                <h6 class="modal-title font-weight-bold" id="exampleModalLabel">Form Jabatan</h6>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -15,14 +20,14 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="namaskpd">Nama Jabatan : </label>
+                                <label for="namaskpd">Nama Jabatan  <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="namaskpd" name="nama" autocomplete="off" required>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-5">
-                            <label for="tipe">Tipe Jabatan</label>
+                            <label for="tipe">Tipe Jabatan <span class="text-danger">*</span></label>
                             <table class="table table-borderless table-sm">
                                 <td>
                                     <div class="custom-control custom-checkbox mb-1">
@@ -54,10 +59,13 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="atasan">Pilih Atasan</label>
-                                <select class="custom-select text-capitalize" id="atasan" name="atasan">
-                                    <option value="0">Tidak Ada</option>
+                                <select class="custom-select" id="atasan" name="atasan">
+                                    <option class="text-capitalize" value="0">Tidak Ada</option>
                                     <?php foreach ($atasan as $key) { ?>
-                                    <option value="<?= $key->nip; ?>"><span style="text-transform: capitalize;"><?= $key->nama_bidang; echo " - ". $key->kode_bidang  ?></span>
+                                    <option class="text-uppercase" value="<?= $key->kode_struktur_organisasi; ?>">
+                                        <span>
+                                            <?= $key->nama_bidang; echo ' - ' . $key->nama_instansi . " - " . $key->kode_bidang  ?>
+                                        </span>
                                     </option>
                                     <?php } ?>
                                 </select>
@@ -78,7 +86,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title" id="exampleModalLabelPejabat">Pejabat Baru</h6>
+                <h6 class="modal-title font-weight-bold" id="exampleModalLabelPejabat">Pejabat Baru</h6>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -155,11 +163,15 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="atasan" style="font-size: 14px;" class="text-dark">Pilih Atasan : </label>
-                                <select class="custom-select text-capitalize" id="atasan" name="atasan">
-                                    <option value="0">Pilih Atasan</option>
+                                <select class="custom-select" id="atasan" name="atasan">
+                                    <option class="text-capitalize" value="0">Pilih Atasan</option>
                                     <?php foreach ($atasan as $key) { ?>
-                                    <option value="<?= $key->nip; ?>"><span style="text-transform: capitalize;"><?= $key->nama_bidang; echo " - ". $key->kode_bidang  ?></span></option>
+                                    <option class="text-uppercase" value="<?= $key->kode_struktur_organisasi; ?>">
+                                        <span><?= $key->nama_bidang; echo ' - ' . $key->nama_instansi . " - " . $key->kode_bidang  ?>
+                                        </span>
+                                    </option>
                                     <?php } ?>
+                                   
                                 </select>
                             </div>
                             <div class="input-group ml-4">
@@ -184,7 +196,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title" id="exampleModalLabel">Perbaharui Bidang</h6>
+                <h6 class="modal-title font-weight-bold" id="exampleModalLabel">Perbaharui Bidang</h6>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>

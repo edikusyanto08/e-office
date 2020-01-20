@@ -8,13 +8,10 @@ input {
 <div class="card">
     <h5 class="card-header border-bottom font-weight-bold">Form Surat Perintah</h5>
     <div class="card-body">
-        <p style="font-size: 14px;">
-            <span class="text-danger">* Penting <br>
-                - Apabila dibutuhkan surat perintah maka isi form surat perintah <br>
-                - Apabila dibutuhkan surat perjalanan dinas maka isi form surat perintah dan form surat perjalanan dinas
-                <br>
+        <p class="bg-warning" style="font-size: 14px; padding: 20px; box-shadow: 2px 2px 5px; #000;">
+            <span class="text-white">Perhatian : <br>
                 - Apabila tidak dibutuhkan surat perintah & surat perjalanan dinas maka user dapat langsung menekan /
-                klik skip.
+                klik tombol skip.
             </span>
         </p>
         <?= form_open('Surat/createSuratPerintah'); ?>
@@ -30,6 +27,7 @@ input {
                         <label for="no_perintah">No. Perintah</label>
                         <input type="text" class="form-control" id="no_perintah" placeholder="123/123/123/..."
                             name="no_perintah">
+                            <small id="uploadHelp" class="form-text text-muted"><i>Isi Kolom No. Perintah Untuk Membuat Surat Perintah.</i></small>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -50,11 +48,12 @@ input {
                         <label for="no_perjalanan_dinas">No. Perjalanan Dinas</label>
                         <input type="text" class="form-control" id="no_perjalanan_dinas" placeholder="123/123/123/..."
                             name="no_perjalanan">
+                            <small id="uploadHelp" class="form-text text-muted"><i>Isi Kolom No. Perjalanan Dinas Untuk Membuat Surat Perintah. dan Lengkapi Formnya.</i></small>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4    ">
+                <div class="col-lg-4">
                     <label for="kendaraan">Kendaraan</label>
                     <select class="custom-select" id="kendaraan" name="kendaraan">
                         <option value="Mobil Dinas">Mobil Dinas / Kendaraan Dinas</option>

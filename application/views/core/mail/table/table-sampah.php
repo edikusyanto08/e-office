@@ -16,7 +16,7 @@
                         <div class="border-left-default" style="margin-bottom: 0px;">
                             <p class=" font-weight-bold"
                                 style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
-                                <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                 <?= $penerima_surat_masuk[$i]->nama ?>
                                 <?php } else {
                                                             echo $surat->nama;
@@ -36,7 +36,7 @@
                                     data-toggle="modal" data-placement="top" title="Detail Informasi"
                                     data-target=".preview-surat-masuk" data-id="<?= $surat->nomor_surat; ?>"
                                     style="font-size: 12px;">Lihat</a>
-                                <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                 <button class="btn btn-default btn-sm btn-custome font-weight-bold hapussuratmasuk text-danger"
                                     data-toggle="tooltip" data-placement="top" title="Hapus Permanen"
                                     data-id="<?= $surat->slug_surat; ?>" style="font-size: 12px;">Hapus</button>
@@ -48,7 +48,7 @@
                     <td>
                         <div class="border-left-danger">
                             <p class="font-weight-bold" style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
-                                <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                 <?= $penerima_surat_masuk[$i]->nama ?>
                                 <?php } else {
                                                             echo $surat->nama;
@@ -68,7 +68,7 @@
                                     data-toggle="modal" data-placement="top" title="Detail Informasi"
                                     data-target=".preview-surat-masuk" data-id="<?= $surat->nomor_surat; ?>"
                                     style="font-size: 12px;">Lihat</a>
-                                <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                 <button class="btn btn-default btn-sm btn-custome font-weight-bold hapussuratmasuk text-danger"
                                     data-toggle="tooltip" data-placement="top" title="Hapus Permanen"
                                     data-id="<?= $surat->slug_surat; ?>" style="font-size: 12px;">Hapus</button>
@@ -80,7 +80,7 @@
                     <td style="margin-bottom: 0px;">
                         <div class="border-left-primary">
                             <p class="font-weight-bold" style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
-                                <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                 <?= $penerima_surat_masuk[$i]->nama ?>
                                 <?php } else {
                                                             echo $surat->nama;
@@ -100,7 +100,7 @@
                                     data-toggle="modal" data-placement="top" title="Detail Informasi"
                                     data-target=".preview-surat-masuk" data-id="<?= $surat->nomor_surat; ?>"
                                     style="font-size: 12px;">Lihat</a>
-                                <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                 <button class="btn btn-default btn-sm btn-custome font-weight-bold hapussuratmasuk text-danger"
                                     data-toggle="tooltip" data-placement="top" title="Hapus Permanen"
                                     data-id="<?= $surat->slug_surat; ?>" style="font-size: 12px;">Hapus</button>

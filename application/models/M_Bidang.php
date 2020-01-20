@@ -41,36 +41,27 @@ class M_Bidang extends  CI_Model
         $tipe           = $this->input->post('tipe');
         $koordinator    = $this->input->post('koordinator');
         $atasan         = $this->input->post('atasan');
-        $this->db->select('id_instansi');
-        $this->db->where('nip', $this->session->userdata('sisule_cms_nip'));
-        $instansi = $this->db->get('tbl_login')->result();
-        $instansi = $instansi[0]->id_instansi;
-        if ($instansi < 100) {
-            $instansi = $instansi;
-        } else {
-            $instansi = $instansi;
-        }
-        $kode_instansi = $instansi;
-        $this->db->where('tbl_login.nip', $this->session->userdata('sisule_cms_nip'));
+        $kode_instansi = $this->session->userdata('sisule_cms_instansi');
+        $this->db->where('tbl_bidang.id_instansi', $kode_instansi);
+        $this->db->where('tbl_bidang.kode_struktur_organisasi', $atasan);
         $this->db->join('tbl_instansi', 'tbl_instansi.id_instansi = tbl_bidang.id_instansi');
-        $this->db->join('tbl_login', 'tbl_login.id_instansi = tbl_instansi.id_instansi');
         $this->db->order_by('tbl_bidang.id', 'desc');
         $row_tbl = $this->db->get('tbl_bidang')->result();
         if ($row_tbl > 0) {
-            $kode_user = $row_tbl[0]->id + 1;
+            $kode_user = substr($row_tbl[0]->kode_struktur_organisasi, 7) + 1;
         } else {
             $kode_user = 0;
         }
         $kba = 0;
         if ($atasan != 0) {
             $this->db->select('jumlah_atasan');
-            $this->db->where('tbl_bidang.nip', $atasan);
+            $this->db->where('tbl_bidang.kode_struktur_organisasi', $atasan);
             $someone = $this->db->get('tbl_bidang')->result();
             $someone = $someone[0]->jumlah_atasan + 1;
             if ($someone < 0) {
                 $kode_bidang = 0 . 1;
             } elseif ($someone == 1) {
-                $this->db->where('tbl_bidang.id_instansi', $instansi);
+                $this->db->where('tbl_bidang.id_instansi', $this->session->userdata('sisule_cms_instansi'));
                 $this->db->join('tbl_instansi', 'tbl_instansi.id_instansi = tbl_bidang.id_instansi');
                 $this->db->group_by('tbl_bidang.kode_bidang');
                 $kode_bidang = $this->db->get('tbl_bidang')->num_rows();
@@ -82,13 +73,9 @@ class M_Bidang extends  CI_Model
                 }
             } elseif ($someone > 1) {
                 $this->db->select('kode_bidang');
-                $this->db->where('tbl_bidang.nip', $atasan);
+                $this->db->where('tbl_bidang.kode_struktur_organisasi', $atasan);
                 $kode_bidang = $this->db->get('tbl_bidang')->result();
                 $kode_bidang = $kode_bidang[0]->kode_bidang;
-            }
-            $kode_bidang_atasan = $this->db->get_where('tbl_bidang', array('nip' => $atasan))->result();
-            if ($kode_bidang_atasan != 0) {
-                $kba = $kode_bidang_atasan[0]->kode_struktur_organisasi;
             }
         } else {
             $someone = 0;
@@ -99,8 +86,8 @@ class M_Bidang extends  CI_Model
             'nama_bidang'   => $nama,
             'tipe'          => $tipe,
             'nip'           => $koordinator,
-            'atasan'        => $kba,
-            'id_instansi'   => $instansi,
+            'atasan'        => $atasan,
+            'id_instansi'   => $this->session->userdata('sisule_cms_instansi'),
             'kode_bidang'   => $kode_bidang,
             'kode_struktur_organisasi'  => $kode_struktur_organisasi,
             'jumlah_atasan'             => $someone
@@ -113,34 +100,30 @@ class M_Bidang extends  CI_Model
         $pimpinan           = $this->input->post('pimpinan');
         $koordinator_baru   = $this->input->post('koordinator');
         $atasan             = $this->input->post('atasan');
-        $this->db->select('id_instansi');
-        $this->db->where('nip', $this->session->userdata('sisule_cms_nip'));
-        $instansi = $this->db->get('tbl_login')->result();
-        $instansi = $instansi[0]->id_instansi;
-        $this->db->select('id_instansi');
-        $this->db->where('nip', $this->session->userdata('sisule_cms_nip'));
-        $instansi = $this->db->get('tbl_login')->result();
-        $instansi = $instansi[0]->id_instansi;
-        if ($instansi < 100) {
-            $instansi = $instansi;
-        } else {
-            $instansi = $instansi;
+        $kode_instansi      = $this->session->userdata('sisule_cms_instansi');
+
+        // get kode bidang
+        $ko_bid_1 = null;
+        $this->db->where('tbl_bidang.kode_struktur_organisasi', $atasan);
+        $this->db->order_by('tbl_bidang.id', 'desc');
+        $ko_bid = $this->db->get('tbl_bidang', 1)->result();
+        if($ko_bid != null){
+            $ko_bid_1 = $ko_bid[0]->kode_bidang;
         }
-        $kode_instansi = $instansi;
-        $this->db->where('tbl_login.nip', $this->session->userdata('sisule_cms_nip'));
+
+        $this->db->where('tbl_bidang.id_instansi', $kode_instansi);
+        $this->db->where('tbl_bidang.kode_bidang', $ko_bid_1);
         $this->db->join('tbl_instansi', 'tbl_instansi.id_instansi = tbl_bidang.id_instansi');
-        $this->db->join('tbl_login', 'tbl_login.id_instansi = tbl_instansi.id_instansi');
-        $row_tbl = $this->db->get('tbl_bidang')->num_rows();
+        $row_tbl = $this->db->get('tbl_bidang')->result();
         if ($row_tbl > 0) {
-            $ku = $this->db->get_where('tbl_bidang', array('id' => $id))->result();
-            if ($ku != null) {
-                $kode_user = $ku[0]->id;
-            }
+            $kode_user = substr($row_tbl[0]->kode_struktur_organisasi, 7) + 1;
+        } else {
+            $kode_user = 0;
         }
         $kba = 0;
         if ($atasan != 0) {
             $this->db->select('jumlah_atasan');
-            $this->db->where('tbl_bidang.nip', $atasan);
+            $this->db->where('tbl_bidang.kode_struktur_organisasi', $atasan);
             $someone = $this->db->get('tbl_bidang')->result();
             $someone = $someone[0]->jumlah_atasan + 1;
             if ($someone < 0) {
@@ -158,14 +141,14 @@ class M_Bidang extends  CI_Model
                 }
             } elseif ($someone > 1) {
                 $this->db->select('kode_bidang');
-                $this->db->where('tbl_bidang.nip', $atasan);
+                $this->db->where('tbl_bidang.kode_struktur_organisasi', $atasan);
                 $kode_bidang = $this->db->get('tbl_bidang')->result();
                 $kode_bidang = $kode_bidang[0]->kode_bidang;
             }
-            $kode_bidang_atasan = $this->db->get_where('tbl_bidang', array('nip' => $atasan))->result();
-            if ($kode_bidang_atasan != 0) {
-                $kba = $kode_bidang_atasan[0]->kode_struktur_organisasi;
-            }
+            // $kode_bidang_atasan = $this->db->get_where('tbl_bidang', array('kode_struktur_organisasi' => $atasan))->result();
+            // if ($kode_bidang_atasan != 0) {
+            //     $kba = $kode_bidang_atasan[0]->kode_struktur_organisasi;
+            // }
         } else {
             $someone = 0;
             $kode_bidang = 0 . 1;
@@ -176,7 +159,7 @@ class M_Bidang extends  CI_Model
                 'nip'       => $koordinator_baru,
                 'top'       => $pimpinan,
                 'agendaris' => $agendaris,
-                'atasan'    => $kba,
+                'atasan'    => $atasan,
                 'jumlah_atasan' => $someone,
                 'kode_bidang'   => $kode_bidang,
                 'kode_struktur_organisasi' => $kode_struktur_organisasi,
@@ -189,7 +172,7 @@ class M_Bidang extends  CI_Model
             );
         } elseif ($this->input->post('update_atasan')) {
             $data = array(
-                'atasan'    => $kba,
+                'atasan'    => $atasan,
                 'top'       => $pimpinan,
                 'agendaris' => $agendaris,
                 'jumlah_atasan' => $someone,

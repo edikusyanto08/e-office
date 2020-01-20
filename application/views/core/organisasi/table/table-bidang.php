@@ -9,8 +9,8 @@
             <div class="card-header border-bottom">
                 <div class="row">
                     <div class="col-lg-2">
-                        <h5 class="m-0 font-weight-bold text-center text-sm-left mb-3">Unit Kerja
-                        </h5>
+                        <h5 class="m-0 font-weight-bold text-center text-uppercase text-sm-left mb-3">Unit Kerja</h5>
+                        
                     </div>
                     <div class="col-lg-10 text-center text-sm-right">
                         <a href="#"
@@ -78,7 +78,7 @@
     <div class="col-lg-12">
         <div class="card shadow">
             <div class="card-header border-bottom">
-                <h5 class="m-0 font-weight-bold text-uppercase">Unit Kerja Tanpa Pejabat - <?= count($pasif); ?></h5>
+                <h5 class="m-0 font-weight-bold text-uppercase">Unit Kerja Tanpa Pejabat </h5>
             </div>
             <div class="card-body">
                 <table class="table table-sm table-borderless" style="line-height: 30px;">

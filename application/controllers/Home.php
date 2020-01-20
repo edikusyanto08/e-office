@@ -36,7 +36,7 @@ class Home extends CI_Controller
     {
         $data['message']        = $this->session->flashdata('message');
         $data['profile']        = $this->M_Home->getProfilPejabat($this->session->userdata('sisule_cms_nip'))->result();
-        $data['agendaris']      = $this->M_Home->getInfoAgendaris($this->session->userdata('sisule_cms_nip'))->result();
+        $data['agendaris']      = $this->M_Home->getInfoAgendaris($this->session->userdata('sisule_cms_satuan_kerja'))->result();
         $data['penerima']           = $this->M_Home->listPenerimaSuratMasuk()->result();
         $data['login']          = $this->M_Home->getInforLogin($this->session->userdata('sisule_cms_nip'))->result();
 
@@ -350,7 +350,7 @@ class Home extends CI_Controller
         $cek_status_karyawan = $this->M_Home->checkStatusKaryawan()->result();
         if ($cek_status_karyawan != null) {
             $data['penerima']           = $this->M_Home->listPenerimaSuratMasuk()->result();
-            $data['agendaris']          = $this->M_Home->getInfoAgendaris($this->session->userdata('sisule_cms_nip'))->result();
+            $data['agendaris']          = $this->M_Home->getInfoAgendaris($this->session->userdata('sisule_cms_satuan_kerja'))->result();
             $data['agenda_surat']       = $this->M_Home->getAllSuratDisposisiNeededAgenda()->result();
         } else {
             $data['penerima']           = null;
@@ -461,12 +461,12 @@ class Home extends CI_Controller
 
         $cek_status_karyawan = $this->M_Home->checkStatusKaryawan()->result();
         if ($cek_status_karyawan != null) {
-            $data['bidang']         = $this->M_Home->getBidangForNotaDinas($param)->result();
+            $data['penerima_tembusan']         = $this->M_Home->getBidangPenerimaNotaDinas($param)->result();
             $data['info_file']      = $this->M_Home->getInfoFileDisposisi($param)->result();
             $data['nota_dinas']     = $this->M_Home->getInfoNotaDinas($param)->result();
             $data['lampiran']       = $this->M_Home->getLampiranNotaDinas($param)->result();
         } else {
-            $data['bidang']         = null;
+            $data['penerima_tembusan']         = null;
             $data['info_file']      = null;
             $data['nota_dinas']     = null;
             $data['lampiran']       = null;
@@ -559,7 +559,14 @@ class Home extends CI_Controller
             $data['bidang']     = $this->M_Home->getBidangAsAdmin($config['per_page'], $start)->result();
             $data['pasif']      = $this->M_Home->getBidangKosong()->result();
             $data['karyawan']   = $this->M_Home->getKaryawanPengangguran()->result();
-            $data['atasan']     = $this->M_Home->getPejabatStruktural()->result();
+            //cek apakah sebelumnya sudah ada pejabat atau belum
+            $check = $this->M_Home->getStatusNullBidangKerja()->result();
+            if($check == null){
+                $data['atasan']     = $this->M_Home->getPejabatStruktural()->result();
+            }else{
+                $data['atasan']     = $this->M_Home->getPejabatStrukturalAvailable()->result();
+            }
+            
         }
         // $data['bidang']             = $this->M_Home->getBidang($config['per_page'], $start)->result();
         $data['countBidang']    = $this->M_Home->countBidang()->result();

@@ -52,7 +52,8 @@ class Surat extends CI_Controller
                 $this->message('danger', validation_errors());
                 redirect($_SERVER['HTTP_REFERER']);
             } else {
-                if ($this->M_Surat->saveSuratMasuk()) {
+                $slug = $this->session->userdata('sisule_cms_instansi') . date('m-d-Y-H-i') . str_replace('/', '-', $this->input->post('nomor_surat'));
+                if ($this->M_Surat->saveSuratMasuk($slug)) {
                     $dataInfo   = array();
                     $files      = $_FILES;
                     $cpt        = count($_FILES['userfile']['name']);
@@ -72,7 +73,7 @@ class Surat extends CI_Controller
                         $dataInfo[] = $this->upload->data();
                         $data = array(
                             'nomor_surat'   => $this->input->post('nomor_surat'),
-                            'slug_surat'    => $this->session->userdata('sisule_cms_instansi') . date('m-d-Y-H-i') . str_replace('/', '-', $this->input->post('nomor_surat')),
+                            'slug_surat'    => $slug,
                             'nama_file'     => $dataInfo[$i]['file_name']
                         );
                         $this->M_Surat->insertFileSuratMasuk($data);
@@ -291,7 +292,7 @@ class Surat extends CI_Controller
                 $output .= '<tr>
                             <td> ' . $d_result[$i]["nama"] . '</td>
                             <td class="text-center">
-                            <button type="button" class="btn btn-default btn-sm deletePenerimaDisposisi text-danger" data-id="' . $d_result[$i]['nip'] . '" style="margin-top: -10px;"><i class="fas fa-times"></i></a></button></td>
+                            <button type="button" class="btn btn-default btn-sm deletePenerimaDisposisi text-danger" data-id="' . $d_result[$i]['kode_struktur_organisasi'] . '" style="margin-top: -10px;"><i class="fas fa-times"></i></a></button></td>
 
                         </tr>
                     ';
@@ -317,7 +318,7 @@ class Surat extends CI_Controller
                 $output .= '<tr>
                             <td> ' . $d_result[$i]["nama"] . '</td>
                             <td class="text-center">
-                            <button type="button" class="btn btn-default btn-sm deletePenerimaDisposisi text-danger" data-id="' . $d_result[$i]['nip'] . '" style="margin-top: -10px;"><i class="fas fa-times"></i></a></button></td>
+                            <button type="button" class="btn btn-default btn-sm deletePenerimaDisposisi text-danger" data-id="' . $d_result[$i]['kode_struktur_organisasi'] . '" style="margin-top: -10px;"><i class="fas fa-times"></i></a></button></td>
 
                         </tr>
                     ';
@@ -358,7 +359,7 @@ class Surat extends CI_Controller
                 $output .= '<tr>
                             <td><img src="' . base_url("assets/image/pns/" . $d_result[$i]["image"]) . '" style="width:35px; border-radius: 100%;" alt=""></td>
                             <td> ' . $d_result[$i]["nama"] . ' - <span class="text-capitalize">' . $d_result[$i]["nama_bidang"] . '</span></td>
-                            <td class="text-center"><button type="button" class="btn btn-light btn-sm saveOnDisposisi" data-id="' . $d_result[$i]['nip'] . '"><i class="fa fa-plus" style="margin-left: 5px;"></i></a></button></td>
+                            <td class="text-center"><button type="button" class="btn btn-light btn-sm saveOnDisposisi" data-id="' . $d_result[$i]['kode_struktur_organisasi'] . '"><i class="fa fa-plus" style="margin-left: 5px;"></i></a></button></td>
                         </tr>
                     ';
             }
@@ -387,7 +388,7 @@ class Surat extends CI_Controller
                 $output .= '<tr>
                             <td><img src="' . base_url("assets/image/pns/" . $d_result[$i]["image"]) . '" style="width:35px; height: 35px; border-radius: 100%;" alt=""></td>
                             <td> ' . $d_result[$i]["nama_instansi"] . ' - <span class="text-capitalize">' . $d_result[$i]["nama_bidang"] . '</span> - '.  $d_result[$i]["nama"].'</td>
-                            <td class="text-center"><button type="button" class="btn btn-light btn-sm saveOnDisposisi" data-id="' . $d_result[$i]['nip'] . '"><i class="fa fa-plus" style="margin-left: 5px;"></i></a></button></td>
+                            <td class="text-center"><button type="button" class="btn btn-light btn-sm saveOnDisposisi" data-id="' . $d_result[$i]['kode_struktur_organisasi'] . '"><i class="fa fa-plus" style="margin-left: 5px;"></i></a></button></td>
                         </tr>
                     ';
             }
@@ -412,7 +413,7 @@ class Surat extends CI_Controller
                 $dataJabatanKu  = json_decode($dataJabatanKu, true);
                 $i              = count($dataLama);
                 $arrayBaru[$i++] = array(
-                    'nip'       => $dataKu[0]['nip'],
+                    'kode_struktur_organisasi'       => $dataKu[0]['kode_struktur_organisasi'],
                     'nama'      => $dataKu[0]['nama'],
                     'image'     => $dataKu[0]['image'],
                     'instansi'  => $dataKu[0]['nama_instansi'],
@@ -426,7 +427,7 @@ class Surat extends CI_Controller
                 $dataJabatanKu = json_encode($jabatan);
                 $dataJabatanKu = json_decode($dataJabatanKu, true);
                 $array[] = array(
-                    'nip'       => $dataKu[0]['nip'],
+                    'kode_struktur_organisasi'       => $dataKu[0]['kode_struktur_organisasi'],
                     'nama'      => $dataKu[0]['nama'],
                     'image'     => $dataKu[0]['image'],
                     'instansi'  => $dataKu[0]['nama_instansi'],
@@ -447,7 +448,7 @@ class Surat extends CI_Controller
             for ($i = count($array) - 1; $i >= 0; $i--) {
                 $output .= '<tr>
                     <td style="width: 5%;"><img src="' . base_url("assets/image/pns/" . $array[$i]["image"]) . '" style="width:35px; height: 35px; border-radius: 100%; margin-top: 4px;" alt=""></td>
-                    <td style="font-size: 14px;"><span>' . $array[$i]['instansi'] . "</span> - <span class='text-capitalize'>" . $array[$i]['jabatan'] . $array[$i]['nama']. '</span></td>
+                    <td style="font-size: 14px;"><span class="text-uppercase">' . $array[$i]['instansi'] . "</span> - <span class='text-capitalize'>" . $array[$i]['jabatan'] . ' - <span class="text-primary">' . $array[$i]['nama']. '</span>'. '</span></td>
                     <td><button type="button" class="btn btn-default btn-sm deleteData" data-id="' . $no . '"></button></td>
                 </tr>';
                 $no--;
@@ -471,7 +472,7 @@ class Surat extends CI_Controller
     {
         $slug       = null;
         $count      = $this->session->userdata('session_user_penerima_disposisi');
-        $pembuat    = $this->session->userdata('sisule_cms_nip');
+        $pembuat    = $this->session->userdata('sisule_cms_satuan_kerja');
         $penerima   = rand();
         $sifat      = $this->security->xss_clean($_POST['sifat']);
         $catatan    = $this->security->xss_clean($_POST['catatan']);
@@ -494,23 +495,32 @@ class Surat extends CI_Controller
             if ($this->M_Surat->updateSuratDisposisi($_POST['nomor_surat'], $data) > 0) {
                 for ($i = count($count) - 1; $i >= 0; $i--) {
                     $data_penerima_disposisi = array(
-                        'nip'           => $this->session->userdata['session_user_penerima_disposisi'][$i]['nip'],
+                        'kode_struktur_organisasi'           => $this->session->userdata['session_user_penerima_disposisi'][$i]['kode_struktur_organisasi'],
                         'penerima'      => $penerima_update,
                         'nomor_surat'   => $no_surat
                     );
-                    $cek_user = $this->M_Surat->cekUserTerdisposisi($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['nip'])->result();
+                    $cek_user = $this->M_Surat->cekUserTerdisposisi($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['kode_struktur_organisasi'])->result();
                     if ($cek_user == null) {
-                        $this->M_Surat->updatePenerimaDisposisi($data_penerima_disposisi, $no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['nip']);
+                        $this->M_Surat->updatePenerimaDisposisi($data_penerima_disposisi, $no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['kode_struktur_organisasi']);
                     }
                 }
-                $this->M_Surat->trackingDisposisi($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['nip']);
+                $this->M_Surat->trackingDisposisi($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['kode_struktur_organisasi']);
             }
             $this->session->unset_userdata('session_user_penerima_disposisi');
         } else {
-            $kode = null;
-            $kso = $this->M_Surat->getKodeStrukturOrganisasi()->result();
-            if ($kso != null) {
-                $kode = $kso[0]->kode_struktur_organisasi;
+            $kode = $this->session->userdata('sisule_cms_satuan_kerja');
+            // $kso = $this->M_Surat->getKodeStrukturOrganisasi()->result();
+            // if ($kso != null) {
+            //     $kode = $kso[0]->kode_struktur_organisasi;
+            // }
+            $nama_karyawan = null;
+            $jabatan_karyawan = null;
+            $golongan_karyawan = null;
+            $karyawan = $this->M_Surat->getDataKaryawan()->result();
+            if($karyawan != null){
+                $nama_karyawan = $karyawan[0]->nama;
+                $jabatan_karyawan = $karyawan[0]->nama_bidang;
+                $golongan_karyawan = $karyawan[0]->golongan;
             }
             $insert = array(
                 'pembuat_disposisi' => $pembuat,
@@ -521,37 +531,41 @@ class Surat extends CI_Controller
                 'harapan'           => $harapan,
                 'catatan'           => $catatan,
                 'waktu_disposisi'   => $now,
-                'nomor_agenda'      => '',
-                'tanggal_agenda'    => '',
-                'agendaris'         => '',
+                // 'nomor_agenda'      => '',
+                // 'tanggal_agenda'    => '',
+                // 'agendaris_surat'         => '',
                 'date_produce'      => date('mm'),
                 'year_produce'      => date('YY'),
-                'kode_struktur_organisasi' => $kode
+                // 'kode_struktur_organisasi'  => $kode,
+                'disposisi_instansi'        => $this->session->userdata('sisule_cms_instansi'),
+                'nama_karyawan'             => $nama_karyawan,
+                'jabatan_karyawan'          => $jabatan_karyawan,
+                'golongan_karyawan'         => $golongan_karyawan
             );
             if ($this->M_Surat->createSuratDisposisi($insert, $no_surat) > 0) {
                 if ($_POST['ikutundangan'] > 0) {
                     $ikut_disposisi = array(
-                        'nip'           => $this->session->userdata('sisule_cms_nip'),
+                        'kode_struktur_organisasi' => $this->session->userdata('sisule_cms_satuan_kerja'),
                         'penerima'      => $penerima,
                         'nomor_surat'   => $no_surat
                     );
-                    $cek_user = $this->M_Surat->cekUserTerdisposisi($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['nip'])->result();
+                    $cek_user = $this->M_Surat->cekUserTerdisposisi($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['kode_struktur_organisasi'])->result();
                     if ($cek_user == null) {
-                        $this->M_Surat->createPenerimaDisposisi($ikut_disposisi, $no_surat, $this->session->userdata('sisule_cms_nip'));
+                        $this->M_Surat->createPenerimaDisposisi($ikut_disposisi, $no_surat, $this->session->userdata('sisule_cms_satuan_kerja'));
                     }
                 }
                 for ($i = count($count) - 1; $i >= 0; $i--) {
                     $data_penerima_disposisi = array(
-                        'nip'           => $this->session->userdata['session_user_penerima_disposisi'][$i]['nip'],
+                        'kode_struktur_organisasi'           => $this->session->userdata['session_user_penerima_disposisi'][$i]['kode_struktur_organisasi'],
                         'penerima'      => $penerima,
                         'nomor_surat'   => $no_surat
                     );
-                    $cek_user = $this->M_Surat->cekUserTerdisposisi($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['nip'])->result();
+                    $cek_user = $this->M_Surat->cekUserTerdisposisi($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['kode_struktur_organisasi'])->result();
                     if ($cek_user == null) {
-                        $this->M_Surat->createPenerimaDisposisi($data_penerima_disposisi, $no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['nip']);
+                        $this->M_Surat->createPenerimaDisposisi($data_penerima_disposisi, $no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['kode_struktur_organisasi']);
                     }
                 }
-                $this->M_Surat->trackingDisposisi($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['nip']);
+                $this->M_Surat->trackingDisposisi($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['kode_struktur_organisasi']);
             }
             $this->session->unset_userdata('session_user_penerima_disposisi');
         }
@@ -1004,20 +1018,21 @@ class Surat extends CI_Controller
                 for ($i = count($count) - 1; $i >= 0; $i--) {
                     // data surat keluar
                     $data_penerima_disposisi = array(
-                        'nip'           => $this->session->userdata['session_user_penerima_disposisi'][$i]['nip'],
+                        'kode_struktur_organisasi'           => $this->session->userdata['session_user_penerima_disposisi'][$i]['kode_struktur_organisasi'],
                         'penerima'      => $penerima,
                         'nomor_surat_keluar'   => $no_surat
                     );
                     // data surat masuk
                     $data_penerima_surat_masuk = array(
-                        'nip'           => $this->session->userdata['session_user_penerima_disposisi'][$i]['nip'],
+                        'kode_struktur_organisasi'           => $this->session->userdata['session_user_penerima_disposisi'][$i]['kode_struktur_organisasi'],
                         'penerima'      => $penerima,
-                        'nomor_surat'   => $no_surat
+                        'nomor_surat'   => $no_surat,
+                        'agendaris_instansi' => $this->session->userdata['session_user_penerima_disposisi'][$i]['kode_struktur_organisasi']
                     );
                     // cek user penerima surat keluar
-                    $cek_user_sk = $this->M_Surat->cekUserPenerimaSuratKeluar($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['nip'])->result();
+                    $cek_user_sk = $this->M_Surat->cekUserPenerimaSuratKeluar($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['kode_struktur_organisasi'])->result();
                     // cek user penerima surat masuk
-                    $cek_user_sm = $this->M_Surat->cekUserPenerimaSuratMasuk($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['nip'])->result();
+                    $cek_user_sm = $this->M_Surat->cekUserPenerimaSuratMasuk($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['kode_struktur_organisasi'])->result();
                     if ($cek_user_sk == null && $cek_user_sm == null) {
                         $this->M_Surat->createPenerimaSuratKeluar($data_penerima_disposisi);
                         $this->M_Surat->createPenerimaSuratMasuk($data_penerima_surat_masuk);
@@ -1104,11 +1119,11 @@ class Surat extends CI_Controller
 
                     for ($i = count($count) - 1; $i >= 0; $i--) {
                         $data_penerima_disposisi = array(
-                            'nip'           => $this->session->userdata['session_user_penerima_disposisi'][$i]['nip'],
+                            'kode_struktur_organisasi'           => $this->session->userdata['session_user_penerima_disposisi'][$i]['kode_struktur_organisasi'],
                             'penerima'      => $penerima_update,
                             'nomor_surat_keluar'   => $no_surat
                         );
-                        $cek_user = $this->M_Surat->cekUserPenerimaSuratKeluar($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['nip'])->result();
+                        $cek_user = $this->M_Surat->cekUserPenerimaSuratKeluar($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['kode_struktur_organisasi'])->result();
                         if ($cek_user == null) {
                             $this->M_Surat->createPenerimaSuratKeluar($data_penerima_disposisi);
                         }
@@ -1166,11 +1181,11 @@ class Surat extends CI_Controller
 
                     for ($i = count($count) - 1; $i >= 0; $i--) {
                         $data_penerima_disposisi = array(
-                            'nip'           => $this->session->userdata['session_user_penerima_disposisi'][$i]['nip'],
+                            'kode_struktur_organisasi'           => $this->session->userdata['session_user_penerima_disposisi'][$i]['kode_struktur_organisasi'],
                             'penerima'      => $penerima_update,
                             'nomor_surat_keluar'   => $no_surat
                         );
-                        $cek_user = $this->M_Surat->cekUserPenerimaSuratKeluar($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['nip'])->result();
+                        $cek_user = $this->M_Surat->cekUserPenerimaSuratKeluar($no_surat, $this->session->userdata['session_user_penerima_disposisi'][$i]['kode_struktur_organisasi'])->result();
                         if ($cek_user == null) {
                             $this->M_Surat->createPenerimaSuratKeluar($data_penerima_disposisi);
                         }
@@ -1216,7 +1231,7 @@ class Surat extends CI_Controller
                 $output .= '<tr>
                             <td><img src="' . base_url("assets/image/pns/" . $d_result[$i]["image"]) . '" style="width:35px; border-radius: 100%;" alt=""></td>
                             <td> ' . $d_result[$i]["nama"] . ' - <span class="text-capitalize">' . $d_result[$i]["nama_bidang"] . '</span></td>
-                            <td class="text-center"><button type="button" class="btn btn-light btn-sm saveOnDisposisi" data-id="' . $d_result[$i]['nip'] . '"><i class="fa fa-plus" style="margin-left: 5px;"></i></a></button></td>
+                            <td class="text-center"><button type="button" class="btn btn-light btn-sm saveOnDisposisi" data-id="' . $d_result[$i]['kode_struktur_organisasi'] . '"><i class="fa fa-plus" style="margin-left: 5px;"></i></a></button></td>
                         </tr>
                     ';
             }
@@ -1242,12 +1257,12 @@ class Surat extends CI_Controller
     }
     public function izinkansuratkeluar($param)
     {
-        $cek_user['agendaris']  = $this->M_Surat->checkStatusUser($this->session->userdata('sisule_cms_nip'))->result();
+        $cek_user['agendaris']  = $this->M_Surat->checkStatusUser($this->session->userdata('sisule_cms_satuan_kerja'))->result();
         $cek_user['atasan']     = $this->M_Surat->checkStatusSebagaiAtasan($param)->result();
         if ($cek_user > 0) {
             if ($cek_user['agendaris'][0]->agendaris == 1) {
                 $data = array(
-                    'izin_agendaris' => $this->session->userdata('sisule_cms_nip')
+                    'izin_agendaris' => $this->session->userdata('sisule_cms_satuan_kerja')
                 );
                 if ($this->M_Surat->izinkanSuratKeluar($param, $data) > 0) {
                     $this->message('success', 'Izin Surat Keluar telah diberikan.');
@@ -1256,9 +1271,9 @@ class Surat extends CI_Controller
                     $this->message('success', 'Izin Surat Keluar gagal diberikan.');
                     redirect($_SERVER['HTTP_REFERER']);
                 }
-            } elseif ($cek_user['atasan'][0]->atasan == $this->session->userdata('sisule_cms_nip')) {
+            } elseif ($cek_user['atasan'][0]->atasan == $this->session->userdata('sisule_cms_satuan_kerja')) {
                 $data = array(
-                    'izin_atasan' => $this->session->userdata('sisule_cms_nip')
+                    'izin_atasan' => $this->session->userdata('sisule_cms_satuan_kerja')
                 );
                 if ($this->M_Surat->izinkanSuratKeluar($param, $data) > 0) {
                     $this->message('success', 'Izin Surat Keluar telah diberikan.');
@@ -1274,7 +1289,7 @@ class Surat extends CI_Controller
     {
         $data['surat_keluar']       = $this->M_Surat->getSuratKeluar($param)->result();
         if ($data['surat_keluar'][0]->izin_agendaris != null && $data['surat_keluar'][0]->izin_atasan != null) {
-            if ($data['surat_keluar'][0]->pembuat == $this->session->userdata('sisule_cms_nip')) {
+            if ($data['surat_keluar'][0]->pembuat == $this->session->userdata('sisule_cms_satuan_kerja')) {
                 if ($this->M_Surat->CreateSuratMasuk($param) > 0) {
                     $this->message('success', 'Berhasil Mendistribusikan Surat Keluar');
                     redirect($_SERVER['HTTP_REFERER']);
@@ -1344,6 +1359,19 @@ class Surat extends CI_Controller
         $da_oktober      = $this->M_Surat->getStatistikDisposisiForPenerima('10')->result();
         $da_november     = $this->M_Surat->getStatistikDisposisiForPenerima('11')->result();
         $da_desember     = $this->M_Surat->getStatistikDisposisiForPenerima('12')->result();
+
+        $dag_januari      = $this->M_Surat->getStatistikDisposisiForAgendaris('01')->result();
+        $dag_februari     = $this->M_Surat->getStatistikDisposisiForAgendaris('02')->result();
+        $dag_maret        = $this->M_Surat->getStatistikDisposisiForAgendaris('03')->result();
+        $dag_april        = $this->M_Surat->getStatistikDisposisiForAgendaris('04')->result();
+        $dag_mei          = $this->M_Surat->getStatistikDisposisiForAgendaris('05')->result();
+        $dag_juni         = $this->M_Surat->getStatistikDisposisiForAgendaris('06')->result();
+        $dag_juli         = $this->M_Surat->getStatistikDisposisiForAgendaris('07')->result();
+        $dag_agustus      = $this->M_Surat->getStatistikDisposisiForAgendaris('08')->result();
+        $dag_september    = $this->M_Surat->getStatistikDisposisiForAgendaris('09')->result();
+        $dag_oktober      = $this->M_Surat->getStatistikDisposisiForAgendaris('10')->result();
+        $dag_november     = $this->M_Surat->getStatistikDisposisiForAgendaris('11')->result();
+        $dag_desember     = $this->M_Surat->getStatistikDisposisiForAgendaris('12')->result();
 
         $sp_januari      = $this->M_Surat->getStatistikSuratPerintahForPenerima('01')->result();
         $sp_februari     = $this->M_Surat->getStatistikSuratPerintahForPenerima('02')->result();
@@ -1490,9 +1518,19 @@ class Surat extends CI_Controller
         $nomor_surat = $this->security->xss_clean($_POST['no']);
         $penerima_surat = $this->security->xss_clean($_POST['penerima']);
         $data = array(
-            'nip' => $penerima_surat,
-            'agendaris_instansi' => $this->session->userdata('sisule_cms_nip')
+            'kode_struktur_organisasi' => $penerima_surat,
+            'agendaris_instansi' => $this->session->userdata('sisule_cms_satuan_kerja')
         );
         $this->M_Surat->forwardSuratMasuk($nomor_surat, $data);
+    }
+    public function getInfoSuratKeluar(){
+        $nomor_surat_keluar     = $this->security->xss_clean($_POST['nomor_surat']);
+        $data['surat_keluar']   = $this->M_Surat->getInfoSuratKeluar($nomor_surat_keluar)->result();
+        $data['penerima_surat'] = $this->M_Surat->getInfoPenerimaSuratKeluar($nomor_surat_keluar)->result();
+        if($data != null){
+            echo json_encode($data);
+        }else{
+            echo json_encode('data not found');
+        }
     }
 }

@@ -12,22 +12,21 @@ input {
         <form action="">
             <input type="hidden" name="nomor_agenda" class="agenda" value="<?= $info_file[0]->nomor_agenda; ?>">
             <div class="form-group">
-                <label for="no_nota" class="text-dark">Nomor Nota Dinas</label>
+                <label for="no_nota" class="text-dark">Nomor Nota Dinas <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" autocomplete="off" name="no_nota" value="<?php if ($info_file[0]->nota != null) {
                                                                                                         echo $info_file[0]->nota;
                                                                                                     } ?>">
             </div>
             <div class="form-group">
-                <label for="isi" class="text-dark">Laporan</label>
+                <label for="isi" class="text-dark">Laporan <span class="text-danger">*</span></label>
                 <textarea name="laporan" id="nota_dinas" class="form-control" name="laporan" rows="15"
-                    cols="40"><?php if ($info_file[0]->nota != null) {
-                                                                                                                        echo $nota_dinas[0]->laporan;
-                                                                                                                    } ?></textarea>
+                    cols="40"><?php if ($info_file[0]->nota != null) {echo $nota_dinas[0]->laporan;} ?></textarea>
             </div>
             <div class="form-group">
                 <label for="upload">Upload Berkas</label>
                 <div class="mb-3">
                     <input type="file" name="userfile[]" multiple="multiple">
+                    <small id="uploadHelp" class="form-text text-muted"><i>Lampiran harus berupa file gambar dengan extensi jpg, jpeg atau png, file dapat berisi lebih dari satu.</i></small>
                 </div>
             </div>
             <div class="form-group">
@@ -40,16 +39,14 @@ input {
                     <?php } ?>
                 </div>
             </div>
-            <label class="mb-2">Tembusan</label>
+            <label class="mb-2">Ditembuskan Ke :</label>
             <?php $i = 0;
-            foreach ($bidang as $key) { ?>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" value="<?= $key->nip; ?>"
-                    id="<?= $key->nama_bidang; ?>" name="tembusan[]">
-                <label class="custom-control-label text-capitalize text-dark" for="<?= $key->nama_bidang; ?>"
+            foreach ($penerima_tembusan as $key) { ?>
+            <div style="margin-left: 1px;">
+                <span class="text-uppercase text-dark" for="<?= $key->nama_bidang; ?>"
                     style="font-size: 12px;">
-                    <?= $key->nama_bidang; ?>
-                </label>
+                    <?= $key->nama_bidang; ?> - <?= $key->nama_instansi; ?>
+                </span>
             </div>
             <?php $i++;
             } ?>

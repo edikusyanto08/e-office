@@ -57,13 +57,14 @@ input {
             <div class="form-group">
                 <label for="tempat_pelaksanaan">Tempat Kegiatan <span class="text-danger">*</span></label>
                 <input type="text" name="tempat_pelaksanaan" id="tempat_pelaksanaan"
-                    class="form-control tempat_pelaksanaan" autocomplete="off" placeholder="Jln. Raya Ciamis ..."
+                    class="form-control tempat_pelaksanaan text-capitalize" autocomplete="off" placeholder="Jln. Raya Ciamis ..."
                     required>
             </div>
             <div class="form-group">
                 <label for="upload">Upload Surat <spane class="text-danger">*</spane></label>
                 <div class="mb-3">
                     <input type="file" name="userfile[]" multiple="multiple">
+                    <small id="uploadHelp" class="form-text text-muted"><i>Lampiran harus berupa file gambar dengan extensi jpg, jpeg atau png, file dapat berisi lebih dari satu.</i></small>
                 </div>
             </div>
             <div class="form-group">

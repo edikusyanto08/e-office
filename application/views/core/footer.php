@@ -15,5 +15,5 @@
     </ul>  -->
     <span class="ml-auto my-auto mr-2 font-weight-bold" style="font-size: 12px;">Copyright © Kabupaten Ciamis -
         <?= date('Y'); ?>
-        V.1.3</span>
+        V.1.4</span>
 </footer>

@@ -90,7 +90,7 @@
         <tr>
             <td class="table" valign="baseline">1.</td>
             <td class="table" valign="baseline">Pejabat Pembuat Komitmen</td>
-            <td class="table" valign="baseline"><?= $pembuat_spd[0]->nama; ?></td>
+            <td class="table" valign="baseline"><?= $sp[0]->nama_karyawan; ?></td>
         </tr>
         <tr>
             <td class="table" valign="baseline">2.</td>

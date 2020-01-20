@@ -68,7 +68,7 @@
                             <select class="custom-select custom-select-sm" id="tujuan" name="penerima_redisposisi">
                                 <option value="0">Pilih Disposisi</option>
                                 <?php foreach ($redisposisi as $obj) { ?>
-                                <option value="<?= $obj->nip; ?>"><?= $obj->nama; ?></option>
+                                <option value="<?= $obj->kode_struktur_organisasi; ?>"><?= $obj->nama; ?></option>
                                 <?php } ?>
                             </select>
                         </div>

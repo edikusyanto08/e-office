@@ -22,9 +22,9 @@
                                     style="font-size: 14px; color: rgb(90, 92, 105); ">
                                     <p class="font-weight-bold"
                                         style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
-                                        <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                        <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                         <?= $penerima_surat_masuk[$i]->nama ?>
-                                        <?php } elseif($surat->pembuat == $this->session->userdata('sisule_cms_nip') && $surat->agendaris == $this->session->userdata('sisule_cms_nip')) {
+                                        <?php } elseif($surat->pembuat == $this->session->userdata('sisule_cms_satuan_kerja') && $surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) {
                                                                             echo $penerima_surat_masuk[$i]->nama;
                                                                         }else{ echo $surat->nama; }?>
                                         | <span class="text-capitalize"><?= $surat->perihal; ?></span>
@@ -37,39 +37,49 @@
                                 <div class="mt-1">
                                     <div class="row" style="margin-left: 10px;">
                                     <div class="col-xs-9">
-                                        <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                        <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                             <?php if($surat->external == 0 && $surat->internal == 0 ){ ?>
                                                 <a href="<?= base_url('home/updatesuratmasuk/' . $surat->slug_surat); ?>"
                                                 class="btn btn-dark btn-sm font-weight-bold btn-custome" data-toggle="tooltip"
                                                 data-placement="top" title="Perbaharui" style="font-size: 12px;">Edit</a>
                                             <?php } ?>
                                     <?php } else { ?>
-                                        <?php if($surat->agendaris != $this->session->userdata('sisule_cms_nip') && $penerima_surat_masuk[$i]->nip == $this->session->userdata('sisule_cms_nip') && $surat->keterangan_pembuatan == '0') { ?>
+                                        <?php if($surat->agendaris_surat != $this->session->userdata('sisule_cms_satuan_kerja') && $penerima_surat_masuk[$i]->kode_struktur_organisasi == $this->session->userdata('sisule_cms_satuan_kerja') && $surat->keterangan_pembuatan == '0') { ?>
                                         <a href="#" class="btn btn-primary btn-sm disposisiSurat font-weight-bold  btn-custome"
                                             data-toggle="modal" data-target=".surat-disposisi" data-toggle="tooltip"
                                             data-placement="top" title="Disposisi"
                                             data-id="<?= $surat->nomor_surat; ?>">Disposisi</a>
                                         <?php }else{ ?>
-                                            <?php if($surat->agendaris_instansi == $this->session->userdata('sisule_cms_nip')){ ?>
-                                                <a href="#" class="btn btn-primary btn-sm preview font-weight-bold btn-custome"
-                                                data-toggle="modal" data-target=".surat-teruskan" data-toggle="tooltip"
-                                                data-placement="top" title="Forward"
-                                                data-id="<?= $surat->nomor_surat; ?>">Teruskan</a>
-                                            <?php }else{ ?>
-                                            <a href="#" class="btn btn-primary btn-sm disposisiSurat font-weight-bold  btn-custome"
+                                        <?php if($surat->agendaris_instansi != $this->session->userdata('sisule_cms_satuan_kerja')){ ?>
+                                                <a href="#" class="btn btn-primary btn-sm disposisiSurat font-weight-bold  btn-custome"
                                                 data-toggle="modal" data-target=".surat-disposisi" data-toggle="tooltip"
                                                 data-placement="top" title="Disposisi"
                                                 data-id="<?= $surat->nomor_surat; ?>">Disposisi</a>
+                                            <?php }else{ ?>
+                                            <a href="#" class="btn btn-primary btn-sm preview font-weight-bold btn-custome"
+                                                data-toggle="modal" data-target=".surat-teruskan" data-toggle="tooltip"
+                                                data-placement="top" title="Forward"
+                                                data-id="<?= $surat->nomor_surat; ?>">Teruskan</a>
                                             <?php } ?>
                                         <?php } ?>
                                     <?php } ?>
+                                    <?php if($surat->keterangan_pembuatan == '1') { ?>
+                                    <a href="<?= site_url('Surat/getFileSuratMasuk/' . $surat->slug_surat); ?>"
+                                        class="btn btn-sm btn-light font-weight-bold btn-custome" target="_blank"
+                                        data-toggle="tooltip" data-placement="top" title="Download">
+                                        Unduh</a>
+                                        </div>  
+                                    <?php } elseif($surat->keterangan_pembuatan == '0') { ?>
                                     <a href="<?= site_url('Surat/getFileSuratMasuk/' . $surat->slug_surat); ?>"
                                         class="btn btn-sm btn-light font-weight-bold btn-custome" target="_blank"
                                         data-toggle="tooltip" data-placement="top" title="Download">
                                         Unduh</a>
                                         </div>
+                                    <?php } else{ ?>
+
+                                    <?php } ?>
                                         <div class="col-xs-2">
-                                        <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                        <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                             <?php if($surat->external == 0 && $surat->internal == 0 ){ ?>
                                             <a href="<?= base_url('Surat/deleteSuratMasukSementara/' . $surat->slug_surat); ?>"
                                         class="btn btn-default btn-sm font-weight-bold text-danger btn-custome" data-toggle="tooltip"
@@ -93,9 +103,9 @@
                                     <p class="font-weight-bold"
                                         style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
                                         <!-- pembuat -->
-                                        <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
-                                        <?= $penerima_surat_masuk[$i]->nama ?>
-                                        <?php } elseif($surat->pembuat == $this->session->userdata('sisule_cms_nip') && $surat->agendaris == $this->session->userdata('sisule_cms_nip')) {
+                                        <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
+                                        <?= $penerima_surat_masuk[$i]->nama; ?>
+                                        <?php } elseif($surat->pembuat == $this->session->userdata('sisule_cms_satuan_kerja') && $surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) {
                                                                             echo $penerima_surat_masuk[$i]->nama;
                                                                         }else{ echo $surat->nama; }?>
                                         <!-- nomor & perihal surat -->
@@ -109,29 +119,29 @@
                                 <div class="mt-1">
                                 <div class="row" style="margin-left: 10px;">
                                         <div class="col-xs-9">
-                                        <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                        <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                             <?php if($surat->external == 0 && $surat->internal == 0 ){ ?>
                                                 <a href="<?= base_url('home/updatesuratmasuk/' . $surat->slug_surat); ?>"
                                                 class="btn btn-dark btn-sm font-weight-bold  btn-custome" data-toggle="tooltip"
                                                 data-placement="top" title="Perbaharui" style="font-size: 12px;">Edit</a>
                                             <?php } ?>
                                     <?php } else { ?>
-                                        <?php if($surat->agendaris != $this->session->userdata('sisule_cms_nip') && $penerima_surat_masuk[$i]->nip == $this->session->userdata('sisule_cms_nip') && $surat->keterangan_pembuatan == '0') { ?>
+                                        <?php if($surat->agendaris_surat != $this->session->userdata('sisule_cms_satuan_kerja') && $penerima_surat_masuk[$i]->kode_struktur_organisasi == $this->session->userdata('sisule_cms_satuan_kerja') && $surat->keterangan_pembuatan == '0') { ?>
                                         <a href="#" class="btn btn-primary btn-sm disposisiSurat font-weight-bold  btn-custome"
                                             data-toggle="modal" data-target=".surat-disposisi" data-toggle="tooltip"
                                             data-placement="top" title="Disposisi"
                                             data-id="<?= $surat->nomor_surat; ?>">Disposisi</a>
                                         <?php }else{ ?>
-                                            <?php if($surat->agendaris_instansi == $this->session->userdata('sisule_cms_nip')){ ?>
-                                                <a href="#" class="btn btn-primary btn-sm preview font-weight-bold btn-custome"
-                                                data-toggle="modal" data-target=".surat-teruskan" data-toggle="tooltip"
-                                                data-placement="top" title="Forward"
-                                                data-id="<?= $surat->nomor_surat; ?>">Teruskan</a>
-                                            <?php }else{ ?>
-                                            <a href="#" class="btn btn-primary btn-sm disposisiSurat font-weight-bold  btn-custome"
+                                            <?php if($surat->agendaris_instansi != $this->session->userdata('sisule_cms_satuan_kerja')){ ?>
+                                                <a href="#" class="btn btn-primary btn-sm disposisiSurat font-weight-bold  btn-custome"
                                                 data-toggle="modal" data-target=".surat-disposisi" data-toggle="tooltip"
                                                 data-placement="top" title="Disposisi"
                                                 data-id="<?= $surat->nomor_surat; ?>">Disposisi</a>
+                                            <?php }else{ ?>
+                                            <a href="#" class="btn btn-primary btn-sm preview font-weight-bold btn-custome"
+                                                data-toggle="modal" data-target=".surat-teruskan" data-toggle="tooltip"
+                                                data-placement="top" title="Forward"
+                                                data-id="<?= $surat->nomor_surat; ?>">Teruskan</a>
                                             <?php } ?>
                                         <?php } ?>
                                     <?php } ?>
@@ -141,7 +151,7 @@
                                         Unduh</a>
                                         </div>
                                         <div class="col-xs-2">
-                                        <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                        <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                             <?php if($surat->external == 0 && $surat->internal == 0 ){ ?>
                                             <a href="<?= base_url('Surat/deleteSuratMasukSementara/' . $surat->slug_surat); ?>"
                                         class="btn btn-default btn-sm font-weight-bold text-danger  btn-custome" data-toggle="tooltip"
@@ -168,9 +178,9 @@
                                 <p class="font-weight-bold"
                                     style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
                                     <!-- pembuat -->
-                                    <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                    <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                     <?= $penerima_surat_masuk[$i]->nama ?>
-                                    <?php } elseif($surat->pembuat == $this->session->userdata('sisule_cms_nip') && $surat->agendaris == $this->session->userdata('sisule_cms_nip')) {
+                                    <?php } elseif($surat->pembuat == $this->session->userdata('sisule_cms_satuan_kerja') && $surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) {
                                                                         echo $penerima_surat_masuk[$i]->nama;
                                                                     }else{ echo $surat->nama; }?>
                                     | <span class="text-capitalize"><?= $surat->perihal; ?></span>
@@ -183,8 +193,8 @@
                             <div class="mt-1">
                             <div class="row"  style="margin-left: 10px;">
                             <div class="col-xs-9">
-                                    <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
-                                         <?php if($surat->external == 0 && $surat->internal == 0 ){ ?>
+                                    <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
+                                        <?php if($surat->external == 0 && $surat->internal == 0 ){ ?>
                                             <a href="<?= base_url('home/updatesuratmasuk/' . $surat->slug_surat); ?>"
                                             class="btn btn-dark btn-sm font-weight-bold  btn-custome" data-toggle="tooltip"
                                             data-placement="top" title="Perbaharui" style="font-size: 12px;">Edit</a>
@@ -201,7 +211,7 @@
                                     Unduh</a>
                                     </div>
                                     <div class="col-xs-2">
-                                    <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                    <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                          <?php if($surat->external == 0 && $surat->internal == 0 ){ ?>
                                         <a href="<?= base_url('Surat/deleteSuratMasukSementara/' . $surat->slug_surat); ?>"
                                     class="btn btn-default btn-sm font-weight-bold text-danger  btn-custome" data-toggle="tooltip"
@@ -225,9 +235,9 @@
                                 <p class="font-weight-bold"
                                     style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
                                 <!-- pembuat -->
-                                <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                     <?= $penerima_surat_masuk[$i]->nama ?>
-                                    <?php } elseif($surat->pembuat == $this->session->userdata('sisule_cms_nip') && $surat->agendaris == $this->session->userdata('sisule_cms_nip')) {
+                                    <?php } elseif($surat->pembuat == $this->session->userdata('sisule_cms_satuan_kerja') && $surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) {
                                                                         echo $penerima_surat_masuk[$i]->nama;
                                                                     }else{ echo $surat->nama; }?>
                                     | <span class="text-capitalize"><?= $surat->perihal; ?></span>
@@ -240,7 +250,7 @@
                             <div class="mt-1" >
                             <div class="row" style="margin-left: 10px;">
                             <div class="col-xs-9">
-                                    <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                    <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                          <?php if($surat->external == 0 && $surat->internal == 0 ){ ?>
                                             <a href="<?= base_url('home/updatesuratmasuk/' . $surat->slug_surat); ?>"
                                             class="btn btn-dark btn-sm font-weight-bold  btn-custome" data-toggle="tooltip"
@@ -258,7 +268,7 @@
                                     Unduh</a>
                                     </div>
                                     <div class="col-xs-2">
-                                    <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                    <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                          <?php if($surat->external == 0 && $surat->internal == 0 ){ ?>
                                         <a href="<?= base_url('Surat/deleteSuratMasukSementara/' . $surat->slug_surat); ?>"
                                     class="btn btn-default btn-sm font-weight-bold text-danger  btn-custome" data-toggle="tooltip"
@@ -285,9 +295,9 @@
                                 <p class="font-weight-bold"
                                     style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
                                 <!-- pembuat -->
-                                <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                     <?= $penerima_surat_masuk[$i]->nama ?>
-                                    <?php } elseif($surat->pembuat == $this->session->userdata('sisule_cms_nip') && $surat->agendaris == $this->session->userdata('sisule_cms_nip')) {
+                                    <?php } elseif($surat->pembuat == $this->session->userdata('sisule_cms_satuan_kerja') && $surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) {
                                                                         echo $penerima_surat_masuk[$i]->nama;
                                                                     }else{ echo $surat->nama; }?>
                                     | <span class="text-capitalize"><?= $surat->perihal; ?></span>
@@ -300,7 +310,7 @@
                             <div class="mt-1">
                             <div class="row"  style="margin-left: 10px;">
                             <div class="col-xs-9">
-                                    <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                    <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                          <?php if($surat->external == 0 && $surat->internal == 0 ){ ?>
                                             <a href="<?= base_url('home/updatesuratmasuk/' . $surat->slug_surat); ?>"
                                             class="btn btn-dark btn-sm font-weight-bold  btn-custome" data-toggle="tooltip"
@@ -318,7 +328,7 @@
                                     Unduh</a>
                                     </div>
                                     <div class="col-xs-2">
-                                    <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                    <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                          <?php if($surat->external == 0 && $surat->internal == 0 ){ ?>
                                         <a href="<?= base_url('Surat/deleteSuratMasukSementara/' . $surat->slug_surat); ?>"
                                     class="btn btn-default btn-sm font-weight-bold text-danger  btn-custome" data-toggle="tooltip"
@@ -342,9 +352,9 @@
                                 <p class="font-weight-bold "
                                     style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
                                     <!-- pembuat -->
-                                    <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                    <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                     <?= $penerima_surat_masuk[$i]->nama ?>
-                                    <?php } elseif($surat->pembuat == $this->session->userdata('sisule_cms_nip') && $surat->agendaris == $this->session->userdata('sisule_cms_nip')) {
+                                    <?php } elseif($surat->pembuat == $this->session->userdata('sisule_cms_satuan_kerja') && $surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) {
                                                                         echo $penerima_surat_masuk[$i]->nama;
                                                                     }else{ echo $surat->nama; }?>
                                     | <span class="text-capitalize"><?= $surat->perihal; ?></span>
@@ -357,7 +367,7 @@
                             <div class="mt-1">
                             <div class="row" style="margin-left: 10px;">
                             <div class="col-xs-9">
-                                    <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                    <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                         <?php if($surat->external == 0 && $surat->internal == 0 ){ ?>
                                             <a href="<?= base_url('home/updatesuratmasuk/' . $surat->slug_surat); ?>"
                                             class="btn btn-dark btn-sm font-weight-bold btn-custome" data-toggle="tooltip"
@@ -375,7 +385,7 @@
                                     Unduh</a>
                                     </div>
                                     <div class="col-xs-2">
-                                    <?php if ($surat->agendaris == $this->session->userdata('sisule_cms_nip')) { ?>
+                                    <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                                          <?php if($surat->external == 0 && $surat->internal == 0 ){ ?>
                                         <a href="<?= base_url('Surat/deleteSuratMasukSementara/' . $surat->slug_surat); ?>"
                                     class="btn btn-default btn-sm font-weight-bold text-danger  btn-custome" data-toggle="tooltip"

@@ -74,7 +74,6 @@
                         "title": 'Dinas Komunikasi & Informatika Provinsi Jawa Barat',
                         "start": '2019-10-30', //yyyy-mm-dd
                         "end": '2019-10-30'
-
                     }]
                 });
                 calendar.render();

@@ -20,66 +20,24 @@
             <table class="table table-borderless">
                 <?php $i = 0;
                         foreach ($suratkeluar as $key) { ?>
-                <?php if ($key->pembuat == $this->session->userdata('sisule_cms_nip')) { ?>
+                <?php if ($key->pembuat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                 <tr>
-                    <td class="border-left-primary" style="font-size: 14px;">
-                        <span class="font-weight-bold">
-                            <?= $key->nama; ?>
-                        </span> -
-                        <span class="text-capitalize text-primary">
-                            <?= $key->nama_instansi; ?>
-                        </span>
-                        <br>
-                        <?= $key->nomor_surat_keluar; ?> - <?= $key->perihal; ?>
+                    <td style="font-size: 14px;">
+                        <div class="border-left-primary">
+                            <div style="margin-left: 10px;">
+                                <span class="text-capitalize font-weight-bold text-primary">
+                                    <?= $key->nama_instansi; ?> - <?= $key->nomor_surat_keluar; ?>
+                                </span>
+                            </div>
+                            <div class="text-capitalize" style="margin-left: 10px;">
+                                <?= $key->perihal; ?>
+                            </div>
+                        </div>
                     </td>
                     <td class="text-right">
-                        <a href="<?= base_url('home/prosessuratkeluar/' . $key->slug_surat); ?>"
-                            class="btn btn-sm btn-primary font-weight-bold">Lihat</a>
-                        <?php if ($pembuatsurat[$i]->pembuat == $this->session->userdata('sisule_cms_nip')) { ?>
-                        <a href="<?= base_url('surat/hapussuratkeluar/' . $key->slug_surat); ?>"
-                            class="btn btn-sm btn-light font-weight-bold"
-                            onclick="javascript: return confirm('Anda yakin hapus ?')">Hapus</a>
-                        <?php } ?>
-                    </td>
-                </tr>
-                <?php } elseif ($agendaris != null) { ?>
-                <tr>
-                    <td class="border-left-default" style="font-size: 14px;">
-                        <span class="font-weight-bold">
-                            <?= $pembuatsurat[$i]->nama; ?>
-                        </span> -
-                        <span class="text-capitalize text-primary">
-                            <?= $pembuatsurat[$i]->nama_instansi; ?>
-                        </span>
-                        <br>
-                        <?= $key->nomor_surat_keluar; ?> - <?= $key->perihal; ?>
-                    </td>
-                    <td class="text-right">
-                        <a href="<?= base_url('home/prosessuratkeluar/' . $key->slug_surat); ?>"
-                            class="btn btn-sm btn-primary font-weight-bold">Lihat</a>
-                        <?php if ($pembuatsurat[$i]->pembuat == $this->session->userdata('sisule_cms_nip')) { ?>
-                        <a href="<?= base_url('surat/hapussuratkeluar/' . $key->slug_surat); ?>"
-                            class="btn btn-sm btn-light font-weight-bold"
-                            onclick="javascript: return confirm('Anda yakin hapus ?')">Hapus</a>
-                        <?php } ?>
-                    </td>
-                </tr>
-                <?php } elseif ($key->pembuat != $this->session->userdata('sisule_cms_nip') && $atasan[$i]->atasan == $this->session->userdata('sisule_cms_nip')) { ?>
-                <tr>
-                    <td class="border-left-default" style="font-size: 14px;">
-                        <span class="font-weight-bold">
-                            <?= $pembuatsurat[$i]->nama; ?>
-                        </span> -
-                        <span class="text-capitalize text-primary">
-                            <?= $pembuatsurat[$i]->nama_instansi; ?>
-                        </span>
-                        <br>
-                        <?= $key->nomor_surat_keluar; ?> - <?= $key->perihal; ?>
-                    </td>
-                    <td class="text-right">
-                        <a href="<?= base_url('home/prosessuratkeluar/' . $key->slug_surat); ?>"
-                            class="btn btn-sm btn-primary font-weight-bold">Lihat</a>
-                        <?php if ($pembuatsurat[$i]->pembuat == $this->session->userdata('sisule_cms_nip')) { ?>
+                        <a href="#"
+                            class="btn btn-sm btn-primary font-weight-bold lihatDetailSuratKeluar" data-id="<?= $key->nomor_surat_keluar; ?>" data-toggle="modal" data-target=".surat-keluar" data-toggle="tooltip" data-placement="top" title="Forward">Lihat</a>
+                        <?php if ($pembuatsurat[$i]->pembuat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
                         <a href="<?= base_url('surat/hapussuratkeluar/' . $key->slug_surat); ?>"
                             class="btn btn-sm btn-light font-weight-bold"
                             onclick="javascript: return confirm('Anda yakin hapus ?')">Hapus</a>

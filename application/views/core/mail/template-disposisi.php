@@ -131,8 +131,8 @@
                         Paraf dan Tanggal
                     </p><br><br><br>
                     <p align="center">
-                        <?= $penugas[0]->nama; ?> / <br>
-                        <span style="text-transform: capitalize;"> <?= $bidang[0]->nama_bidang; ?> </span>
+                        <?= $disposisi[0]->nama_karyawan; ?> / <br>
+                        <span style="text-transform: capitalize;"> <?= $disposisi[0]->jabatan_karyawan; ?> </span>
                     </p>
                 </div>
             </td>

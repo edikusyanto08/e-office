@@ -496,8 +496,6 @@ $('.hapussuratmasuk').on('click', function () {
 $('.sendTerusanSuratMasuk').on('click', function(){
 	let pnm = $('#penerima_surat').val();
 	let ns = $('#no_surat').text();
-	console.log(pnm);
-	console.log(ns);
 	let timerInterval
 	Swal.fire({
 		title: 'Status!',
@@ -536,5 +534,40 @@ $('.sendTerusanSuratMasuk').on('click', function(){
 				});
 			}
 		});
+	});
+});
+
+$('.lihatDetailSuratKeluar').on('click', function(){
+	let nomor_surat = $(this).data('id');
+	$('.info_no_surat').html("");
+	$('.info_waktu_surat_masuk').html("");
+	$('.info_asal_surat').html("");
+	$('.info_perihal').html("");
+	$('.info_tempat').html("");
+	$('.info_pelaksanaan').html("");
+	$('.penerima_surat').html("");
+	$.ajax({
+		url: base_url_surat + "Surat/getInfoSuratKeluar",
+		data: {
+			nomor_surat: nomor_surat
+		},
+		method: 'post',
+		dataType: 'json',
+		success: function (data) {
+			$('.info_no_surat').html(data.surat_keluar[0].nomor_surat_keluar);
+			$('.info_waktu_surat_masuk').html(data.surat_keluar[0].tanggal);
+			$('.info_asal_surat').html(data.surat_keluar[0].asal_surat);
+			$('.info_perihal').html(data.surat_keluar[0].perihal);
+			$('.info_tempat').html(data.surat_keluar[0].tempat);
+			$('.info_pelaksanaan').html(data.surat_keluar[0].mulai_kegiatan);
+			$.each(data.penerima_surat, function (index, element) {
+				$('.penerima_surat').append($('<div>', {
+					text: element.nama_instansi + ", "
+				}));
+			});
+		},
+		error: function () {
+			console.log("failed data request");
+		}
 	});
 });

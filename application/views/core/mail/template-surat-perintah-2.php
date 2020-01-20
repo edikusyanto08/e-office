@@ -35,7 +35,7 @@
             <td></td>
             <td align="center">
                 <p class="l" style="font-size: 13px; ">
-                    Email : <a href="#" style="margin-top: -10px;"><i> <?= $pembuat_sp[0]->email; ?></i></a>
+                    Email : <a href="#" style="margin-top: -10px;"><i> <?= $instansi[0]->email; ?></i></a>
                 </p>
             </td>
         </tr>
@@ -164,8 +164,8 @@
         <tr>
             <td style="text-align: center; line-height: 20px;">
                 <p style="text-transform: uppercase;">
-                    <?= $pembuat_sp[0]->nama_bidang; ?> <br>
-                    <?= $pembuat_sp[0]->nama_instansi; ?>
+                    <?= $sp[0]->jabatan_karyawan; ?> <br>
+                    <?= $sp[0]->nama_instansi; ?>
                 </p>
             </td>
         </tr>
@@ -174,9 +174,9 @@
         <tr>
             <td style="text-align: center; line-height: 20px;">
                 <p style="text-transform: uppercase;">
-                    <p style="font-weight: bold; text-decoration: underline;"><?= $pembuat_sp[0]->nama; ?></p>
-                    <p><?= $pembuat_sp[0]->nama_bidang; ?>, <?= $pembuat_sp[0]->golongan; ?></p>
-                    <p>NIP. <?= $pembuat_sp[0]->nip; ?></p>
+                    <p style="font-weight: bold; text-decoration: underline;"><?= $sp[0]->nama_karyawan; ?></p>
+                    <p><?= $sp[0]->jabatan_karyawan; ?>, <?= $sp[0]->golongan_karyawan; ?></p>
+                    <p>NIP. <?= $sp[0]->nip_karyawan; ?></p>
                 </p>
             </td>
         </tr>
