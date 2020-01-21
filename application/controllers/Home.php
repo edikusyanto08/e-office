@@ -199,10 +199,12 @@ class Home extends CI_Controller
             $data['redisposisi']        = $this->M_Home->cariPenerimaDisposisi()->result();
         } else {
             $data['disposisi']          = null;
+            $data['alldisposisi']          = null;
             $data['penerima_disposisi'] = null;
             $data['pembuat_disposisi']  = null;
             $data['max']                = null;
             $data['redisposisi']        = null;
+            $data['getStatusPenerimaSuratDisposisi'] = null;
         }
 
         $this->load->view('core/loaders-css');
