@@ -90,6 +90,10 @@ class Welcome extends CI_Controller
                     $session_login = $this->M_Welcome->writeSessionLogin($check[0]->nip)->result(); //ok
                     if (count($session_login) > 0) {
                         $satuan_kerja = $this->M_Welcome->checkagendaris($check[0]->nip)->result();
+                        if($satuan_kerja == null){
+                            $satuan_kerja[0]->agendaris = 0;
+                            $satuan_kerja[0]->kode_struktur_organisasi = 0;
+                        }
                         $data_session = array(
                             'sisule_cms_user_id'        => $check[0]->user_id,
                             'sisule_cms_username'       => $check[0]->username,
