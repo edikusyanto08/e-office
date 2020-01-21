@@ -96,6 +96,13 @@ class M_Bidang extends  CI_Model
     }
     public function updatePejabatBidang($id)
     {
+        // get koordinator sebelumnya 
+        $koordinator_lama = null
+        $k_lama = $this->db->get_where('tbl_bidang', array('id' => $id))->result();
+        if($k_lama != null){
+            $koordinator_lama = $k_lama[0]->kode_struktur_organisasi;
+        }
+
         $agendaris          = $this->input->post('agendaris');
         $pimpinan           = $this->input->post('pimpinan');
         $koordinator_baru   = $this->input->post('koordinator');
@@ -104,7 +111,11 @@ class M_Bidang extends  CI_Model
 
         // get kode bidang
         $ko_bid_1 = null;
-        $this->db->where('tbl_bidang.kode_struktur_organisasi', $atasan);
+        if($atasan == 0){
+            $this->db->where('tbl_bidang.kode_struktur_organisasi', $koordinator_lama);
+        }else{
+            $this->db->where('tbl_bidang.kode_struktur_organisasi', $atasan);
+        }
         $this->db->order_by('tbl_bidang.id', 'desc');
         $ko_bid = $this->db->get('tbl_bidang', 1)->result();
         if($ko_bid != null){
@@ -145,10 +156,7 @@ class M_Bidang extends  CI_Model
                 $kode_bidang = $this->db->get('tbl_bidang')->result();
                 $kode_bidang = $kode_bidang[0]->kode_bidang;
             }
-            // $kode_bidang_atasan = $this->db->get_where('tbl_bidang', array('kode_struktur_organisasi' => $atasan))->result();
-            // if ($kode_bidang_atasan != 0) {
-            //     $kba = $kode_bidang_atasan[0]->kode_struktur_organisasi;
-            // }
+            
         } else {
             $someone = 0;
             $kode_bidang = 0 . 1;

@@ -89,10 +89,12 @@ class Welcome extends CI_Controller
                     $this->M_Welcome->resetSession($check[0]->nip);
                     $session_login = $this->M_Welcome->writeSessionLogin($check[0]->nip)->result(); //ok
                     if (count($session_login) > 0) {
+                        $sk_agendaris = null;
+                        $sk_kode_struktur_organisasi = null;
                         $satuan_kerja = $this->M_Welcome->checkagendaris($check[0]->nip)->result();
-                        if($satuan_kerja == null){
-                            $satuan_kerja[0]->agendaris = 0;
-                            $satuan_kerja[0]->kode_struktur_organisasi = 0;
+                        if($satuan_kerja != null){
+                            $sk_agendaris = $satuan_kerja[0]->agendaris;
+                            $sk_kode_struktur_organisasi = $satuan_kerja[0]->kode_struktur_organisasi;
                         }
                         $data_session = array(
                             'sisule_cms_user_id'        => $check[0]->user_id,
@@ -102,8 +104,8 @@ class Welcome extends CI_Controller
                             'sisule_cms_session_id'     => $session_login[0]->nomor_session,
                             'sisule_cms_nip'            => $check[0]->nip,
                             'sisule_cms_instansi'       => $check[0]->id_instansi,
-                            'sisule_cms_agendaris'      => $satuan_kerja[0]->agendaris,
-                            'sisule_cms_satuan_kerja'   => $satuan_kerja[0]->kode_struktur_organisasi
+                            'sisule_cms_agendaris'      => $sk_agendaris,
+                            'sisule_cms_satuan_kerja'   => $sk_kode_struktur_organisasi
                         );
                         $this->session->set_userdata($data_session);
                         if (($this->session->userdata('sisule_cms_hak') == 'superadmin') || ($this->session->userdata('sisule_cms_hak') == 'sekretariat') ||
