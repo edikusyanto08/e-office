@@ -167,7 +167,7 @@ class M_Home extends CI_Model
         $this->db->join('tbl_disposisi', 'tbl_disposisi.nomor_agenda = tbl_nota_dinas.nomor_agenda');
         $this->db->join('tbl_detail_penerima_disposisi', 'tbl_detail_penerima_disposisi.penerima = tbl_disposisi.penerima');
         $this->db->join('tbl_bidang', 'tbl_bidang.kode_struktur_organisasi = tbl_nota_dinas.penerima_nota', 'tbl_bidang.kode_struktur_organisasi = tbl_detail_tembusan.penerima_tembusan');
-        $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_bidang_nip');
+        $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_bidang.nip');
         $this->db->join('tbl_surat_masuk', 'tbl_surat_masuk.nomor_surat = tbl_disposisi.nomor_surat');
         $this->db->order_by('tbl_detail_tembusan.id', 'DESC');
         $this->db->group_by('tbl_detail_tembusan.tembusan');
@@ -524,7 +524,7 @@ class M_Home extends CI_Model
         $this->db->join('tbl_detail_tembusan', 'tbl_detail_tembusan.tembusan = tbl_nota_dinas.tembusan');
         $this->db->join('tbl_disposisi', 'tbl_disposisi.nomor_agenda = tbl_nota_dinas.nomor_agenda');
         $this->db->join('tbl_detail_penerima_disposisi', 'tbl_detail_penerima_disposisi.penerima = tbl_disposisi.penerima');
-        $this->db->join('tbl_bidang', 'tbl_bidang.kode_struktur_organisasi = tbl_karyawan.kode_struktur_organisasi');
+        $this->db->join('tbl_bidang', 'tbl_bidang.kode_struktur_organisasi = tbl_detail_penerima_disposisi.kode_struktur_organisasi');
         $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_bidang.nip');
         $this->db->join('tbl_surat_masuk', 'tbl_surat_masuk.nomor_surat = tbl_disposisi.nomor_surat');
         $this->db->order_by('tbl_detail_tembusan.id', 'DESC');

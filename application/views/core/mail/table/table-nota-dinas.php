@@ -14,7 +14,7 @@
                 <td>
                     <div class="border-left-success">
                         <p style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
-                            <span class="font-weight-bold"><?= $key->nama; ?> |
+                            <span class="font-weight-bold"><?= $key->nama_bidang; ?> |
                                 <?= $key->nomor_nota_dinas; ?></span>
                             <br>
                             <span class="text-capitalize" style="font-size: 12px;"><?= $key->tanggal; ?> |
@@ -37,7 +37,7 @@
                 <td>
                     <div class="border-left-success">
                         <p style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
-                            <span class="font-weight-bold"> <?= $key->nama; ?> |
+                            <span class="font-weight-bold"> <?= $key->nama_bidang; ?> |
                                 <?= $key->nomor_nota_dinas; ?>
                             </span> <br>
                             <span class="text-capitalize" style="font-size: 12px;"> <?= $key->tanggal; ?> |
@@ -62,7 +62,7 @@
                     <div class="border-left-success">
                         <p style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
                             <span class="font-weight-bold">
-                                <?= $penulisNotaDinas[$i]->nama; ?> |
+                                <?= $penulisNotaDinas[$i]->nama_bidang; ?> |
                                 <?= $key->nomor_nota_dinas; ?>
                             </span> <br>
                             <span class="text-capitalize" style="font-size: 12px;"><?= $key->tanggal; ?> |
@@ -86,7 +86,7 @@
                     <div class="border-left-success">
                         <p style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
                             <span class="font-weight-bold">
-                                <?= $penulisNotaDinas[$i]->nama; ?> |
+                                <?= $penulisNotaDinas[$i]->nama_bidang; ?> |
                                 <?= $key->nomor_nota_dinas; ?>
                             </span> <br>
                             <span class="text-capitalize" style="font-size: 12px;"><?= $key->tanggal; ?> |

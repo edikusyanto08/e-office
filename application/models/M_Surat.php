@@ -680,16 +680,17 @@ class M_Surat extends CI_Model
 
     public function createSuratPerintah($param)
     {
-        $this->db->select('nomor_agenda');
-        $this->db->order_by('nomor_agenda', 'desc');
-        $nomor_agenda   = $this->db->get('tbl_disposisi', 1)->result();
+        $this->db->where('tbl_bidang.kode_struktur_organisasi', $this->session->userdata('sisule_cms_satuan_kerja'));
+        $this->db->join('tbl_bidang', 'tbl_bidang.kode_struktur_organisasi = tbl_disposisi.agendaris_surat');
+        $this->db->order_by('tbl_disposisi.id', 'desc');
+        $nomor_agenda   = $this->db->get('tbl_disposisi')->result();
         if ($nomor_agenda != null) {
-            $nomor_agenda   = $nomor_agenda[0]->nomor_agenda;
+            $no_agenda      = $nomor_agenda[0]->nomor_agenda;
         }
         $agendaris      = $this->session->userdata('sisule_cms_satuan_kerja');
         $tanggal        = date('m/d/Y');
         $data = array(
-            'nomor_agenda'      => $this->session->userdata('sisule_cms_instansi') . "-" . (substr($nomor_agenda, 4) + 1),
+            'nomor_agenda'      => $this->session->userdata('sisule_cms_instansi') . "-" . (substr($no_agenda, 4) + 1),
             'tanggal_agenda'    => $tanggal,
             'agendaris_surat'         => $agendaris
         );
@@ -714,15 +715,15 @@ class M_Surat extends CI_Model
         }
 
         $kba = 0;
-        $kode_bidang_atasan = $this->db->get_where('tbl_bidang', array('nip' => $atasan))->result();
+        $kode_bidang_atasan = $this->db->get_where('tbl_bidang', array('kode_struktur_organisasi' => $atasan))->result();
         if ($kode_bidang_atasan != 0) {
             $kba = $kode_bidang_atasan[0]->kode_struktur_organisasi;
         }
         $nama_karyawan = null;
         $jabatan_karyawan = null;
         $golongan_karyawan = null;
-        $this->db->join('tbl_bidang', 'tbl_bidang.nip = tbl_karyawan.nip');
-        $karyawan = $this->db->get_where('tbl_karyawan', array('tbl_karyawan.nip' => $atasan))->result();
+        $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_bidang.nip');
+        $karyawan = $this->db->get_where('tbl_bidang', array('tbl_bidang.kode_struktur_organisasi' => $atasan))->result();
         if($karyawan != null){
             $nama_karyawan = $karyawan[0]->nama;
             $jabatan_karyawan = $karyawan[0]->nama_bidang;
@@ -741,14 +742,14 @@ class M_Surat extends CI_Model
             'nama_karyawan'     => $nama_karyawan,
             'jabatan_karyawan'  => $jabatan_karyawan,
             'golongan_karyawan' => $golongan_karyawan,
-            'nip_karyawan'      => $this->session->userdata('sisule_cms_satuan_kerja')
+            'nip_karyawan'      => $this->session->userdata('sisule_cms_nip')
         );
         $penerima_disposisi = $this->db->get_where('tbl_tracking', array('slug_tracking' => $param, 'kode_kegiatan' => '2'))->result();
         for ($i = 0; $i < count($penerima_disposisi); $i++) {
             $tracking2 = array(
                 'kode_kegiatan'  => '4',
                 'kegiatan' => 'surat disposisi dan surat perintah telah dibuat oleh dinas dan diserahkan ke',
-                'kode_struktur_organisasi' => $penerima_disposisi[$i]->nip,
+                'kode_struktur_organisasi' => $penerima_disposisi[$i]->kode_struktur_organisasi,
                 'nomor_surat' => $nomor_surat[0]->nomor_surat,
                 'slug_tracking' => $param
             );
@@ -762,9 +763,8 @@ class M_Surat extends CI_Model
     {
         $this->db->where('tbl_bidang.kode_struktur_organisasi', $this->session->userdata('sisule_cms_satuan_kerja'));
         $this->db->join('tbl_bidang', 'tbl_bidang.kode_struktur_organisasi = tbl_disposisi.agendaris_surat');
+        $this->db->order_by('tbl_disposisi.id', 'desc');
         $nomor_agenda   = $this->db->get('tbl_disposisi')->result();
-        $no_agenda = null;
-
         if ($nomor_agenda != null) {
             $no_agenda      = $nomor_agenda[0]->nomor_agenda;
         }
@@ -849,7 +849,7 @@ class M_Surat extends CI_Model
             $tracking2 = array(
                 'kode_kegiatan' => '4',
                 'kegiatan'      => 'surat disposisi, surat perintah dan surat perjalanan dinas telah dibuat oleh dinas dan diserahkan ke',
-                'kode_struktur_organisasi'           => $penerima_disposisi[$i]->nip,
+                'kode_struktur_organisasi'           => $penerima_disposisi[$i]->kode_struktur_organisasi,
                 'nomor_surat'   => $nomor_surat[0]->nomor_surat,
                 'slug_tracking' => $param
             );
@@ -905,6 +905,7 @@ class M_Surat extends CI_Model
     public function getSuratPerintah($param)
     {
         $this->db->where('tbl_surat_perintah.slug_perintah', $param);
+
         $this->db->join('tbl_disposisi', 'tbl_disposisi.nomor_surat = tbl_surat_masuk.nomor_surat');
         $this->db->join('tbl_surat_perintah', 'tbl_surat_perintah.nomor_surat = tbl_surat_masuk.nomor_surat');
         $this->db->join('tbl_instansi', 'tbl_instansi.id_instansi = tbl_surat_perintah.perintah_instansi');

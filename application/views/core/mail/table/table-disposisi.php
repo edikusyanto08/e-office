@@ -24,8 +24,8 @@ td {
                     <div class="border-left-primary">
                         <p class="text-capitalize font-weight-bold"
                             style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
-                            <?php if(isset($pembuat_disposisi[$h]->nama)) { ?>
-                            <?= $pembuat_disposisi[$h]->nama; ?> |
+                            <?php if(isset($pembuat_disposisi[$h]->nama_bidang)) { ?>
+                            <?= $pembuat_disposisi[$h]->nama_bidang; ?> |
                             <?php } ?>
                             <?= $alldisposisi->perihal; ?>
                         </p>
@@ -56,8 +56,8 @@ td {
                     <div class="border-left-success">
                         <p class="text-capitalize font-weight-bold"
                             style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
-                            <?php if(isset($pembuat_disposisi[$h]->nama)) { ?>
-                            <?= $pembuat_disposisi[$h]->nama; ?> |
+                            <?php if(isset($pembuat_disposisi[$h]->nama_bidang)) { ?>
+                            <?= $pembuat_disposisi[$h]->nama_bidang; ?> |
                             <?php } ?>
                             <?= $alldisposisi->perihal; ?>
                         </p>
@@ -97,7 +97,7 @@ td {
                     <div class="border-left-primary">
                         <p class="text-capitalize font-weight-bold"
                             style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
-                            <?= $pembuat_disposisi[$i]->nama; ?> | <?= $surat->perihal; ?>
+                            <?= $pembuat_disposisi[$i]->nama_bidang; ?> | <?= $surat->perihal; ?>
                         </p>
                         <p class="text-capitalize" style="font-size: 12px;  margin-left: 10px; margin-bottom: 0px;">
                             <?= $surat->nomor_surat; ?> | <?= $surat->waktu_disposisi; ?> | <span
@@ -127,7 +127,7 @@ td {
                     <div class="border-left-primary">
                         <p class="text-capitalize font-weight-bold"
                             style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
-                            <?= $penerima_disposisi[$i]->nama; ?> | <?= $surat->perihal; ?>
+                            <?= $penerima_disposisi[$i]->nama_bidang; ?> | <?= $surat->perihal; ?>
                         </p>
                         <p class="text-capitalize" style="font-size: 12px;  margin-left: 10px; margin-bottom: 0px;">
                             <?= $surat->nomor_surat; ?> | <?= $surat->waktu_disposisi; ?> | <span
@@ -159,7 +159,7 @@ td {
                     <div class="border-left-success">
                         <p class="text-capitalize font-weight-bold"
                             style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
-                            <?= $pembuat_disposisi[$i]->nama; ?> | <?= $surat->perihal; ?>
+                            <?= $pembuat_disposisi[$i]->nama_bidang; ?> | <?= $surat->perihal; ?>
                         </p>
                         <p class="text-capitalize" style="font-size: 12px;  margin-left: 10px; margin-bottom: 0px;">
                             <?= $surat->nomor_surat; ?> | <?= $surat->waktu_disposisi; ?> | <span
@@ -189,7 +189,7 @@ td {
                     <div class="border-left-success">
                         <p class="text-capitalize font-weight-bold"
                             style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
-                            <?= $penerima_disposisi[$i]->nama; ?> | <?= $surat->perihal; ?>
+                            <?= $penerima_disposisi[$i]->nama_bidang; ?> | <?= $surat->perihal; ?>
                         </p>
                         <p class="text-capitalize" style="font-size: 12px;  margin-left: 10px; margin-bottom: 0px;">
                             <?= $surat->nomor_surat; ?> | <?= $surat->waktu_disposisi; ?> | <span

@@ -17,7 +17,7 @@
                     <td style="color: #5a5c69;">
                         <div class="border-left-success">
                             <p style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
-                                <span class="font-weight-bold"><?= $penerima_perintah[$i]->nama; ?> |
+                                <span class="font-weight-bold"><?= $penerima_perintah[$i]->nama_bidang; ?> |
                                     <?= $all_sp->perihal; ?></span><br>
                                 <span class="text-capitalize"
                                     style="font-size: 12px;"><?= $all_sp->no_perintah; ?></span> |
@@ -41,7 +41,7 @@
                         <div class="border-left-success">
                             <p style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
                                 <span class="font-weight-bold">
-                                    <?= $pembuat_perintah[$h]->nama; ?> | <?= $all_sp->perihal; ?>
+                                    <?= $pembuat_perintah[$h]->nama_bidang; ?> | <?= $all_sp->perihal; ?>
                                 </span><br>
                                 <span class="text-capitalize"
                                     style="font-size: 12px;"><?= $all_sp->no_perintah; ?></span> |
@@ -66,8 +66,8 @@
                     <td style="color: #5a5c69;">
                         <div class="border-left-primary">
                             <p style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
-                                <span class="font-weight-bold">
-                                    <?= $penerima_perintah[$h]->nama; ?> | <?= $all_sp->perihal; ?>
+                                <span class="font-weight-bold text-capitalize">
+                                    <?= $penerima_perintah[$h]->nama_bidang; ?> | <?= $all_sp->perihal; ?>
                                 </span><br>
                                 <span class="text-capitalize"
                                     style="font-size: 12px;"><?= $all_sp->no_perintah; ?></span> |
@@ -90,8 +90,8 @@
                     <td style="color: #5a5c69;">
                         <div class="border-left-primary">
                             <p style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
-                                <span class="font-weight-bold">
-                                    <?= $pembuat_perintah[$h]->nama; ?> | <?= $all_sp->perihal; ?>
+                                <span class="font-weight-bold text-capitalize">
+                                    <?= $pembuat_perintah[$h]->nama_bidang; ?> | <?= $all_sp->perihal; ?>
                                 </span><br>
                                 <span class="text-capitalize"
                                     style="font-size: 12px;"><?= $all_sp->no_perintah; ?></span> |
@@ -123,7 +123,7 @@
                     <td style="color: #5a5c69;">
                         <div class="border-left-success">
                             <p style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
-                                <span class="font-weight-bold"><?= $penerima_perintah[$i]->nama; ?> |
+                                <span class="font-weight-bold"><?= $penerima_perintah[$i]->nama_bidang; ?> |
                                     <?= $surat->perihal; ?></span><br>
                                 <span class="text-capitalize"
                                     style="font-size: 12px;"><?= $surat->no_perintah; ?></span> |
@@ -147,7 +147,7 @@
                         <div class="border-left-success">
                             <p style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
                                 <span class="font-weight-bold">
-                                    <?= $pembuat_perintah[$i]->nama; ?> | <?= $surat->perihal; ?>
+                                    <?= $pembuat_perintah[$i]->nama_bidang; ?> | <?= $surat->perihal; ?>
                                 </span><br>
                                 <span class="text-capitalize"
                                     style="font-size: 12px;"><?= $surat->no_perintah; ?></span> |
@@ -172,8 +172,8 @@
                     <td style="color: #5a5c69;">
                         <div class="border-left-primary">
                             <p style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
-                                <span class="font-weight-bold">
-                                    <?= $penerima_perintah[$i]->nama; ?> | <?= $surat->perihal; ?>
+                                <span class="font-weight-bold text-capitalize">
+                                    <?= $penerima_perintah[$i]->nama_bidang; ?> | <?= $surat->perihal; ?>
                                 </span><br>
                                 <span class="text-capitalize"
                                     style="font-size: 12px;"><?= $surat->no_perintah; ?></span> |
@@ -196,8 +196,8 @@
                     <td style="color: #5a5c69;">
                         <div class="border-left-primary">
                             <p style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
-                                <span class="font-weight-bold">
-                                    <?= $pembuat_perintah[$i]->nama; ?> | <?= $surat->perihal; ?>
+                                <span class="font-weight-bold text-capitalize">
+                                    <?= $pembuat_perintah[$i]->nama_bidang; ?> | <?= $surat->perihal; ?>
                                 </span><br>
                                 <span class="text-capitalize"
                                     style="font-size: 12px;"><?= $surat->no_perintah; ?></span> |

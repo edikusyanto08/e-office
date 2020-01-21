@@ -17,9 +17,9 @@
                             <p class=" font-weight-bold"
                                 style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
                                 <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
-                                <?= $penerima_surat_masuk[$i]->nama ?>
+                                <?= $penerima_surat_masuk[$i]->nama_bidang ?>
                                 <?php } else {
-                                                            echo $surat->nama;
+                                                            echo $surat->nama_bidang;
                                                         } ?>
                                 | <span class="text-capitalize"><?= $surat->perihal; ?></span>
                             </p>
@@ -49,9 +49,9 @@
                         <div class="border-left-danger">
                             <p class="font-weight-bold" style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
                                 <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
-                                <?= $penerima_surat_masuk[$i]->nama ?>
+                                <?= $penerima_surat_masuk[$i]->nama_bidang ?>
                                 <?php } else {
-                                                            echo $surat->nama;
+                                                            echo $surat->nama_bidang;
                                                         } ?>
                                 | <span class="text-capitalize"><?= $surat->perihal; ?></span>
                             </p>
@@ -81,9 +81,9 @@
                         <div class="border-left-primary">
                             <p class="font-weight-bold" style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
                                 <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
-                                <?= $penerima_surat_masuk[$i]->nama ?>
+                                <?= $penerima_surat_masuk[$i]->nama_bidang ?>
                                 <?php } else {
-                                                            echo $surat->nama;
+                                                            echo $surat->nama_bidang;
                                                         } ?>
                                 | <span class="text-capitalize"><?= $surat->perihal; ?></span>
                             </p>

@@ -23,10 +23,10 @@
                                     <p class="font-weight-bold"
                                         style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
                                         <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
-                                        <?= $penerima_surat_masuk[$i]->nama ?>
+                                        <?= $penerima_surat_masuk[$i]->nama_bidang ?>
                                         <?php } elseif($surat->pembuat == $this->session->userdata('sisule_cms_satuan_kerja') && $surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) {
-                                                                            echo $penerima_surat_masuk[$i]->nama;
-                                                                        }else{ echo $surat->nama; }?>
+                                                                            echo $penerima_surat_masuk[$i]->nama_bidang;
+                                                                        }else{ echo $surat->nama_bidang; }?>
                                         | <span class="text-capitalize"><?= $surat->perihal; ?></span>
                                     </p>
                                     <p class="text-capitalize"
@@ -104,10 +104,10 @@
                                         style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
                                         <!-- pembuat -->
                                         <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
-                                        <?= $penerima_surat_masuk[$i]->nama; ?>
+                                        <?= $penerima_surat_masuk[$i]->nama_bidang; ?>
                                         <?php } elseif($surat->pembuat == $this->session->userdata('sisule_cms_satuan_kerja') && $surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) {
-                                                                            echo $penerima_surat_masuk[$i]->nama;
-                                                                        }else{ echo $surat->nama; }?>
+                                                                            echo $penerima_surat_masuk[$i]->nama_bidang;
+                                                                        }else{ echo $surat->nama_bidang; }?>
                                         <!-- nomor & perihal surat -->
                                         | <span class="text-capitalize"><?= $surat->perihal; ?></span>
                                     </p>
@@ -179,10 +179,10 @@
                                     style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
                                     <!-- pembuat -->
                                     <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
-                                    <?= $penerima_surat_masuk[$i]->nama ?>
+                                    <?= $penerima_surat_masuk[$i]->nama_bidang ?>
                                     <?php } elseif($surat->pembuat == $this->session->userdata('sisule_cms_satuan_kerja') && $surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) {
-                                                                        echo $penerima_surat_masuk[$i]->nama;
-                                                                    }else{ echo $surat->nama; }?>
+                                                                        echo $penerima_surat_masuk[$i]->nama_bidang;
+                                                                    }else{ echo $surat->nama_bidang; }?>
                                     | <span class="text-capitalize"><?= $surat->perihal; ?></span>
                                 </p>
                                 <p class="text-capitalize"
@@ -236,10 +236,10 @@
                                     style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
                                 <!-- pembuat -->
                                 <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
-                                    <?= $penerima_surat_masuk[$i]->nama ?>
+                                    <?= $penerima_surat_masuk[$i]->nama_bidang ?>
                                     <?php } elseif($surat->pembuat == $this->session->userdata('sisule_cms_satuan_kerja') && $surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) {
-                                                                        echo $penerima_surat_masuk[$i]->nama;
-                                                                    }else{ echo $surat->nama; }?>
+                                                                        echo $penerima_surat_masuk[$i]->nama_bidang;
+                                                                    }else{ echo $surat->nama_bidang; }?>
                                     | <span class="text-capitalize"><?= $surat->perihal; ?></span>
                                 </p>
                                 <p class="text-capitalize"
@@ -296,10 +296,10 @@
                                     style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
                                 <!-- pembuat -->
                                 <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
-                                    <?= $penerima_surat_masuk[$i]->nama ?>
+                                    <?= $penerima_surat_masuk[$i]->nama_bidang ?>
                                     <?php } elseif($surat->pembuat == $this->session->userdata('sisule_cms_satuan_kerja') && $surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) {
-                                                                        echo $penerima_surat_masuk[$i]->nama;
-                                                                    }else{ echo $surat->nama; }?>
+                                                                        echo $penerima_surat_masuk[$i]->nama_bidang;
+                                                                    }else{ echo $surat->nama_bidang; }?>
                                     | <span class="text-capitalize"><?= $surat->perihal; ?></span>
                                 </p>
                                 <p class="text-capitalize"
@@ -353,10 +353,10 @@
                                     style="font-size: 14px; margin-left: 10px; margin-bottom: 0px;">
                                     <!-- pembuat -->
                                     <?php if ($surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) { ?>
-                                    <?= $penerima_surat_masuk[$i]->nama ?>
+                                    <?= $penerima_surat_masuk[$i]->nama_bidang ?>
                                     <?php } elseif($surat->pembuat == $this->session->userdata('sisule_cms_satuan_kerja') && $surat->agendaris_surat == $this->session->userdata('sisule_cms_satuan_kerja')) {
-                                                                        echo $penerima_surat_masuk[$i]->nama;
-                                                                    }else{ echo $surat->nama; }?>
+                                                                        echo $penerima_surat_masuk[$i]->nama_bidang;
+                                                                    }else{ echo $surat->nama_bidang; }?>
                                     | <span class="text-capitalize"><?= $surat->perihal; ?></span>
                                 </p>
                                 <p class="text-capitalize"

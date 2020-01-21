@@ -190,11 +190,10 @@ class Surat extends CI_Controller
             // cek apakah nomor surat keluar dan surat masuk sama
             $cek = $this->M_Surat->checkSuratKeluarMasuk($param)->result();
             if ($cek != null) {
-                $mpdf->WriteHTML($surat_masuk);
+                // $mpdf->WriteHTML($surat_masuk);
                 $mpdf->SetHTMLHeader('
                 <table width="100%">
                     <tr>
-                        <td width="10%" style="text-align: left; color: grey; font-size: 12px;">Lampiran</td>
                         <td width="10%" align="center"></td>
                         <td width="80%" style="text-align: right; color: grey; font-size: 12px;"></td>
                     </tr>
@@ -448,7 +447,7 @@ class Surat extends CI_Controller
             for ($i = count($array) - 1; $i >= 0; $i--) {
                 $output .= '<tr>
                     <td style="width: 5%;"><img src="' . base_url("assets/image/pns/" . $array[$i]["image"]) . '" style="width:35px; height: 35px; border-radius: 100%; margin-top: 4px;" alt=""></td>
-                    <td style="font-size: 14px;"><span class="text-uppercase">' . $array[$i]['instansi'] . "</span> - <span class='text-capitalize'>" . $array[$i]['jabatan'] . ' - <span class="text-primary">' . $array[$i]['nama']. '</span>'. '</span></td>
+                    <td style="font-size: 12px;"><span class="text-uppercase">' . $array[$i]['instansi'] . "</span> - <span class='text-capitalize'>" . $array[$i]['jabatan'] . ' - <span class="text-primary">' . $array[$i]['nama']. '</span>'. '</span></td>
                     <td><button type="button" class="btn btn-default btn-sm deleteData" data-id="' . $no . '"></button></td>
                 </tr>';
                 $no--;
@@ -904,10 +903,10 @@ class Surat extends CI_Controller
             if ($no_perjalanan == null) {
                 if ($this->M_Surat->createSuratPerintah($slug) > 0) {
                     $this->message('success', 'Surat Perintah Berhasil Dibuat.');
-                    redirect(base_url('home/formSuratPerintah/' . $slug));
+                    redirect(base_url('home/Pengagendaan/' . $slug));
                 } else {
                     $this->message('danger', 'Surat Perintah Gagal Dibuat.');
-                    redirect(base_url('home/formSuratPerintah/' . $slug));
+                    redirect(base_url('home/Pengagendaan/' . $slug));
                 }
             } else {
                 $this->form_validation->set_rules('no_perjalanan', 'no_perjalanan', 'trim|required');

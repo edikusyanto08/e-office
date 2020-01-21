@@ -59,7 +59,7 @@ class Home extends CI_Controller
     {
         $data['message']        = $this->session->flashdata('message');
         $data['profile']        = $this->M_Home->getProfilPejabat($this->session->userdata('sisule_cms_nip'))->result();
-        $data['agendaris']          = $this->M_Home->getInfoAgendaris($this->session->userdata('sisule_cms_nip'))->result();
+        $data['agendaris']          = $this->M_Home->getInfoAgendaris($this->session->userdata('sisule_cms_satuan_kerja'))->result();
         $data['penerima']           = $this->M_Home->listPenerimaSuratMasuk()->result();
 
         if ($data['agendaris'] != null) {
@@ -81,7 +81,7 @@ class Home extends CI_Controller
     {
         $data['message']        = $this->session->flashdata('message');
         $data['profile']        = $this->M_Home->getProfilPejabat($this->session->userdata('sisule_cms_nip'))->result();
-        $data['agendaris']      = $this->M_Home->getInfoAgendaris($this->session->userdata('sisule_cms_nip'))->result();
+        $data['agendaris']      = $this->M_Home->getInfoAgendaris($this->session->userdata('sisule_cms_satuan_kerja'))->result();
         $data['login']          = $this->M_Home->getInforLogin($this->session->userdata('sisule_cms_nip'))->result();
 
         return $data;
@@ -476,7 +476,7 @@ class Home extends CI_Controller
         $this->load->view('core/loaders-js');
     }
 
-    public function formSuratPerintah($param)
+    public function formSuratPerintah($param = 0)
     {
         if ($this->session->userdata('sisule_cms_hak') == 'admin') {
             $cek = $this->M_Home->infoInstansi($this->session->userdata('sisule_cms_instansi'))->result();
@@ -484,19 +484,24 @@ class Home extends CI_Controller
                 redirect(base_url('home/instansi'));
             }
         }
-        $data = $this->template2();
-        $cek_status_karyawan = $this->M_Home->checkStatusKaryawan()->result();
-        if ($cek_status_karyawan != null) {
-            $data['slug']           = $param;
-            $data['agenda_surat']   = $this->M_Home->getAgendaSurat($param)->result();
-        } else {
-            $data['slug']           = null;
-            $data['agenda_surat']   = null;
-        }
+        if($param == 0){
+            $this->load->view('errors/html/error_404');
+        }else{
+            $data = $this->template2();
+            $cek_status_karyawan = $this->M_Home->checkStatusKaryawan()->result();
+            if ($cek_status_karyawan != null) {
+                $data['slug']           = $param;
+                $data['agenda_surat']   = $this->M_Home->getAgendaSurat($param)->result();
+            } else {
+                $data['slug']           = null;
+                $data['agenda_surat']   = null;
+            }
 
-        $this->load->view('core/loaders-css');
-        $this->load->view('core/mail/form-surat-perintah', $data);
-        $this->load->view('core/loaders-js');
+            $this->load->view('core/loaders-css');
+            $this->load->view('core/mail/form-surat-perintah', $data);
+            $this->load->view('core/loaders-js');
+        }
+        
     }
     // instansi
     public function instansi($param = 0)

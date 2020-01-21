@@ -10,18 +10,19 @@
             <tbody>
                 <?php $i = 0;
                         foreach ($agenda_surat as $agenda) { ?>
-                <tr style="font-size: 12px;">
+                <tr style="font-size: 14px; line-height: 25px;">
                     <td>
-                        <span class="font-weight-bold text-capitalize"
-                            style="font-size: 14px;"><?= $agenda->perihal; ?></span> <br>
-                        <?= $agenda->nama; ?> | <?= $agenda->nomor_surat; ?>
-                        <!-- list penerima disposisi -->
-                    </td>
-                    <td>
-                        <?= form_open('Surat/pengagendaansurat/' . $agenda->slug_surat); ?>
-                        <form>
-                            <p class="text-right"><button class="btn btn-primary btn-sm btn-custome"
-                                    type="submit">Agendakan</button></p>
+                        <p class="text-capitalize"
+                            style="font-size: 14px; margin-bottom: 0px;"><span class="font-weight-bold"><?= $agenda->perihal; ?></span> <br>
+                            <span style="font-size: 12px;">
+                                <?= $agenda->nama_bidang; ?> | <?= $agenda->nomor_surat; ?>
+                            </span>
+                         <!-- list penerima disposisi -->
+                        </p>
+                         <?= form_open('Surat/pengagendaansurat/' . $agenda->slug_surat); ?>
+                        <form style="margin-top: -10px;">
+                            <div><button class="btn btn-primary btn-sm btn-custome"
+                                    type="submit">Agendakan</button></div>
                         </form>
                         <?= form_close(); ?>
                     </td>
