@@ -10,4 +10,3 @@
 <script src="<?= base_url(); ?>assets/js/moment-with-locales.js"></script>
 <script src="<?= base_url(); ?>assets/js/bootstrap-material-datetimepicker.js"></script>
 <script src="<?= base_url(); ?>assets/js/shards-dashboards.1.1.0.min.js"></script>
-<!-- <script src="<?= base_url(); ?>assets/js/app/app-blog-overview.1.1.0.js"></script> -->

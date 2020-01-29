@@ -1,1 +1,1 @@
-<div id='calendar'></div>
+<div class="text-capitalize" id='calendar'></div>

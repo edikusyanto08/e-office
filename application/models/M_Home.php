@@ -98,6 +98,10 @@ class M_Home extends CI_Model
         $this->db->order_by('tbl_surat_masuk.id', 'desc');
         return $this->db->get('tbl_surat_masuk');
     }
+    public function countArsip(){
+        $this->db->where('arsip_instansi', $this->session->userdata('sisule_cms_instansi'));
+        return $this->db->get('tbl_arsip');
+    }
     public function countMailSampah($param)
     {
         $cek = $this->db->get_where('tbl_login', array('nip' => $param))->result();
@@ -939,5 +943,9 @@ class M_Home extends CI_Model
     {
         $this->db->join('tbl_surat_masuk', 'tbl_surat_masuk.nomor_surat = tbl_surat_keluar.nomor_surat_keluar');
         return $this->db->get_where('tbl_surat_keluar', array('tbl_surat_keluar.slug_surat' => $param));
+    }
+    public function getArsip($perPage, $start){
+        $this->db->where('arsip_instansi', $this->session->userdata('sisule_cms_instansi'));
+        return $this->db->get('tbl_arsip', $perPage, $start);
     }
 }

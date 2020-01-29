@@ -8,7 +8,7 @@
         <div class="collapse show" id="collapseExample2">
             <ul class="mt-2" style="list-style: none; line-height: 25px;">
                 <li>
-                    <span>* 1 File Upload yang disarankan dibawah 2MB</span>
+                    <span>* 1 File Upload yang disarankan dibawah 1 MB</span>
                 </li>
                 <li>
                     <span>* Tipe data pada lampiran yang diizinkan : jpg / png / jpeg</span>

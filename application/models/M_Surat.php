@@ -27,6 +27,7 @@ class M_Surat extends CI_Model
         $waktu_kegiatan = $this->input->post('waktu_kegiatan');
         $tempat         = $this->input->post('tempat_pelaksanaan');
         $slug           = $param;
+
         $data = array(
             'asal_surat'        => $asal_surat,
             'pembuat'           => $pembuat,
@@ -43,7 +44,10 @@ class M_Surat extends CI_Model
             'agendaris_surat'   => $pembuat,
             'surat_instansi'    => $this->session->userdata('sisule_cms_instansi'),
             'date_produce'      => date('mm'),
-            'year_produce'      => date('YY')
+            'year_produce'      => date('YY'),
+            'title'             => $asal_surat,
+            'start'             => date('Y-m-d', strtotime($start)),
+            'end'               => date('Y-m-d', strtotime($end))
         );
         $data2 = array(
             'kode_struktur_organisasi' => $tujuan,
@@ -1251,142 +1255,7 @@ class M_Surat extends CI_Model
         $this->db->join('tbl_surat_keluar', 'tbl_surat_keluar.nomor_surat_keluar = tbl_surat_masuk.nomor_surat');
         return $this->db->get_where('tbl_surat_masuk', array('tbl_surat_masuk.slug_surat' => $param));
     }
-    public function getStatistikSuratMasukBulan($param)
-    {
-        $this->db->where('tbl_surat_masuk.date_produce', $param);
-        $this->db->where('tbl_surat_masuk.surat_instansi', $this->session->userdata('sisule_cms_instansi'));
-        $this->db->where('tbl_daftar_penerima_surat_masuk.kode_struktur_organisasi', $this->session->userdata('sisule_cms_satuan_kerja'));
-        $this->db->join('tbl_daftar_penerima_surat_masuk', 'tbl_daftar_penerima_surat_masuk.nomor_surat = tbl_surat_masuk.nomor_surat');
-        $this->db->group_by('tbl_surat_masuk.nomor_surat');
-        return $this->db->get('tbl_surat_masuk');
-    }
-    public function getStatistikSuratMasukBulanForAgendaris($param)
-    {
-        $this->db->where('tbl_surat_masuk.date_produce', $param);
-        $this->db->where('tbl_surat_masuk.agendaris_surat', $this->session->userdata('sisule_cms_satuan_kerja'));
-        $this->db->where('tbl_surat_masuk.surat_instansi', $this->session->userdata('sisule_cms_instansi'));
-        $this->db->join('tbl_daftar_penerima_surat_masuk', 'tbl_daftar_penerima_surat_masuk.nomor_surat = tbl_surat_masuk.nomor_surat');
-        $this->db->group_by('tbl_surat_masuk.nomor_surat');
-        return $this->db->get('tbl_surat_masuk');
-    }
-    public function getStatistikDisposisiForPembuat($param)
-    {
-        $this->db->where('tbl_disposisi.date_produce', $param);
-        $this->db->where('tbl_disposisi.nomor_agenda != ', '');
-        $this->db->where('tbl_disposisi.pembuat_disposisi', $this->session->userdata('sisule_cms_satuan_kerja'));
-        $this->db->where('tbl_disposisi.nomor_agenda != ', '');
-        $this->db->where('tbl_disposisi.disposisi_instansi', $this->session->userdata('sisule_cms_instansi'));
-        $this->db->join('tbl_surat_masuk', 'tbl_disposisi.nomor_surat = tbl_surat_masuk.nomor_surat');
-        $this->db->join('tbl_detail_penerima_disposisi', 'tbl_disposisi.penerima = tbl_detail_penerima_disposisi.penerima');
-        $this->db->join('tbl_bidang', 'tbl_bidang.kode_struktur_organisasi = tbl_detail_penerima_disposisi.kode_struktur_organisasi');
-        $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_bidang.nip');
-        $this->db->order_by('tbl_disposisi.id', 'desc');
-        $this->db->group_by('tbl_disposisi.nomor_agenda');
-        return $this->db->get('tbl_disposisi');
-    }
-    public function getStatistikDisposisiForPenerima($param)
-    {
-        $this->db->where('tbl_disposisi.date_produce', $param);
-        $this->db->where('tbl_disposisi.nomor_agenda != ', '');
-        $this->db->where('tbl_detail_penerima_disposisi.kode_struktur_organisasi', $this->session->userdata('sisule_cms_satuan_kerja'));
-        $this->db->where('tbl_disposisi.nomor_agenda != ', '');
-        $this->db->where('tbl_disposisi.disposisi_instansi', $this->session->userdata('sisule_cms_instansi'));
-        $this->db->join('tbl_surat_masuk', 'tbl_disposisi.nomor_surat = tbl_surat_masuk.nomor_surat');
-        $this->db->join('tbl_detail_penerima_disposisi', 'tbl_disposisi.penerima = tbl_detail_penerima_disposisi.penerima');
-        $this->db->join('tbl_bidang', 'tbl_bidang.kode_struktur_organisasi = tbl_detail_penerima_disposisi.kode_struktur_organisasi');
-        $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_bidang.nip');
-        $this->db->order_by('tbl_disposisi.id', 'desc');
-        $this->db->group_by('tbl_disposisi.nomor_agenda');
-        return $this->db->get('tbl_disposisi');
-    }
-    public function getStatistikDisposisiForAgendaris($param){
-        $this->db->where('tbl_disposisi.date_produce', $param);
-        $this->db->where('tbl_disposisi.nomor_agenda != ', '');
-        // $this->db->where('tbl_detail_penerima_disposisi.nip', $this->session->userdata('sisule_cms_nip'));
-        $this->db->where('tbl_disposisi.nomor_agenda != ', '');
-        $this->db->where('tbl_disposisi.disposisi_instansi', $this->session->userdata('sisule_cms_instansi'));
-        $this->db->where('tbl_disposisi.agendaris_surat', $this->session->userdata('sisule_cms_statistik'));
-        $this->db->join('tbl_surat_masuk', 'tbl_disposisi.nomor_surat = tbl_surat_masuk.nomor_surat');
-        $this->db->join('tbl_detail_penerima_disposisi', 'tbl_disposisi.penerima = tbl_detail_penerima_disposisi.penerima');
-        $this->db->join('tbl_bidang', 'tbl_bidang.kode_struktur_organisasi = tbl_detail_penerima_disposisi.kode_struktur_organisasi');
-        $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_bidang.nip');
-        $this->db->order_by('tbl_disposisi.id', 'desc');
-        $this->db->group_by('tbl_disposisi.nomor_agenda');
-        return $this->db->get('tbl_disposisi');
-    }
-    public function getStatistikSuratPerintahForPenerima($param)
-    {
-        $this->db->where('tbl_surat_perintah.date_produce', $param);
-        $this->db->where('tbl_detail_penerima_disposisi.kode_struktur_organisasi', $this->session->userdata('sisule_cms_satuan_kerja'));
-        $this->db->join('tbl_detail_penerima_disposisi', 'tbl_detail_penerima_disposisi.penerima = tbl_disposisi.penerima');
-        $this->db->join('tbl_surat_perintah', 'tbl_surat_perintah.detail_penerima = tbl_disposisi.penerima');
-        $this->db->join('tbl_surat_masuk', 'tbl_surat_masuk.nomor_surat = tbl_surat_perintah.nomor_surat');
-        $this->db->join('tbl_bidang', 'tbl_bidang.kode_struktur_organisasi = tbl_detail_penerima_disposisi.kode_struktur_organisasi');
-        $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_bidang.nip');
-        $this->db->group_by('tbl_surat_perintah.no_perintah');
-        return $this->db->get('tbl_disposisi');
-    }
-    public function getStatistikSuratPerintahForPembuat($param)
-    {
-        $this->db->where('tbl_surat_perintah.date_produce', $param);
-        $this->db->where('tbl_disposisi.pembuat_disposisi', $this->session->userdata('sisule_cms_satuan_kerja'));
-        $this->db->join('tbl_detail_penerima_disposisi', 'tbl_detail_penerima_disposisi.penerima = tbl_disposisi.penerima');
-        $this->db->join('tbl_surat_perintah', 'tbl_surat_perintah.detail_penerima = tbl_disposisi.penerima');
-        $this->db->join('tbl_surat_masuk', 'tbl_surat_masuk.nomor_surat = tbl_surat_perintah.nomor_surat');
-        $this->db->join('tbl_bidang', 'tbl_bidang.kode_struktur_organisasi = tbl_detail_penerima_disposisi.kode_struktur_organisasi');
-        $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_bidang.nip');
-        $this->db->group_by('tbl_surat_perintah.no_perintah');
-        return $this->db->get('tbl_disposisi');
-    }
-    public function getStatistikNotaDinasForPenerima($param)
-    {
-        $this->db->where('tbl_nota_dinas.date_produce', $param);
-        $this->db->where('tbl_nota_dinas.penerima_nota', $this->session->userdata('sisule_cms_satuan_kerja'));
-        $this->db->join('tbl_detail_tembusan', 'tbl_detail_tembusan.tembusan = tbl_nota_dinas.tembusan');
-        $this->db->join('tbl_disposisi', 'tbl_disposisi.nomor_agenda = tbl_nota_dinas.nomor_agenda');
-        $this->db->join('tbl_detail_penerima_disposisi', 'tbl_detail_penerima_disposisi.penerima = tbl_disposisi.penerima');
-        $this->db->join('tbl_bidang', 'tbl_bidang.kode_struktur_organisasi = tbl_nota_dinas.penerima_nota', 'tbl_bidang.kode_struktur_organisasi = tbl_detail_tembusan.penerima_tembusan');
-        $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_bidang.nip');
-        $this->db->join('tbl_surat_masuk', 'tbl_surat_masuk.nomor_surat = tbl_disposisi.nomor_surat');
-        $this->db->order_by('tbl_detail_tembusan.id', 'DESC');
-        $this->db->group_by('tbl_detail_tembusan.tembusan');
-        return $this->db->get('tbl_nota_dinas');
-    }
-    public function getStatistikNotaDinasForTembusan($param)
-    {
-        $this->db->where('tbl_nota_dinas.date_produce', $param);
-        $this->db->where('tbl_detail_tembusan.penerima_tembusan', $this->session->userdata('sisule_cms_satuan_kerja'));
-        $this->db->join('tbl_detail_tembusan', 'tbl_detail_tembusan.tembusan = tbl_nota_dinas.tembusan');
-        $this->db->join('tbl_disposisi', 'tbl_disposisi.nomor_agenda = tbl_nota_dinas.nomor_agenda');
-        $this->db->join('tbl_detail_penerima_disposisi', 'tbl_detail_penerima_disposisi.penerima = tbl_disposisi.penerima');
-        $this->db->join('tbl_bidang', 'tbl_bidang.kode_struktur_organisasi = tbl_nota_dinas.penerima_nota', 'tbl_bidang.kode_struktur_organisasi = tbl_detail_tembusan.penerima_tembusan');
-        $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_bidang.nip');
-        $this->db->join('tbl_surat_masuk', 'tbl_surat_masuk.nomor_surat = tbl_disposisi.nomor_surat');
-        $this->db->order_by('tbl_detail_tembusan.id', 'DESC');
-        $this->db->group_by('tbl_detail_tembusan.tembusan');
-        return $this->db->get('tbl_nota_dinas');
-    }
-    public function getStatistikNotaDinasForRekan($param)
-    {
-        $this->db->where('tbl_nota_dinas.date_produce', $param);
-        $this->db->where('tbl_detail_penerima_disposisi.kode_struktur_organisasi', $this->session->userdata('sisule_cms_satuan_kerja'));
-        $this->db->join('tbl_detail_tembusan', 'tbl_detail_tembusan.tembusan = tbl_nota_dinas.tembusan');
-        $this->db->join('tbl_disposisi', 'tbl_disposisi.nomor_agenda = tbl_nota_dinas.nomor_agenda');
-        $this->db->join('tbl_detail_penerima_disposisi', 'tbl_detail_penerima_disposisi.penerima = tbl_disposisi.penerima');
-        $this->db->join('tbl_bidang', 'tbl_bidang.kode_struktur_organisasi = tbl_nota_dinas.penerima_nota', 'tbl_bidang.kode_struktur_organisasi = tbl_detail_tembusan.penerima_tembusan');
-         $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_bidang.nip');
-        $this->db->join('tbl_surat_masuk', 'tbl_surat_masuk.nomor_surat = tbl_disposisi.nomor_surat');
-        $this->db->order_by('tbl_detail_tembusan.id', 'DESC');
-        $this->db->group_by('tbl_detail_tembusan.tembusan');
-        return $this->db->get('tbl_nota_dinas');
-    }
-    public function getStatistikSampah($param)
-    {
-        $this->db->where('tbl_sampah.date_produce', $param);
-        $this->db->where('tbl_sampah.agendaris_surat', $this->session->userdata('sisule_cms_satuan_kerja'));
-        $this->db->where('tbl_sampah.id_instansi', $this->session->userdata('sisule_cms_instansi'));
-        return $this->db->get('tbl_sampah');
-    }
+    
     public function getStatistikSuratKeluar($param)
     {
         $this->db->where('date_produce', $param);
@@ -1399,9 +1268,9 @@ class M_Surat extends CI_Model
     }
     public function getKalenderKegiatan($param)
     {
+        $this->db->select('title, start, end, slug_surat');
         $this->db->where('surat_instansi', $this->session->userdata('sisule_cms_instansi'));
         $this->db->where('date_produce', $param);
-        $this->db->or_where('date_produce', $param);
         return $this->db->get('tbl_surat_masuk');
     }
     public function forwardSuratMasuk($param1, $param2){
@@ -1424,5 +1293,97 @@ class M_Surat extends CI_Model
         $this->db->where('tbl_karyawan.nip', $this->session->userdata('sisule_cms_nip'));
         $this->db->join('tbl_bidang', 'tbl_bidang.nip = tbl_karyawan.nip');
         return $this->db->get('tbl_karyawan');
+    }
+    public function countAllDisposisi($param)
+    {
+        $this->db->where('tbl_disposisi.date_produce', $param);
+        $this->db->where('tbl_disposisi.nomor_agenda != ', '');
+        // $this->db->where('tbl_surat_masuk.surat_instansi', $this->session->userdata('sisule_cms_instansi'));
+        $this->db->where('tbl_disposisi.disposisi_instansi', $this->session->userdata('sisule_cms_instansi'));
+        $this->db->or_where('tbl_disposisi.agendaris_surat', $this->session->userdata('sisule_cms_satuan_kerja'));
+        $this->db->join('tbl_surat_masuk', 'tbl_disposisi.nomor_surat = tbl_surat_masuk.nomor_surat');
+        $this->db->order_by('tbl_disposisi.id', 'desc');
+        $this->db->group_by('tbl_disposisi.nomor_agenda');
+        return $this->db->get('tbl_disposisi');
+    }
+    public function countAllSuratPerintah($param)
+    {
+        $this->db->where('tbl_surat_perintah.date_produce', $param);
+        $this->db->where('tbl_surat_perintah.perintah_instansi', $this->session->userdata('sisule_cms_instansi'));
+        $this->db->join('tbl_detail_penerima_disposisi', 'tbl_detail_penerima_disposisi.penerima = tbl_disposisi.penerima');
+        $this->db->join('tbl_surat_perintah', 'tbl_surat_perintah.detail_penerima = tbl_disposisi.penerima');
+        $this->db->join('tbl_surat_masuk', 'tbl_surat_masuk.nomor_surat = tbl_surat_perintah.nomor_surat');
+        $this->db->join('tbl_bidang', 'tbl_bidang.kode_struktur_organisasi = tbl_detail_penerima_disposisi.kode_struktur_organisasi');
+        $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_bidang.nip');
+        $this->db->group_by('tbl_surat_perintah.no_perintah');
+        return $this->db->get('tbl_disposisi');
+    }
+     public function countSuratPerintah($param)
+    {
+        $this->db->where('tbl_surat_perintah.date_produce', $param);
+        $this->db->where('tbl_detail_penerima_disposisi.kode_struktur_organisasi', $this->session->userdata('sisule_cms_satuan_kerja'));
+        $this->db->or_where('tbl_disposisi.pembuat_disposisi', $this->session->userdata('sisule_cms_satuan_kerja'));
+        $this->db->join('tbl_detail_penerima_disposisi', 'tbl_detail_penerima_disposisi.penerima = tbl_disposisi.penerima');
+        $this->db->join('tbl_surat_perintah', 'tbl_surat_perintah.detail_penerima = tbl_disposisi.penerima');
+        $this->db->join('tbl_surat_masuk', 'tbl_surat_masuk.nomor_surat = tbl_surat_perintah.nomor_surat');
+        $this->db->join('tbl_bidang', 'tbl_bidang.kode_struktur_organisasi = tbl_detail_penerima_disposisi.kode_struktur_organisasi');
+        $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_bidang.nip');
+        $this->db->group_by('tbl_surat_perintah.no_perintah');
+        return $this->db->get('tbl_disposisi');
+    }
+    public function countDisposisi($param)
+    {
+        $this->db->where('tbl_disposisi.date_produce', $param);
+        $this->db->where('tbl_disposisi.nomor_agenda != ', '');
+        $this->db->where('tbl_disposisi.pembuat_disposisi', $this->session->userdata('sisule_cms_satuan_kerja'));
+        $this->db->or_where('tbl_detail_penerima_disposisi.kode_struktur_organisasi', $this->session->userdata('sisule_cms_satuan_kerja'));
+        $this->db->where('tbl_disposisi.nomor_agenda != ', '');
+        $this->db->join('tbl_surat_masuk', 'tbl_disposisi.nomor_surat = tbl_surat_masuk.nomor_surat');
+        $this->db->join('tbl_detail_penerima_disposisi', 'tbl_disposisi.penerima = tbl_detail_penerima_disposisi.penerima');
+        $this->db->join('tbl_bidang', 'tbl_bidang.kode_struktur_organisasi = tbl_detail_penerima_disposisi.kode_struktur_organisasi');
+        $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_bidang.nip');
+        $this->db->order_by('tbl_disposisi.id', 'desc');
+        $this->db->group_by('tbl_disposisi.nomor_agenda');
+        return $this->db->get('tbl_disposisi');
+    }
+      public function countSuratMasuk($param)
+    {
+        $this->db->where('tbl_surat_masuk.date_produce', $param);
+        $this->db->where('tbl_surat_masuk.penangguhan !=', '1');
+        $this->db->where('tbl_surat_masuk.bukan_penerima_surat !=', $this->session->userdata('sisule_cms_satuan_kerja'));
+        array(
+            $this->db->where('tbl_surat_masuk.agendaris_surat', $this->session->userdata('sisule_cms_satuan_kerja')),
+            $this->db->or_where('tbl_daftar_penerima_surat_masuk.kode_struktur_organisasi', $this->session->userdata('sisule_cms_satuan_kerja'))
+        );
+        $this->db->join('tbl_daftar_penerima_surat_masuk', 'tbl_daftar_penerima_surat_masuk.nomor_surat = tbl_surat_masuk.nomor_surat');
+        $this->db->group_by('tbl_surat_masuk.nomor_surat');
+        return $this->db->get('tbl_surat_masuk');
+    }
+       public function countNotaDinas($param)
+    {
+        $this->db->where('tbl_nota_dinas.date_produce', $param);
+        $this->db->where('tbl_nota_dinas.penerima_nota', $this->session->userdata('sisule_cms_satuan_kerja'));
+        $this->db->or_where('tbl_nota_dinas.penulis', $this->session->userdata('sisule_cms_satuan_kerja'));
+        $this->db->or_where('tbl_detail_tembusan.penerima_tembusan', $this->session->userdata('sisule_cms_satuan_kerja'));
+        $this->db->or_where('tbl_detail_penerima_disposisi.kode_struktur_organisasi', $this->session->userdata('sisule_cms_satuan_kerja'));
+        $this->db->join('tbl_detail_tembusan', 'tbl_detail_tembusan.tembusan = tbl_nota_dinas.tembusan');
+        $this->db->join('tbl_disposisi', 'tbl_disposisi.nomor_agenda = tbl_nota_dinas.nomor_agenda');
+        $this->db->join('tbl_detail_penerima_disposisi', 'tbl_detail_penerima_disposisi.penerima = tbl_disposisi.penerima');
+        $this->db->join('tbl_bidang', 'tbl_bidang.kode_struktur_organisasi = tbl_nota_dinas.penerima_nota', 'tbl_bidang.kode_struktur_organisasi = tbl_detail_tembusan.penerima_tembusan');
+        $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_bidang.nip');
+        $this->db->join('tbl_surat_masuk', 'tbl_surat_masuk.nomor_surat = tbl_disposisi.nomor_surat');
+        $this->db->order_by('tbl_detail_tembusan.id', 'DESC');
+        $this->db->group_by('tbl_detail_tembusan.tembusan');
+        return $this->db->get('tbl_nota_dinas');
+    }
+     public function countSampah($param)
+    {
+        $this->db->where('tbl_surat_masuk.date_produce', $param);
+        $this->db->where('tbl_surat_masuk.agendaris_surat', $this->session->userdata('sisule_cms_satuan_kerja'));
+        $this->db->where('tbl_surat_masuk.penangguhan', '1');
+        $this->db->join('tbl_bidang', 'tbl_bidang.kode_struktur_organisasi = tbl_surat_masuk.agendaris_surat');
+        $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_bidang.nip');
+        $this->db->order_by('tbl_surat_masuk.id', 'desc');
+        return $this->db->get('tbl_surat_masuk');
     }
 }

@@ -53,7 +53,20 @@
             method: 'post',
             dataType: 'json',
             success: function(data) {
+                var events = []; //The array
+                for(var i = 0; i < data.kegiatan.length; i++) 
+                {
+                    events.push(
+                            {
+                                title: data.kegiatan[i].title,
+                                url: base_url_surat + "Surat/getFileSuratMasuk/" + data.kegiatan[i].slug_surat,
+                                start: data.kegiatan[i].start, 
+                                end: data.kegiatan[i].end
+                            }
+                        )
+                }
                 var calendarEl = document.getElementById('calendar');
+                
                 var calendar = new FullCalendar.Calendar(calendarEl, {
                     plugins: ['interaction', 'dayGrid', 'timeGrid', 'list'],
                     header: {
@@ -67,14 +80,10 @@
                     weekNumbers: true,
                     weekNumbersWithinDays: true,
                     weekNumberCalculation: 'ISO',
-
+                    
                     editable: true,
                     eventLimit: true, // allow "more" link when too many events
-                    events: [{
-                        "title": 'Dinas Komunikasi & Informatika Provinsi Jawa Barat',
-                        "start": '2019-10-30', //yyyy-mm-dd
-                        "end": '2019-10-30'
-                    }]
+                    events: events
                 });
                 calendar.render();
             },
@@ -110,7 +119,7 @@
                 <div class="main-content-container container-fluid px-4">
                     <!-- Page Header -->
                     <div class="page-header row no-gutters py-4">
-                        <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+                        <div class="col-12 col-sm-12 text-center text-sm-left mb-0">
                             <span class="text-uppercase page-subtitle">Dashboard</span>
                             <h3 class="page-title">Kalender Kegiatan</h3>
                         </div>
@@ -130,7 +139,6 @@
             </main>
         </div>
     </div>
-    <input type="hidden" id="url" value="<?= base_url(); ?>">
     <script>
-    $(".menu-kalender").addClass("active");
+        $(".menu-kalender").addClass("active");
     </script>

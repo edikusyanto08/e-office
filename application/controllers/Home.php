@@ -37,9 +37,8 @@ class Home extends CI_Controller
         $data['message']        = $this->session->flashdata('message');
         $data['profile']        = $this->M_Home->getProfilPejabat($this->session->userdata('sisule_cms_nip'))->result();
         $data['agendaris']      = $this->M_Home->getInfoAgendaris($this->session->userdata('sisule_cms_satuan_kerja'))->result();
-        $data['penerima']           = $this->M_Home->listPenerimaSuratMasuk()->result();
+        $data['penerima']       = $this->M_Home->listPenerimaSuratMasuk()->result();
         $data['login']          = $this->M_Home->getInforLogin($this->session->userdata('sisule_cms_nip'))->result();
-
 
         if ($data['agendaris'] != null) {
             $data['count_disposisi']    = $this->M_Home->countAllDisposisi()->result();
@@ -52,6 +51,7 @@ class Home extends CI_Controller
         $data['countAgenda']        = $this->M_Home->countAgenda()->result();
         $data['countNotaDinas']     = $this->M_Home->countNotaDinas()->result();
         $data['countSampah']        = $this->M_Home->countSampah()->result();
+        $data['countArsip']         = $this->M_Home->countArsip()->result();
 
         return $data;
     }
@@ -73,6 +73,7 @@ class Home extends CI_Controller
         $data['countAgenda']        = $this->M_Home->countAgenda()->result();
         $data['countNotaDinas']     = $this->M_Home->countNotaDinas()->result();
         $data['countSampah']        = $this->M_Home->countSampah()->result();
+        $data['countArsip']         = $this->M_Home->countArsip()->result();
 
         return $data;
     }
@@ -893,6 +894,55 @@ class Home extends CI_Controller
 
         $this->load->view('core/loaders-css');
         $this->load->view('core/mail/review-surat-keluar', $data);
+        $this->load->view('core/loaders-js');
+    }
+    public function arsip(){
+        if ($this->session->userdata('sisule_cms_hak') == 'admin') {
+            $cek = $this->M_Home->infoInstansi($this->session->userdata('sisule_cms_instansi'))->result();
+            if ($cek[0]->nama_instansi == null || $cek[0]->singkatan == null || $cek[0]->alamat == null || $cek[0]->telepon == null || $cek[0]->email == null || $cek[0]->fax == null) {
+                redirect(base_url('home/instansi'));
+            }
+        }
+        $data = $this->template();
+
+        // paginasi
+        $row = $this->M_Home->getBarisNotaDinas();
+        $config['base_url'] = base_url() . 'home/notadinas';
+        $config['total_rows'] = $row;
+        $config['per_page'] = 10;
+        $config['first_link']       = 'First';
+        $config['last_link']        = 'Last';
+        $config['next_link']        = 'Next';
+        $config['prev_link']        = 'Prev';
+        $config['full_tag_open']    = "<ul class='pagination justify-content-center pagination-sm'>";
+        $config['full_tag_close']   = "</ul>";
+        $config['num_tag_open']     = '<li class="page-item"><span class="page-link">';
+        $config['num_tag_close']    = '</span></li>';
+        $config['cur_tag_open']     = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close']    = '<span class="sr-only">(current)</span></span></li>';
+        $config['next_tag_open']    = '<li class="page-item"><span class="page-link">';
+        $config['next_tagl_close']  = '<span aria-hidden="true">&raquo;</span></span></li>';
+        $config['prev_tag_open']    = '<li class="page-item"><span class="page-link">';
+        $config['prev_tagl_close']  = '</span>Next</li>';
+        $config['first_tag_open']   = '<li class="page-item"><span class="page-link">';
+        $config['first_tagl_close'] = '</span></li>';
+        $config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
+        $config['last_tagl_close']  = '</span></li>';
+        $start = $this->uri->segment(3);
+        $this->pagination->initialize($config);
+
+        $cek_status_karyawan = $this->M_Home->checkStatusKaryawan()->result();
+        if ($cek_status_karyawan != null) {
+            $data['arsip']          = $this->M_Home->getArsip($config['per_page'], $start)->result();
+            $data['penulisNotaDinas']   = $this->M_Home->getPenulisNotaDinas()->result();
+            $data['pembuatNotaDinas']   = $this->M_Home->getPembuatNotaDinas()->result();
+        } else {
+            $data['arsip']          = null;
+            $data['penulisNotaDinas']   = null;
+            $data['pembuatNotaDinas']   = null;
+        }
+        $this->load->view('core/loaders-css');
+        $this->load->view('core/mail/arsip', $data);
         $this->load->view('core/loaders-js');
     }
 }

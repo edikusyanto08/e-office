@@ -108,7 +108,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 mb-4">
                             <div class="card card-small">
                                 <div class="card-header border-bottom">
-                                    <h6 class="m-0">Statistik Surat Masuk</h6>
+                                    <h6 class="m-0">Statistik Surat Masuk - <?= date('Y'); ?></h6>
                                 </div>
                                 <div class="card-body pt-0">
                                     <canvas height="130" style="max-width: 100% !important;"
@@ -121,7 +121,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 mb-4">
                             <div class="card card-small">
                                 <div class="card-header border-bottom">
-                                    <h6 class="m-0">Statistik Surat Keluar</h6>
+                                    <h6 class="m-0">Statistik Surat Keluar - <?= date('Y'); ?></h6>
                                 </div>
                                 <div class="card-body pt-0">
                                     <canvas height="130" style="max-width: 100% !important;"

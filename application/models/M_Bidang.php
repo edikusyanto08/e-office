@@ -97,7 +97,7 @@ class M_Bidang extends  CI_Model
     public function updatePejabatBidang($id)
     {
         // get koordinator sebelumnya 
-        $koordinator_lama = null
+        $koordinator_lama = null;
         $k_lama = $this->db->get_where('tbl_bidang', array('id' => $id))->result();
         if($k_lama != null){
             $koordinator_lama = $k_lama[0]->kode_struktur_organisasi;

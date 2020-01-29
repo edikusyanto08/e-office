@@ -66,6 +66,8 @@ a:hover {
             <a href="<?= base_url(); ?>home/arsip" class="nav-link arsip">
                 <i class="fas fa-archive "></i>
                 <span style="margin-left:15px;">Arsip</span>
+                 <span class="badge float-right text-arsip text-primary"
+                        style="font-size: 13px;"><?= count($countArsip); ?></span>
             </a>
         </li>
             <li>
