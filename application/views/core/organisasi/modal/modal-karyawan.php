@@ -1,7 +1,6 @@
 <style>
 label {
     font-size: 14px;
-    font-weight: bold;
 }
 </style>
 
@@ -20,7 +19,7 @@ label {
                 <?= form_open_multipart('karyawan/aksi_upload'); ?>
                 <form>
                     <div class="form-group" style="margin-top: -20px;">
-                        <label for="customFile">Foto</label>
+                        <label for="customFile">Foto <span class="text-danger">*</span></label>
                         <div class="wadah-img text-center">
                             <img id="blah" src="" alt="" style="width: 100px; height: 100px; border-radius:100%;" />
                         </div>
@@ -43,28 +42,28 @@ label {
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="nip" class="text-dark">NIP</label>
+                                <label for="nip" class="text-dark">NIP <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control nip" name="nip" autocomplete="off" required
                                     placeholder="12345678 123456 1 123" id="nip">
                             </div>
                             <div class="form-group">
-                                <label for="nama" class="text-dark">Nama Lengkap</label>
+                                <label for="nama" class="text-dark">Nama Lengkap <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control nama" name="nama" autocomplete="off" required
                                     placeholder="Dr. Asep Sunandar S.IP., MM." id="nama">
                             </div>
                         </div>
                         <div class="col-lg-8">
                             <div class="form-group">
-                                <label for="pangkat" class="text-dark">Pangkat</label>
+                                <label for="pangkat" class="text-dark">Pangkat <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control pangkat" name="pangkat" autocomplete="off"
                                     required placeholder="Pembina Utama Muda" id="pangkat">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-2">
+                        <div class="col-lg-3">
                             <div class="form-group">
-                                <label for="golongan" class="text-dark">Golongan</label>
+                                <label for="golongan" class="text-dark">Golongan <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control golongan" name="golongan" autocomplete="off"
                                     required placeholder="II/a" id="golongan">
                             </div>
@@ -72,7 +71,7 @@ label {
                     </div>
             </div>
             <div class="modal-footer">
-                <input type="submit" name="submit" value="Kirim" class="btn btn-primary btn-sm send">
+                <input type="submit" name="submit" value="Kirim" class="btn btn-primary btn-sm font-weight-bold send">
             </div>
             </form>
         </div>

@@ -8,7 +8,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title font-weight-bold" id="exampleModalLabel">Form Jabatan</h6>
+                <h6 class="modal-title font-weight-bold text-uppercase" id="exampleModalLabel">Form Unit Kerja</h6>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -20,14 +20,14 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="namaskpd">Nama Jabatan  <span class="text-danger">*</span></label>
+                                <label for="namaskpd">Nama Unit Kerja  <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="namaskpd" name="nama" autocomplete="off" required>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-5">
-                            <label for="tipe">Tipe Jabatan <span class="text-danger">*</span></label>
+                            <label for="tipe">Tipe Unit Kerja <span class="text-danger">*</span></label>
                             <table class="table table-borderless table-sm">
                                 <td>
                                     <div class="custom-control custom-checkbox mb-1">
@@ -74,7 +74,7 @@
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary btn-sm send">Simpan</button>
+                <button type="submit" class="btn btn-primary btn-sm font-weight-bold send">Simpan</button>
                 </form>
                 <?= form_close(); ?>
             </div>
@@ -86,7 +86,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title font-weight-bold" id="exampleModalLabelPejabat">Pejabat Baru</h6>
+                <h6 class="modal-title font-weight-bold text-uppercase" id="exampleModalLabelPejabat">Pejabat Baru</h6>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -98,7 +98,7 @@
                     <input type="hidden" name="id" class="id">
                     <table class="table table-sm table-borderless" style="font-size: 14px;">
                         <tr>
-                            <td style="width: 30%;">Nama Jabatan</td>
+                            <td style="width: 30%;">Nama Unit Kerja</td>
                             <td style="width: 3%;">:</td>
                             <td class="text-capitalize"><span class="nama_bidang"></span></td>
                         </tr>
@@ -108,12 +108,12 @@
                             <td><span class="nama_pejabat"></span></td>
                         </tr>
                         <tr>
-                            <td>Tipe Jabatan</td>
+                            <td>Tipe Unit Kerja</td>
                             <td>:</td>
                             <td><span class="tipe text-capitalize"></td>
                         </tr>
                         <tr>
-                            <td>Kode Bidang</td>
+                            <td>Kode Unit Kerja</td>
                             <td>:</td>
                             <td><span class="kode_bidang"></span></td>
                         </tr>
@@ -184,7 +184,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-sm btn-primary send">Ubah</button>
+                    <button type="submit" class="btn btn-sm btn-primary font-weight-bold send">Ubah</button>
                 </div>
             </form>
             <?= form_close(); ?>
@@ -196,7 +196,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title font-weight-bold" id="exampleModalLabel">Perbaharui Bidang</h6>
+                <h6 class="modal-title font-weight-bold text-uppercase" id="exampleModalLabel">Perbaharui Bidang</h6>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -216,7 +216,7 @@
                     <div class="row" style="font-size: 14px; ">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="namaskpd">Nama Bidang </label>
+                                <label for="namaskpd">Nama Unit Kerja <span class="text-danger">*</span> </label>
                                 <input type="text" class="form-control namaskpd" id="namaskpd" name="nama" autocomplete="off" required>
                             </div>
                         </div>
@@ -233,7 +233,7 @@
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary send">Submit</button>
+                <button type="submit" class="btn btn-primary font-weight-bold send">Submit</button>
                 </form>
                 <?= form_close(); ?>
             </div>

@@ -154,9 +154,9 @@ class Instansi extends CI_Controller
                     <tr class="text-capitalize">
                         <td class="text-dark" style="font-size: 15px;">
                             ' . $d_result[$i]["id_instansi"] . " - " . $d_result[$i]["nama_instansi"] . ' - <span class="text-uppercase">' . $d_result[$i]["singkatan"] . '</span><br>
-                            <div style="margin-bottom: -25px; color:#ff704d; font-size: 12px;">' . $d_result[$i]["alamat"] . ' - ' . $d_result[$i]["telepon"] . ' ' . $d_result[$i]["email"] . ' ' .  $d_result[$i]["fax"]  . '</div><br>
-                            <a href="' . base_url("home/forminstansi/" . $d_result[$i]["id_instansi"]) . '" style="text-decoration: none; font-size: 12px;">perbaharui</a>
-                            <button data-toggle="tooltip" data-placement="top" title="Hapus instansi" class="text-black-50 btn btn-sm hapusinstansi" id="hapusinstansi" style="text-decoration: none; font-size: 12px;"data-id="' . $d_result[$i]["id_instansi"] . '">Hapus</button>
+                            <div class="mb-1 text-success" style="margin-bottom: -25px; font-size: 12px;">' . $d_result[$i]["alamat"] . ' - ' . $d_result[$i]["telepon"] . ' - ' . $d_result[$i]["email"] . ' - ' .  $d_result[$i]["fax"]  . '</div>
+                            <a href="' . base_url("home/forminstansi/" . $d_result[$i]["id_instansi"]) . '" class="btn btn-sm btn-primary btn-custome font-weight-bold" style="text-decoration: none; font-size: 12px;">perbaharui</a>
+                            <button data-toggle="tooltip" data-placement="top" title="Hapus instansi" class="text-danger btn btn-sm hapusinstansi font-weight-bold btn-custome" id="hapusinstansi" style="text-decoration: none; font-size: 11px;"data-id="' . $d_result[$i]["id_instansi"] . '">Hapus</button>
                         </td>
                     </tr>
                     ';
@@ -195,9 +195,9 @@ class Instansi extends CI_Controller
                     <tr class="text-capitalize">
                         <td class="text-dark" style="font-size: 15px;">
                             ' . $d_result[$i]["id_instansi"] . " - " . $d_result[$i]["nama_instansi"] . ' - <span class="text-uppercase">' . $d_result[$i]["singkatan"] . '</span><br>
-                            <div style="margin-bottom: -25px; color:#ff704d; font-size: 12px;">' . $d_result[$i]["alamat"] . ' - ' . $d_result[$i]["telepon"] . ' ' . $d_result[$i]["email"] . ' ' .  $d_result[$i]["fax"]  . '</div><br>
-                            <a href="' . base_url("home/forminstansi/" . $d_result[$i]["id_instansi"]) . '" style="text-decoration: none; font-size: 12px;">perbaharui</a>
-                            <button data-toggle="tooltip" data-placement="top" title="Hapus instansi" class="text-black-50 btn btn-sm hapusinstansi" id="hapusinstansi" style="text-decoration: none; font-size: 12px;"data-id="' . $d_result[$i]["id_instansi"] . '">Hapus</button>
+                            <div class="mb-1 text-success" style="margin-bottom: -25px; font-size: 12px;">' . $d_result[$i]["alamat"] . ' - ' . $d_result[$i]["telepon"] . ' - ' . $d_result[$i]["email"] . ' - ' .  $d_result[$i]["fax"]  . '</div>
+                            <a href="' . base_url("home/forminstansi/" . $d_result[$i]["id_instansi"]) . '" class="btn btn-sm btn-primary btn-custome font-weight-bold" style="text-decoration: none; font-size: 12px;">perbaharui</a>
+                            <button data-toggle="tooltip" data-placement="top" title="Hapus instansi" class="text-danger btn btn-sm hapusinstansi font-weight-bold btn-custome" id="hapusinstansi" style="text-decoration: none; font-size: 11px;"data-id="' . $d_result[$i]["id_instansi"] . '">Hapus</button>
                         </td>
                     </tr>
                     ';

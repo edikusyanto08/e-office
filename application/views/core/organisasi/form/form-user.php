@@ -15,7 +15,7 @@ input {
 <div class="col">
     <div class="card shadow">
         <div class="card-header border-bottom">
-            <h6 class="m-0">Form Input User</h6>
+            <h6 class="m-0 font-weight-bold text-uppercase">Form Input User</h6>
         </div>
         <div class="card-body">
             <?= form_open('user/buatuser'); ?>

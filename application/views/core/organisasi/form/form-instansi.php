@@ -1,7 +1,12 @@
+<style>
+    label{
+        font-size: 14px;
+    }
+</style>
 <div class="col-lg-12">
     <div class="card shadow">
         <div class="card-header border-bottom">
-            <h5 class="m-0 font-weight-bold">Form</h5>
+            <h5 class="m-0 font-weight-bold text-uppercase title">Form Instansi</h5>
         </div>
         <div class="card-body">
             <?= form_open('instansi/buatinstansi'); ?>
@@ -9,33 +14,31 @@
                 <div class="row">
                     <div class="col-lg-2">
                         <div class="form-group">
-                            <label for="id_instansi">Kode</label>
+                            <label for="id_instansi">Kode <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="id_instansi" required id="id_instansi"
                                 placeholder="001"
-                                value="<?php if ($param != null) {
-                                                                                                                                                echo $param;
-                                                                                                                                            } ?>">
+                                value="<?php if ($param != null) {echo $param;} ?>">
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="nama_instansi">Nama Instansi</label>
-                    <input type="text" class="form-control" name="nama_instansi" required id="nama_instansi"
+                    <label for="nama_instansi">Nama Instansi <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control text-capitalize" name="nama_instansi" required id="nama_instansi"
                         placeholder="nama lengkap instansi">
                 </div>
                 <div class="form-group">
-                    <label for="singkatan">Singkatan</label>
-                    <input type="text" class="form-control" name="singkatan" required id="singkatan"
+                    <label for="singkatan">Singkatan <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control text-uppercase" name="singkatan" required id="singkatan"
                         placeholder="nama singkatan instansi">
                 </div>
         </div>
         <div class=" card-footer">
             <div class="row">
                 <div class="col-auto">
-                    <a href="<?= base_url(); ?>home/instansi" class="btn btn-default">Kembali</a>
+                    <a href="<?= base_url(); ?>home/instansi" class="btn btn-default font-weight-bold">Kembali</a>
                 </div>
                 <div class="col-auto ml-auto">
-                    <input type="submit" class="btn btn-primary" name="submit" value="Simpan" id="submit">
+                    <input type="submit" class="btn btn-primary font-weight-bold" name="submit" value="Simpan" id="submit">
                 </div>
             </div>
             </form>
@@ -57,7 +60,6 @@ $(document).ready(function() {
             method: 'post',
             dataType: 'json',
             success: function(data) {
-                console.log(data);
                 $('#id_instansi').val(data.instansi[0].id_instansi);
                 $('#nama_instansi').val(data.instansi[0].nama_instansi);
                 $('#singkatan').val(data.instansi[0].singkatan);

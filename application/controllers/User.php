@@ -52,10 +52,10 @@ class User extends CI_Controller
                         <td style="width: 7%;">
                             <img src="../assets/image/pns/' .  $d_result[$i]["image"] . '" alt=" " style="width: 40px; height: 40px;" class="img rounded-circle">
                         </td>
-                        <td class="text-dark" style="font-size: 14px; line-height: 20px;">
-                            ' . $d_result[$i]["nama"] . ' - ' . $d_result[$i]["nip"]   . '<div class="mt-1" style="color:#ff704d; font-size: 14px; ">' . $d_result[$i]["username"] . ' / ' . $d_result[$i]["hak"] . ' - <span class="text-capitalize">' . $d_result[$i]["nama_instansi"] . '</span></div>' . '
+                       <td class="text-dark" style="font-size: 14px; line-height: 20px;">
+                            ' . $d_result[$i]["nama"] . ' - ' . $d_result[$i]["nip"]   . '<div class="mt-1" style=" font-size: 14px; ">' . $d_result[$i]["username"] . ' / <span class="text-capitalize">' . $d_result[$i]["hak"] . '</span> - <span class="text-capitalize text-success">' . $d_result[$i]["nama_instansi"] . '</span></div>' . '
                             <a class="text-capitalize btn btn-sm btn-primary mt-1 font-weight-bold btn-custome" href="' . base_url("home/formupdateuser/" . $d_result[$i]["user_id"]) . '" style="font-size: 12px;">perbaharui</a>
-                            <a data-toggle="tooltip" data-placement="top" title="Hapus user" class="text-black-50 btn btn-sm hapususer font-weight-bold btn-custome" style="font-size: 12px;"data-id="' . $d_result[$i]["user_id"] . '">Hapus</a>
+                            <a data-toggle="tooltip" data-placement="top" title="Hapus user" class="text-danger btn btn-sm hapususer font-weight-bold btn-custome" style="font-size: 12px;"data-id="' . $d_result[$i]["user_id"] . '">Hapus</a>
                         </td>
                     </tr>
                     ';
@@ -93,8 +93,8 @@ class User extends CI_Controller
                 $output .= '
                     <tr>
                         <td class="text-dark" style="font-size: 14px;">
-                            '  . $d_result[$i]["nip"]   . '<div class="mt-1" style="color:#ff704d; font-size: 12px; margin-bottom: -4px;">' . $d_result[$i]["username"] . ' / ' . $d_result[$i]["hak"] . ' - <span class="text-capitalize">' . $d_result[$i]["nama_instansi"] . '</span></div>' . '
-                            <a class="text-capitalize" href="' . base_url("home/formupdateusertanpainstansi/" . $d_result[$i]["user_id"]) . '" style="font-size: 12px;">perbaharui</a>
+                            '  . $d_result[$i]["nip"]   . '<div class="mt-1" style=" font-size: 12px; margin-bottom: -4px;">' . $d_result[$i]["username"] . ' / ' . $d_result[$i]["hak"] . ' - <span class="text-capitalize">' . $d_result[$i]["nama_instansi"] . '</span></div>' . '
+                            <a class="text-capitalize " href="' . base_url("home/formupdateusertanpainstansi/" . $d_result[$i]["user_id"]) . '" style="font-size: 12px;">perbaharui</a>
                             <button data-toggle="tooltip" data-placement="top" title="Hapus user" class="text-black-50 btn btn-sm hapususer" style="font-size: 12px;"data-id="' . $d_result[$i]["user_id"] . '">Hapus</button>
                         </td>
                     </tr>
@@ -182,13 +182,13 @@ class User extends CI_Controller
             for ($i = 0; $i < $loop; $i++) {
                 $output .= '
                     <tr>
-                    <td style="width: 7%;">
-                        <img src="../assets/image/pns/' .  $d_result[$i]["image"] . '" alt=" " style="width: 40px; height: 40px;" class="img rounded-circle">
+                        <td style="width: 7%;">
+                            <img src="../assets/image/pns/' .  $d_result[$i]["image"] . '" alt=" " style="width: 40px; height: 40px;" class="img rounded-circle">
                         </td>
-                        <td class="text-dark" style="font-size: 14px;">
-                            ' . $d_result[$i]["nama"] . ' - ' . $d_result[$i]["nip"]   . '<div class="mt-1" style="color:#ff704d; font-size: 12px; margin-bottom: -4px;">' . $d_result[$i]["username"] . ' / ' . $d_result[$i]["hak"] . ' - <span class="text-capitalize">' . $d_result[$i]["nama_instansi"] . '</span></div>' . '
-                            <a class="text-capitalize mb-1" href="' . base_url("home/formupdateuser/" . $d_result[$i]["user_id"]) . '" style="font-size: 12px;">perbaharui</a>
-                            <button data-toggle="tooltip" data-placement="top" title="Hapus user" class="text-black-50 btn btn-sm hapususer" style="font-size: 12px;" data-id="' . $d_result[$i]["user_id"] . '">Hapus</button>
+                        <td class="text-dark" style="font-size: 14px; line-height: 20px;">
+                            ' . $d_result[$i]["nama"] . ' - ' . $d_result[$i]["nip"]   . '<div class="mt-1" style=" font-size: 14px; ">' . $d_result[$i]["username"] . ' / <span class="text-capitalize">' . $d_result[$i]["hak"] . '</span> - <span class="text-capitalize text-success">' . $d_result[$i]["nama_instansi"] . '</span></div>' . '
+                            <a class="text-capitalize btn btn-sm btn-primary mt-1 font-weight-bold btn-custome" href="' . base_url("home/formupdateuser/" . $d_result[$i]["user_id"]) . '" style="font-size: 12px;">perbaharui</a>
+                            <a data-toggle="tooltip" data-placement="top" title="Hapus user" class="text-danger btn btn-sm hapususer font-weight-bold btn-custome" style="font-size: 12px;"data-id="' . $d_result[$i]["user_id"] . '">Hapus</a>
                         </td>
                     </tr>
                     ';
@@ -226,7 +226,7 @@ class User extends CI_Controller
                 $output .= '
                     <tr>
                         <td class="text-dark" style="font-size: 14px;">
-                            '  . $d_result[$i]["nip"]   . '<div class="mt-1" style="color:#ff704d; font-size: 12px; margin-bottom: -4px;">' . $d_result[$i]["username"] . ' / ' . $d_result[$i]["hak"] . ' - <span class="text-capitalize">' . $d_result[$i]["nama_instansi"] . '</span></div>' . '
+                            '  . $d_result[$i]["nip"]   . '<div class="mt-1" style=" font-size: 12px; margin-bottom: -4px;">' . $d_result[$i]["username"] . ' / ' . $d_result[$i]["hak"] . ' - <span class="text-capitalize">' . $d_result[$i]["nama_instansi"] . '</span></div>' . '
                             <a class="text-capitalize" href="' . base_url("home/formupdateusertanpainstansi/" . $d_result[$i]["user_id"]) . '" style="font-size: 12px;">perbaharui</a>
                             <button data-toggle="tooltip" data-placement="top" title="Hapus user" class="text-black-50 btn btn-sm hapususer" style="font-size: 12px;"data-id="' . $d_result[$i]["user_id"] . '">Hapus</button>
                         </td>

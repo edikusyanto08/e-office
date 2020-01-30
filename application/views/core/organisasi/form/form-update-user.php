@@ -15,7 +15,7 @@ input {
 <div class="col-lg-12">
     <div class="card shadow">
         <div class="card-header border-bottom">
-            <h6 class="m-0">Form - Update</h6>
+            <h6 class="m-0 text-uppercase">Form Pembaharuan Informasi User</h6>
         </div>
         <div class="card-body">
             <?= form_open('user/perbaharuiuser'); ?>

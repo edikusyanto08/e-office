@@ -13,12 +13,13 @@
         <div class="card shadow">
             <div class="card-body">
                 <div class="row mb-4">
-                    <div class="col-lg-6 ">
-                        <h5 class="m-0 font-weight-bold">Pengguna</h5>
+                    <div class="col-lg-6 mb-3">
+                        <h5 class="m-0 font-weight-bold text-center text-sm-left text-uppercase">Pengguna Aplikasi</h5>
                     </div>
-                    <div class="col-lg-6 text-right">
+                    <div class="col-lg-6 ml-auto text-center text-sm-right">
                         <a href="<?= base_url('home/formuser/'); ?>"
-                            class="text-xs font-weight-bold text-capitalize btn btn-primary btn-sm">Tambah Pengguna</a>
+                            class="text-xs font-weight-bold text-capitalize mb-1 btn btn-primary btn-sm">Tambah Pengguna <span class="badge badge-light font-weight-bold ml-2"
+                                style="font-size: 11px;"><?= count($countUser); ?></span></a>
                     </div>
                 </div>
                 <p class="row border-top">
@@ -30,7 +31,7 @@
     <div class="col-lg-4">
         <div class="card">
             <div class="card-body">
-                <h5 class="text-capitalize font-weight-bold">Pengguna tidak terverifikasi</h5>
+                <h5 class="font-weight-bold text-uppercase">Pengguna tidak terverifikasi</h5>
                 <table class="table table-sm">
                     <?php $i = 1;
                     foreach ($unregistered as $key) { ?>

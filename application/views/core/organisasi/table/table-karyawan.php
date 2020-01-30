@@ -9,7 +9,7 @@
             <div class="card-header border-bottom">
                 <div class="row">
                     <div class="col-lg-6 mb-3">
-                        <h5 class="m-0 font-weight-bold text-center text-sm-left">Karyawan</h5>
+                        <h5 class="m-0 font-weight-bold text-center text-sm-left text-uppercase">Daftar Karyawan</h5>
                     </div>
                     <div class="col-lg-6 ml-auto text-center text-sm-right">
                         <a href="#" class="text-xs font-weight-bold text-capitalize mb-1 btn btn-primary btn-sm"
@@ -48,8 +48,7 @@
                                     data-toggle="modal" data-target="#form_pegawai"
                                     style="text-decoration: none;">perbaharui</a>
                                 <a href="<?= base_url("karyawan/deleteKaryawan/" . $key->slug); ?>"
-                                    onclick="javascript: return confirm('Anda yakin hapus ?')" data-toggle="tooltip"
-                                    data-placement="top" title="Hapus Bidang"
+                                    onclick="javascript: return confirm('Anda yakin hapus ?')"
                                     class="btn btn-sm btn-default font-weight-bold text-danger btn-custome"
                                     style="text-decoration: none;">Hapus</a>
                             </td>
