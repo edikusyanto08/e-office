@@ -41,7 +41,7 @@ class M_Bidang extends  CI_Model
         $tipe           = $this->input->post('tipe');
         $koordinator    = $this->input->post('koordinator');
         $atasan         = $this->input->post('atasan');
-        $kode_instansi = $this->session->userdata('sisule_cms_instansi');
+        $kode_instansi  = $this->session->userdata('sisule_cms_instansi');
         $this->db->where('tbl_bidang.id_instansi', $kode_instansi);
         $this->db->where('tbl_bidang.kode_struktur_organisasi', $atasan);
         $this->db->join('tbl_instansi', 'tbl_instansi.id_instansi = tbl_bidang.id_instansi');
@@ -125,6 +125,7 @@ class M_Bidang extends  CI_Model
         $this->db->where('tbl_bidang.id_instansi', $kode_instansi);
         $this->db->where('tbl_bidang.kode_bidang', $ko_bid_1);
         $this->db->join('tbl_instansi', 'tbl_instansi.id_instansi = tbl_bidang.id_instansi');
+        $this->db->order_by('tbl_bidang.id', 'desc');
         $row_tbl = $this->db->get('tbl_bidang')->result();
         if ($row_tbl > 0) {
             $kode_user = substr($row_tbl[0]->kode_struktur_organisasi, 7) + 1;

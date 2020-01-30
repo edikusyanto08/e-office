@@ -643,8 +643,7 @@ class M_Home extends CI_Model
     }
     public function countBidang()
     {
-        $this->db->where('tbl_login.id_instansi', $this->session->userdata('sisule_cms_instansi'));
-        $this->db->join('tbl_login', 'tbl_login.id_instansi = tbl_bidang.id_instansi');
+        $this->db->where('tbl_bidang.id_instansi', $this->session->userdata('sisule_cms_instansi'));
         $this->db->join('tbl_instansi', 'tbl_instansi.id_instansi = tbl_bidang.id_instansi');
         $this->db->group_by('tbl_bidang.kode_struktur_organisasi');
         return $this->db->get('tbl_bidang');
