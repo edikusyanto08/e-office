@@ -934,8 +934,7 @@ class Home extends CI_Controller
         $cek_status_karyawan = $this->M_Home->checkStatusKaryawan()->result();
         if ($cek_status_karyawan != null) {
             $data['arsip']          = $this->M_Home->getArsip($config['per_page'], $start)->result();
-            $data['penulisNotaDinas']   = $this->M_Home->getPenulisNotaDinas()->result();
-            $data['pembuatNotaDinas']   = $this->M_Home->getPembuatNotaDinas()->result();
+            $data['unarsip_nota_dinas'] = $this->M_Home->getUnArsipNotaDinas()->result();
         } else {
             $data['arsip']          = null;
             $data['penulisNotaDinas']   = null;

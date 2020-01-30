@@ -1480,4 +1480,53 @@ class Surat extends CI_Controller
             echo json_encode('data not found');
         }
     }
+    public function savearsip(){
+        if($this->input->post('select_arsip') == '0'){
+            $this->message('danger', 'Pengguna harus memilih surat yang akan diarsipkan');
+            redirect($_SERVER['HTTP_REFERER']);
+        }else{
+            $config['upload_path']          = './assets/file/arsip';
+            $config['allowed_types']        = 'pdf';
+            $config['max_size']             = 50000;
+            $config['overwrite']            = TRUE;
+            $new_name                       = date('dmY') . str_replace(' ', '_', $_FILES["upload_arsip"]['name']);
+            $config['file_name']            = $new_name;
+            $this->upload->initialize($config);
+            $this->upload->do_upload();
+            if (!$this->upload->do_upload('upload_arsip')) {
+                $error = array('error' => $this->upload->display_errors());
+                $this->message('danger', $error['error']);
+                redirect($_SERVER['HTTP_REFERER']);
+            } else {
+                // get data nota dinas
+                $nodin = $this->M_Surat->getNotaDinasForArsip($this->input->post('select_arsip'))->result();
+                if($nodin != null){
+                    $nomor_nota_dinas = $nodin[0]->nomor_nota_dinas;
+                    $slug_arsip = $nodin[0]->slug_nota;
+                }
+                $data = array(
+                    'nomor_nota_dinas' => $nomor_nota_dinas,
+                    'slug_arsip' => $slug_arsip,
+                    'file_arsip' => $config['file_name'],
+                    'arsip_instansi'=> $this->session->userdata('sisule_cms_instansi')
+                );
+                if($this->M_Surat->savearsip($data, $slug_arsip) > 0){
+                    $this->message('success', 'Surat Berhasil Diarsipkan');
+                    redirect($_SERVER['HTTP_REFERER']);
+                }else{
+                    $this->message('danger', 'Surat Gagal Diarsipkan');
+                    redirect($_SERVER['HTTP_REFERER']);
+                }
+            }
+        }
+    }
+    public function downloadArsip($param){
+        $cek = $this->M_Surat->getStatusArsip($param)->result();
+        if($cek > 0){
+            force_download('assets/file/arsip/' .  $cek[0]->file_arsip, null);
+        }else{
+            $this->message('danger', 'Arsip Gagal Diunduh');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
 }

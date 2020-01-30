@@ -34,9 +34,9 @@ class Karyawan extends CI_Controller
     {
         $config['upload_path']          = 'assets/image/pns';
         $config['allowed_types']        = 'gif|jpg|png|jpeg';
-        $config['max_size']             = '40000';
+        $config['max_size']             = '1000';
         $config['overwrite']            = TRUE;
-        $new_name                       = $this->session->userdata('sisule_cms_nip') . $_FILES["fileToUpload"]['name'];
+        $new_name                       = $this->session->userdata('sisule_cms_nip'). date('YmdHis') . str_replace('-', '', $_FILES["fileToUpload"]['name']);
         $config['file_name']            = $new_name;
         $this->upload->initialize($config);
         $this->upload->do_upload();

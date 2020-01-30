@@ -1376,7 +1376,7 @@ class M_Surat extends CI_Model
         $this->db->group_by('tbl_detail_tembusan.tembusan');
         return $this->db->get('tbl_nota_dinas');
     }
-     public function countSampah($param)
+    public function countSampah($param)
     {
         $this->db->where('tbl_surat_masuk.date_produce', $param);
         $this->db->where('tbl_surat_masuk.agendaris_surat', $this->session->userdata('sisule_cms_satuan_kerja'));
@@ -1385,5 +1385,23 @@ class M_Surat extends CI_Model
         $this->db->join('tbl_karyawan', 'tbl_karyawan.nip = tbl_bidang.nip');
         $this->db->order_by('tbl_surat_masuk.id', 'desc');
         return $this->db->get('tbl_surat_masuk');
+    }
+    public function savearsip($data, $param)
+    {
+        // update tabel nota dinas
+        $this->db->where('slug_nota', $param);
+        $this->db->update('tbl_nota_dinas', array('arsip' => '1'));
+
+        // insert arsip
+        return $this->db->insert('tbl_arsip', $data);
+    }
+    public function getNotaDinasForArsip($param){
+        $this->db->where('nomor_nota_dinas', $param);
+        $this->db->where('nota_dinas_instansi', $this->session->userdata('sisule_cms_instansi'));
+        return $this->db->get('tbl_nota_dinas');
+    }
+    public function getStatusArsip($param){
+        $this->db->where('slug_arsip', $param);
+        return $this->db->get('tbl_arsip');
     }
 }

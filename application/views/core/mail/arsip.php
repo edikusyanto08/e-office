@@ -50,6 +50,7 @@
         </div>
     </div>
     <input type="hidden" id="url" value="<?= base_url(); ?>">
+    <?php $this->load->view('core/mail/modal/modal-surat-masuk'); ?>
     <script>
     $(".menu-surat-masuk").addClass("active");
     $(".arsip").addClass("active");

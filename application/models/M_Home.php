@@ -946,6 +946,18 @@ class M_Home extends CI_Model
     }
     public function getArsip($perPage, $start){
         $this->db->where('arsip_instansi', $this->session->userdata('sisule_cms_instansi'));
+        $this->db->join('tbl_nota_dinas', 'tbl_nota_dinas.nomor_nota_dinas = tbl_arsip.nomor_nota_dinas');
+        $this->db->join('tbl_disposisi', 'tbl_disposisi.nomor_agenda = tbl_nota_dinas.nomor_agenda');
+        $this->db->join('tbl_surat_masuk', 'tbl_surat_masuk.nomor_surat = tbl_disposisi.nomor_surat');
+        $this->db->join('tbl_bidang', 'tbl_bidang.kode_struktur_organisasi = tbl_nota_dinas.pembuat_nota');
         return $this->db->get('tbl_arsip', $perPage, $start);
+    }
+    public function getUnArsipNotaDinas(){
+        $this->db->where('tbl_nota_dinas.arsip', 0);
+        $this->db->where('tbl_nota_dinas.pembuat_nota', $this->session->userdata('sisule_cms_satuan_kerja'));
+        $this->db->join('tbl_disposisi', 'tbl_disposisi.nomor_agenda = tbl_nota_dinas.nomor_agenda');
+        $this->db->join('tbl_surat_masuk', 'tbl_surat_masuk.nomor_surat = tbl_disposisi.nomor_surat');
+        $this->db->group_by('tbl_disposisi.nomor_agenda');
+        return $this->db->get('tbl_nota_dinas');
     }
 }

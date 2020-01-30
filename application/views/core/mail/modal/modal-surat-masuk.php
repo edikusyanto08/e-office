@@ -334,3 +334,44 @@
         </div>
     </div>
 </div>
+
+<!-- modal arsip -->
+<div class="modal fade bd-example-modal-lg arsip-surat" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="text-dark font-weight-bold">Arsip Surat</span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="font-size: 14px;">
+            <?= form_open_multipart('surat/savearsip'); ?>
+                <form>
+                    
+                    <div class="form-group">
+                        <label for="select_arsip">Pilih Surat <span class="text-danger">*</span></label>
+                        <select class="custom-select" id="select_arsip" name="select_arsip">
+                            <option value="0">Pilih Surat Yang Akan Diarsipkan</option>
+                            <?php foreach ($unarsip_nota_dinas as $key) { ?>
+                            <option value="<?= $key->nomor_nota_dinas; ?>" class="text-uppercase"><?= $key->nomor_nota_dinas; ?> - <?= $key->asal_surat; ?> - <?= $key->perihal; ?> - ( <?= $key->nomor_surat; ?> )</option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Unggah Dokumen <span class="text-danger">*</span></label>
+                        <div>
+                            <input type="file" name="upload_arsip" />
+                        </div>
+                        <small id="uploadHelp" class="form-text text-muted text-capitalize"><i>Lampiran harus berisi file PDF.</i></small>
+                    </div>
+                
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-sm btn-primary font-weight-bold" value="Simpan">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
