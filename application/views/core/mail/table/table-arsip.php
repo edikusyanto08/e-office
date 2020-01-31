@@ -1,8 +1,15 @@
 <div class="tab-content bg-white shadow mb-3" style="font-size: 14px; padding: 5px 10px; border-radius: 10px;">
     <div class="border-bottom">
         <p>
-        <div class="row">
-                
+            <div class="row">
+                 <div class="col-sm-6">
+                    <h5 class="font-weight-bold text-center text-sm-left ml-3">Arsip</h5>
+                </div>
+                <div class="col-sm-6 text-center text-sm-right">
+                    <a href="#"
+                        class="font-weight-bold ml-3 btn btn-sm btn-primary text-white " data-toggle="modal" data-target=".arsip-surat" data-toggle="tooltip"                                  data-placement="top" title="Disposisi" style="margin-right: 10px;">Buat
+                        Arsip</a>
+                </div>
             </div>
         </p>
     </div>
